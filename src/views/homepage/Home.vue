@@ -1,10 +1,10 @@
 <template>
-  <el-container style="height: 100%; border: 1px solid #eee">
+  <el-container style="height: 100%;">
     <el-header>
       <Header />
     </el-header>
     <el-container class="main-container">
-      <el-aside width="200px">
+      <el-aside :style="getAsideWidth">
         <Aside />
       </el-aside>
       <el-main style="padding: 0;">
@@ -48,6 +48,31 @@ import Header from '@/views/homepage/Header.vue';
 
 export default {
   name: 'Dashboard',
+
+  data() {
+    return {
+      asideWidth: 200,
+    };
+  },
+
+  computed: {
+    getAsideWidth() {
+      return {
+        width: `${this.asideWidth}px`,
+      };
+    },
+  },
+
+  mounted() {
+    this.$root.$on('toggleSideMenu', () => {
+      if (this.asideWidth === 200) {
+        this.asideWidth = 0;
+      } else {
+        this.asideWidth = 200;
+      }
+    });
+  },
+
   components: {
     Aside,
     Header,

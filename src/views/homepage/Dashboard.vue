@@ -7,7 +7,7 @@
           <span>财务状况：<strong>良好</strong></span>
         </div><!-- /page-title -->
       </el-col>
-      <el-col :span="6" offset="12">
+      <el-col :span="6" :offset=12>
         <ul class="page-stats">
           <li>
             <div class="value">

@@ -2,7 +2,7 @@
   <div style="width: 100%">
     <BreadCrumb subTitle="消费信息录入" />
     <el-row :gutter="20" class="elrow">
-      <el-col :span="12" :offset="6">
+      <el-col :span="12" :offset=6>
         <el-form :model="consumeForm" :rules="rules" ref="consumeForm"
           label-width="120px" class="demo-consumeForm">
           <el-form-item label="商品名" prop="goodsName">
