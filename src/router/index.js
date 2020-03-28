@@ -1,14 +1,26 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import Dashboard from '../views/homepage/Dashboard.vue';
+import ConsumeRegister from '../views/consume/ConsumeRegister.vue';
+import ConsumeList from '../views/consume/ConsumeList.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'Dashboard',
+    component: Dashboard,
+  },
+  {
+    path: '/consume/register',
+    name: 'ConsumeRegister',
+    component: ConsumeRegister,
+  },
+  {
+    path: '/consume/list',
+    name: 'ConsumeList',
+    component: ConsumeList,
   },
   {
     path: '/about',
