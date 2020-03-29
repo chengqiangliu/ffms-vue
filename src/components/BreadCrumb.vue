@@ -1,14 +1,10 @@
 <template>
-  <el-row>
-    <el-col>
-      <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
-        <el-breadcrumb-item :to="{ path: '/' }">
-          <i class="fa fa-dashboard"></i> 系统首页
-        </el-breadcrumb-item>
-        <el-breadcrumb-item>{{ subTitle }}</el-breadcrumb-item>
-      </el-breadcrumb>
-    </el-col>
-  </el-row>
+  <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
+    <el-breadcrumb-item :to="{ path: '/' }">
+      <i class="fa fa-dashboard"></i> 系统首页
+    </el-breadcrumb-item>
+    <el-breadcrumb-item>{{ subTitle }}</el-breadcrumb-item>
+  </el-breadcrumb>
 </template>
 
 <script>
@@ -19,17 +15,16 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped src="@/assets/fontawesome/css/font-awesome.min.css"></style>
 <style scoped>
   .breadcrumb {
     border-radius: 0;
     -moz-border-radius: 0;
     -webkit-border-radius: 0;
     background: 0 0;
-    padding: 10px 15px;
+    padding: 12px 15px;
     border-bottom: 1px solid #eee;
-    margin-bottom: 0;
-    font-size: 11px;
+    margin-bottom: 15px;
+    font-size: 12px;
     font-weight: 700;
     color: #777;
     box-shadow: 0 1px 0 #fff;

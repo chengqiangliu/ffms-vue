@@ -1,6 +1,5 @@
 <template>
   <el-menu background-color="#415160"
-    class="el-menu-demo"
     text-color="#fff"
     active-text-color="#ffd04b"
     :router=true

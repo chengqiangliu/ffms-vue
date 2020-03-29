@@ -1,0 +1,72 @@
+.el-row {
+  padding: 0 10px;
+  margin-bottom: 10px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.el-card__body {
+  padding: 10px 10px 0 10px;
+}
+
+.el-table {
+  font-size: 13px;
+  color: #777;
+}
+
+.el-table td, .el-table th {
+  padding: 0;
+}
+
+.el-submenu__title {
+  font-size: 13px;
+}
+
+.el-menu-item {
+  font-size: 12px;
+}
+
+.el-card__header {
+  color: #31708f;
+  padding: 8px 20px;
+  background-color:#d9edf7;
+  border-bottom: 1px solid #EBEEF5;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.el-input {
+  font-size: 13px;
+  font-family: 'Open Sans', sans-serif;
+  color: #777;
+}
+
+.el-input__inner {
+  height: 35px;
+  line-height: 35px;
+}
+
+.el-input__icon {
+  line-height: 35px;
+}
+
+.el-button {
+  height: 35px;
+  line-height: 35px;
+  padding: 0 20px
+}
+
+.condition-label {
+  text-align: right;
+  margin-top: 8px;
+  font-size: 13px;
+  font-family: 'Open Sans', sans-serif;
+  color: #777;
+}
+
+.search-button-row {
+  background-color:#f5f5f5;
+  margin: 10px 0;
+  padding: 5px 15px;
+}

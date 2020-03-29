@@ -1,9 +1,39 @@
 <template>
   <div class="panel-stat3 fadeInRight animation-delay1" :class="bgClass">
     <div class="dropdown operate-button">
-      <a class="dropdown-toggle" href="javascript:void(0)">
-        <span class="m-left-xs">操作</span> <i class="fa fa-arrow-circle-o-down fa-lg"></i>
-      </a>
+      <el-dropdown>
+        <a class="dropdown-toggle" href="javascript:void(0)">
+          <span class="m-left-xs">操作</span> <i class="fa fa-arrow-circle-o-down fa-lg"></i>
+        </a>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item v-if="operateType === '1'">
+            <i class="fa fa-paypal fa-lg"></i>发工资</el-dropdown-item>
+          <el-dropdown-item v-if="operateType === '2'">
+            <i class="fa fa-plus fa-lg"></i> 添加新卡</el-dropdown-item>
+          <el-dropdown-item v-if="operateType === '2'">
+            <i class="fa fa-edit fa-lg"></i> 存款</el-dropdown-item>
+          <el-dropdown-item v-if="operateType === '2'">
+            <i class="fa fa-exchange fa-lg"></i> 转账</el-dropdown-item>
+          <el-dropdown-item v-if="operateType === '3'">
+            <i class="fa fa-edit fa-lg"></i> 取款</el-dropdown-item>
+          <el-dropdown-item v-if="operateType === '4'">
+            <i class="fa fa-edit fa-lg"></i> 录入消费信息</el-dropdown-item>
+          <el-dropdown-item v-if="operateType === '5'">
+            <i class="fa fa-edit fa-lg"></i> 借入</el-dropdown-item>
+          <el-dropdown-item v-if="operateType === '5'">
+            <i class="fa fa-share-square-o fa-lg"></i> 还款（出）</el-dropdown-item>
+          <el-dropdown-item v-if="operateType === '6'">
+            <i class="fa fa-edit fa-lg"></i> 借出</el-dropdown-item>
+          <el-dropdown-item v-if="operateType === '6'">
+            <i class="fa fa-reply fa-lg"></i> 还款（入）</el-dropdown-item>
+          <el-dropdown-item v-if="operateType === '7'">
+            <i class="fa fa-gift fa-lg"></i> 收礼</el-dropdown-item>
+          <el-dropdown-item v-if="operateType === '7'">
+            <i class="fa fa-gift fa-lg"></i> 送礼</el-dropdown-item>
+          <el-dropdown-item v-if="operateType === '8'">
+            <i class="fa fa-edit fa-lg"></i> 录入销售信息</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
     <div>
       <h2 class="h2ValueClass"> {{ value }} </h2>
@@ -12,18 +42,23 @@
         <i class="fa fa-3x" :class="iconClass"></i>
       </div>
     </div>
+    <div id="refreshPresentMoneySum" class="refresh-button">
+      <i class="fa fa-refresh"></i>
+    </div>
+    <div class="loading-overlay">
+      <i class="loading-icon fa fa-refresh fa-spin fa-lg"></i>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'StatisticsPanel',
-  props: ['title', 'value', 'bgClass', 'iconClass'],
+  props: ['title', 'value', 'bgClass', 'iconClass', 'operateType'],
 };
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped src="@/assets/fontawesome/css/font-awesome.min.css"></style>
 <style scoped>
   .panel-stat3 {
     position: relative;
@@ -160,5 +195,32 @@ export default {
 
   .h5ValueClass {
     margin-top: 10px;
+  }
+
+  .loading-overlay {
+  position: absolute;
+  display: none;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .4);
+  text-align: center
+  }
+
+  .loading-overlay.active {
+    display: block
+  }
+
+  .loading-overlay .loading-icon {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    color: #fff;
+    animation: fa-spin .8s infinite linear;
+    -webkit-animation: fa-spin .8s infinite linear;
+    -moz-animation: fa-spin .8s infinite linear;
+    -ms-animation: fa-spin .8s infinite linear;
+    -o-animation: fa-spin .8s infinite linear
   }
 </style>

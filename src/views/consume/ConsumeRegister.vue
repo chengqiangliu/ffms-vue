@@ -6,7 +6,7 @@
         <el-form :model="consumeForm" :rules="rules" ref="consumeForm"
           label-width="120px" class="demo-consumeForm">
           <el-form-item label="商品名" prop="goodsName">
-            <el-input v-model="consumeForm.goodsName"></el-input>
+            <el-input v-model="consumeForm.goodsName" placeholder="商品名"></el-input>
           </el-form-item>
           <el-form-item label="商品类别" prop="goodsType">
             <el-select v-model="consumeForm.goodsType" placeholder="商品类别">

@@ -58,37 +58,37 @@
       <el-row :gutter="24">
         <el-col :span="6">
           <StatisticsPanel title="工资总额"
-            value="1000" bgClass="bg-info" iconClass="fa-cc-paypal" />
+            value="1000" bgClass="bg-info" iconClass="fa-cc-paypal" operateType="1" />
         </el-col>
         <el-col :span="6">
           <StatisticsPanel title="银行卡总金额"
-            value="1000" bgClass="bg-success" iconClass="fa-credit-card" />
+            value="1000" bgClass="bg-success" iconClass="fa-credit-card" operateType="2" />
         </el-col>
         <el-col :span="6">
           <StatisticsPanel title="手头现金"
-            value="1000" bgClass="bg-info" iconClass="fa-money" />
+            value="1000" bgClass="bg-info" iconClass="fa-money" operateType="3" />
         </el-col>
         <el-col :span="6">
           <StatisticsPanel title="消费总金额"
-            value="1000" bgClass="bg-danger" iconClass="fa-shopping-cart" />
+            value="1000" bgClass="bg-danger" iconClass="fa-shopping-cart" operateType="4" />
         </el-col>
       </el-row>
       <el-row :gutter="24">
         <el-col :span="6">
           <StatisticsPanel title="借入总金额"
-            value="1000" bgClass="bg-warning" iconClass="fa-hand-lizard-o" />
+            value="1000" bgClass="bg-warning" iconClass="fa-hand-lizard-o" operateType="5" />
         </el-col>
         <el-col :span="6">
           <StatisticsPanel title="借出总金额"
-            value="1000" bgClass="bg-danger" iconClass="fa-paper-plane" />
+            value="1000" bgClass="bg-danger" iconClass="fa-paper-plane" operateType="6" />
         </el-col>
         <el-col :span="6">
           <StatisticsPanel title="礼金总金额"
-            value="1000" bgClass="bg-warning" iconClass="fa-gift" />
+            value="1000" bgClass="bg-warning" iconClass="fa-gift" operateType="7" />
         </el-col>
         <el-col :span="6">
           <StatisticsPanel title="销售总金额"
-            value="1000" bgClass="bg-success" iconClass="fa-shopping-basket" />
+            value="1000" bgClass="bg-success" iconClass="fa-shopping-basket" operateType="8" />
         </el-col>
       </el-row>
     </div>
@@ -96,7 +96,6 @@
 </template>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped src="../../assets/fontawesome/css/font-awesome.min.css"></style>
 <style scoped>
   .page-title {
     float: left;
