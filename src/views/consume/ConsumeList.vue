@@ -12,7 +12,7 @@
               <div class="condition-label">消费者</div>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="consumer" placeholder="消费者">
+              <el-select v-model="consumer" placeholder="消费者" size="mini">
                 <el-option label="老公" value="老公"></el-option>
                 <el-option label="老婆" value="老婆"></el-option>
                 <el-option label="宝宝" value="宝宝"></el-option>
@@ -22,7 +22,7 @@
               <div class="condition-label">商品类别</div>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="goodsType" placeholder="商品类别">
+              <el-select v-model="goodsType" placeholder="商品类别" size="mini">
                 <el-option label="食品" value="食品"></el-option>
                 <el-option label="电子产品" value="电子产品"></el-option>
               </el-select>
@@ -31,7 +31,7 @@
               <div class="condition-label">付款方式</div>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="paymentType" placeholder="付款方式">
+              <el-select v-model="paymentType" placeholder="付款方式" size="mini">
                 <el-option label="现金" value="现金"></el-option>
                 <el-option label="信用卡" value="信用卡"></el-option>
               </el-select>
@@ -40,7 +40,7 @@
               <div class="condition-label">商品名</div>
             </el-col>
             <el-col :span="4">
-              <el-input v-model="goodsName" placeholder="商品名"></el-input>
+              <el-input v-model="goodsName" placeholder="商品名" size="mini"></el-input>
             </el-col>
           </el-row>
           <el-row :gutter="10">
@@ -48,7 +48,7 @@
               <div class="condition-label">总价</div>
             </el-col>
             <el-col :span="2">
-              <el-select v-model="sumFlag" placeholder="比较">
+              <el-select v-model="sumFlag" placeholder="比较" size="mini">
                 <el-option label="大于" value=">"></el-option>
                 <el-option label="等于" value="="></el-option>
                 <el-option label="小于" value="&lt;"></el-option>
@@ -56,7 +56,7 @@
               </el-select>
             </el-col>
             <el-col :span="2">
-              <el-input v-model="goodsSum" placeholder="金额"></el-input>
+              <el-input v-model="goodsSum" placeholder="金额" size="mini"></el-input>
             </el-col>
             <el-col :span="2">
               <div class="condition-label">开始时间</div>
@@ -65,7 +65,8 @@
               <el-date-picker type="date"
                 placeholder="请选择开始时间"
                 v-model="fromeDate"
-                style="width: 100%;">
+                style="width: 100%;"
+                size="mini">
               </el-date-picker>
             </el-col>
             <el-col :span="2">
@@ -75,7 +76,8 @@
               <el-date-picker type="date"
                 placeholder="请选择结束时间"
                 v-model="endDate"
-                style="width: 100%;">
+                style="width: 100%;"
+                size="mini">
               </el-date-picker>
             </el-col>
           </el-row>
@@ -84,7 +86,7 @@
               <div class="condition-label">排序字段</div>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="sortKey" placeholder="请选择排序字段">
+              <el-select v-model="sortKey" placeholder="请选择排序字段" size="mini">
                 <el-option label="消费时间" value="consumeTime"></el-option>
                 <el-option label="商品名" value="goodsName"></el-option>
                 <el-option label="商品类型" value="goodsType"></el-option>
@@ -93,13 +95,15 @@
               </el-select>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="sortType" placeholder="请选择排序方式">
+              <el-select v-model="sortType" placeholder="请选择排序方式" size="mini">
                 <el-option label="降序" value="desc"></el-option>
                 <el-option label="升序" value="asc"></el-option>
               </el-select>
             </el-col>
             <el-col :span="2" :offset="2">
-              <el-button type="primary"><i class="fa fa-search"></i> 查询</el-button>
+              <el-button type="primary" class="search-button">
+                <i class="fa fa-search"></i> 查询
+              </el-button>
             </el-col>
           </el-row>
         </el-card>
@@ -306,6 +310,20 @@ export default {
 
     handleCurrentChange() {
 
+    },
+
+    handleEdit(index, row) {
+      this.$confirm(`你确定要删除这条记录吗? RowNum: ${index}, 单价：${row.price}`)
+        .then(() => {
+        })
+        .catch(() => {});
+    },
+
+    handleDelete(index, row) {
+      this.$confirm(`你确定要删除这条记录吗? RowNum: ${index}, 单价：${row.price}`)
+        .then(() => {
+        })
+        .catch(() => {});
     },
   },
 

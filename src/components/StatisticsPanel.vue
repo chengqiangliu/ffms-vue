@@ -1,10 +1,10 @@
 <template>
   <div class="panel-stat3 fadeInRight animation-delay1" :class="bgClass">
     <div class="dropdown operate-button">
-      <el-dropdown>
-        <a class="dropdown-toggle" href="javascript:void(0)">
+      <el-dropdown @command="handleCommand">
+        <span class="el-dropdown-link">
           <span class="m-left-xs">操作</span> <i class="fa fa-arrow-circle-o-down fa-lg"></i>
-        </a>
+        </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item v-if="operateType === '1'">
             <i class="fa fa-paypal fa-lg"></i>发工资</el-dropdown-item>
@@ -16,7 +16,7 @@
             <i class="fa fa-exchange fa-lg"></i> 转账</el-dropdown-item>
           <el-dropdown-item v-if="operateType === '3'">
             <i class="fa fa-edit fa-lg"></i> 取款</el-dropdown-item>
-          <el-dropdown-item v-if="operateType === '4'">
+          <el-dropdown-item v-if="operateType === '4'" command="4">
             <i class="fa fa-edit fa-lg"></i> 录入消费信息</el-dropdown-item>
           <el-dropdown-item v-if="operateType === '5'">
             <i class="fa fa-edit fa-lg"></i> 借入</el-dropdown-item>
@@ -55,6 +55,13 @@
 export default {
   name: 'StatisticsPanel',
   props: ['title', 'value', 'bgClass', 'iconClass', 'operateType'],
+  methods: {
+    handleCommand() {
+      this.$router.push({
+        path: '/consume/register',
+      });
+    },
+  },
 };
 </script>
 

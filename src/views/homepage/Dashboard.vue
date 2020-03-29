@@ -43,10 +43,10 @@
         </span>
         <span class="text">备忘录</span>
       </a>
-      <a class="shortcut-link">
+      <a class="shortcut-link" @click="transitionToSetting">
         <span class="shortcut-icon">
           <i class="fa fa-cog"></i></span>
-        <span class="text">系统设定</span>
+        <span class="text">系统数据管理</span>
       </a>
       <a class="shortcut-link">
         <span class="shortcut-icon">
@@ -243,6 +243,14 @@ export default {
   data: () => ({
     show: true,
   }),
+
+  methods: {
+    transitionToSetting() {
+      this.$router.push({
+        path: '/system/setting',
+      });
+    },
+  },
 
   components: {
     StatisticsPanel,

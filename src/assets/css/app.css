@@ -42,24 +42,19 @@
   color: #777;
 }
 
-.el-input__inner {
-  height: 35px;
-  line-height: 35px;
-}
-
-.el-input__icon {
-  line-height: 35px;
-}
-
 .el-button {
   height: 35px;
   line-height: 35px;
   padding: 0 20px
 }
 
+.search-button {
+  margin-top: -5px;
+}
+
 .condition-label {
   text-align: right;
-  margin-top: 8px;
+  margin-top: 5px;
   font-size: 13px;
   font-family: 'Open Sans', sans-serif;
   color: #777;
@@ -68,5 +63,10 @@
 .search-button-row {
   background-color:#f5f5f5;
   margin: 10px 0;
-  padding: 5px 15px;
+  padding: 10px 15px 7px 10px;
+}
+
+.el-transfer-panel .el-transfer-panel__header .el-checkbox .el-checkbox__label {
+  font-size: 14px;
+  color: #909399;
 }
