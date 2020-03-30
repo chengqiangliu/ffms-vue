@@ -124,7 +124,7 @@
                 :data="tableData"
                 :default-sort = "{prop: 'date', order: 'descending'}"
                 stripe
-                height="245">
+                height="250">
                 <el-table-column
                   type="selection"
                   fixed

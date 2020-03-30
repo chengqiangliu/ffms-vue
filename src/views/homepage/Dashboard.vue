@@ -25,23 +25,17 @@
       </el-col>
     </el-row>
     <div class="grey-container shortcut-wrapper">
-      <a class="shortcut-link">
+      <a class="shortcut-link" @click="transitionToSecurityManagement">
         <span class="shortcut-icon">
           <i class="fa f fa-user-md"></i>
         </span>
         <span class="text">安全管理</span>
       </a>
-      <a class="shortcut-link">
+      <a class="shortcut-link" @click="transitionToUserList">
         <span class="shortcut-icon">
           <i class="fa fa-user"></i>
         </span>
         <span class="text">用户管理</span>
-      </a>
-      <a class="shortcut-link">
-        <span class="shortcut-icon">
-          <i class="fa fa-book"></i>
-        </span>
-        <span class="text">备忘录</span>
       </a>
       <a class="shortcut-link" @click="transitionToSetting">
         <span class="shortcut-icon">
@@ -171,7 +165,7 @@
   .shortcut-link {
     display: inline-block;
     /* color: #ccc; */
-    margin-right: 20px;
+    margin-right: 35px;
     text-shadow: 0 1px 0 #fff;
     transition: color .2s ease;
     -webkit-transition: color .2s ease;
@@ -245,9 +239,19 @@ export default {
   }),
 
   methods: {
+    transitionToSecurityManagement() {
+      this.$router.push({
+        path: '/system/securitymanagement',
+      });
+    },
     transitionToSetting() {
       this.$router.push({
         path: '/system/setting',
+      });
+    },
+    transitionToUserList() {
+      this.$router.push({
+        path: '/user/list',
       });
     },
   },
