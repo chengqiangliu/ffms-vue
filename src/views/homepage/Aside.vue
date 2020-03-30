@@ -24,7 +24,7 @@
           <i class="el-icon-money"></i>
           工资信息录入
         </el-menu-item>
-        <el-menu-item index="2-2" route="/consume/list">
+        <el-menu-item index="2-2" route="/salary/list">
           <i class="el-icon-s-data"></i>
           工资信息列表
         </el-menu-item>
@@ -37,15 +37,15 @@
           <i class="el-icon-postcard"></i>
           银行卡信息录入
         </el-menu-item>
-        <el-menu-item index="3-2" route="/consume/list">
+        <el-menu-item index="3-2" route="/bankcard/list">
           <i class="el-icon-s-data"></i>
           银行卡信息列表
         </el-menu-item>
-        <el-menu-item index="3-3" route="/consume/list">
+        <el-menu-item index="3-3" route="/accesscard/list">
           <i class="el-icon-s-data"></i>
           存取款信息列表
         </el-menu-item>
-        <el-menu-item index="3-4" route="/consume/list">
+        <el-menu-item index="3-4" route="/exchange/list">
           <i class="el-icon-s-data"></i>
           转账信息列表
         </el-menu-item>
@@ -54,7 +54,7 @@
     <el-submenu index="4">
       <template slot="title"><i class="el-icon-set-up"></i>债务管理</template>
       <el-menu-item-group>
-        <el-menu-item index="4-1" route="/consume/list">
+        <el-menu-item index="4-1" route="/debt/list">
           <i class="el-icon-s-data"></i>
           债务信息列表
         </el-menu-item>
@@ -71,7 +71,7 @@
           <i class="el-icon-sold-out"></i>
           送礼信息录入
         </el-menu-item>
-        <el-menu-item index="5-3" route="/consume/list">
+        <el-menu-item index="5-3" route="/present/list">
           <i class="el-icon-s-data"></i>
           礼金信息列表
         </el-menu-item>
@@ -84,7 +84,7 @@
           <i class="el-icon-shopping-bag-2"></i>
           销售信息录入
         </el-menu-item>
-        <el-menu-item index="6-2" route="/consume/list">
+        <el-menu-item index="6-2" route="/sales/list">
           <i class="el-icon-s-data"></i>
           销售信息列表
         </el-menu-item>

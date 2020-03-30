@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%;">
-    <BreadCrumb subTitle="消费信息列表" />
+    <BreadCrumb subTitle="债务信息列表" />
     <el-row>
       <el-col>
         <el-card>
@@ -214,7 +214,7 @@
 import BreadCrumb from '@/components/BreadCrumb.vue';
 
 export default {
-  name: 'ConsumeList',
+  name: 'DebtList',
   data() {
     return {
       consumer: '',

@@ -1,5 +1,5 @@
 <template>
-  <div class="panel-stat3 fadeInRight animation-delay1" :class="bgClass">
+  <div class="panel-stat3 fadeInRight animation-delay1" :class="bgClass" @click="onClick">
     <div class="dropdown operate-button">
       <el-dropdown @command="handleCommand">
         <span class="el-dropdown-link">
@@ -54,7 +54,14 @@
 <script>
 export default {
   name: 'StatisticsPanel',
-  props: ['title', 'value', 'bgClass', 'iconClass', 'operateType'],
+  props: {
+    title: String,
+    value: String,
+    bgClass: String,
+    iconClass: String,
+    operateType: String,
+    onClick: Function,
+  },
   methods: {
     handleCommand() {
       this.$router.push({
@@ -109,6 +116,15 @@ export default {
     -o-transition: all .2s ease;
     color: rgba(0, 0, 0, .3);
     font-size: 12px;
+  }
+
+  .panel-stat3 .el-dropdown-link:hover {
+    color: #fff;
+    transition: all .2s ease;
+    -webkit-transition: all .2s ease;
+    -moz-transition: all .2s ease;
+    -ms-transition: all .2s ease;
+    -o-transition: all .2s ease
   }
 
   .panel-stat3 .refresh-button:hover {

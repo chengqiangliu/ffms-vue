@@ -1,10 +1,17 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import Dashboard from '@/views/homepage/Dashboard.vue';
-import SystemSetting from '@/views/system/SystemSetting.vue';
-import SecurityManagement from '@/views/system/SecurityManagement.vue';
+import SystemSetting from '@/views/setting/SystemSetting.vue';
+import SecurityManagement from '@/views/setting/SecurityManagement.vue';
+import BankcardList from '@/views/bankcard/BankcardList.vue';
+import AccesscardList from '@/views/accesscard/AccesscardList.vue';
+import ExchangeList from '@/views/exchange/ExchangeList.vue';
+import DebtList from '@/views/debt/DebtList.vue';
+import PresentList from '@/views/present/PresentList.vue';
+import SalaryList from '@/views/salary/SalaryList.vue';
 import ConsumeRegister from '@/views/consume/ConsumeRegister.vue';
 import ConsumeList from '@/views/consume/ConsumeList.vue';
+import SalesList from '@/views/sales/SalesList.vue';
 import UserList from '@/views/user/UserList.vue';
 
 Vue.use(VueRouter);
@@ -16,6 +23,36 @@ const routes = [
     component: Dashboard,
   },
   {
+    path: '/bankcard/list',
+    name: 'BankcardList',
+    component: BankcardList,
+  },
+  {
+    path: '/accesscard/list',
+    name: 'AccesscardList',
+    component: AccesscardList,
+  },
+  {
+    path: '/exchange/list',
+    name: 'ExchangeList',
+    component: ExchangeList,
+  },
+  {
+    path: '/debt/list',
+    name: 'DebtList',
+    component: DebtList,
+  },
+  {
+    path: '/present/list',
+    name: 'PresentList',
+    component: PresentList,
+  },
+  {
+    path: '/salary/list',
+    name: 'SalaryList',
+    component: SalaryList,
+  },
+  {
     path: '/consume/register',
     name: 'ConsumeRegister',
     component: ConsumeRegister,
@@ -24,6 +61,11 @@ const routes = [
     path: '/consume/list',
     name: 'ConsumeList',
     component: ConsumeList,
+  },
+  {
+    path: '/sales/list',
+    name: 'SalesList',
+    component: SalesList,
   },
   {
     path: '/user/list',

@@ -1,6 +1,6 @@
 <template>
   <div style="width: 100%;">
-    <BreadCrumb subTitle="用户列表" />
+    <BreadCrumb subTitle="银行卡列表" />
     <el-row>
       <el-col>
         <el-card>
@@ -9,18 +9,30 @@
           </div>
           <el-row :gutter="10">
             <el-col :span="2">
-              <div class="condition-label">用户名</div>
+              <div class="condition-label">办卡人</div>
             </el-col>
             <el-col :span="4">
-              <el-input v-model="username" placeholder="用户名" size="mini"></el-input>
+              <el-select v-model="lockStatus" placeholder="办卡人" size="mini">
+                <el-option label="老公" value="老公"></el-option>
+                <el-option label="老婆" value="老婆"></el-option>
+              </el-select>
             </el-col>
             <el-col :span="2">
-              <div class="condition-label">锁定状态</div>
+              <div class="condition-label">开户银行</div>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="lockStatus" placeholder="锁定状态" size="mini">
-                <el-option label="锁定" value="锁定"></el-option>
-                <el-option label="未锁定" value="未锁定"></el-option>
+              <el-select v-model="lockStatus" placeholder="卡的类型" size="mini">
+                <el-option label="银行卡" value="银行卡"></el-option>
+                <el-option label="信用卡" value="信用卡"></el-option>
+              </el-select>
+            </el-col>
+            <el-col :span="2">
+              <div class="condition-label">卡的类型</div>
+            </el-col>
+            <el-col :span="4">
+              <el-select v-model="lockStatus" placeholder="开户银行" size="mini">
+                <el-option label="东京三菱UFJ银行" value="东京三菱UFJ银行"></el-option>
+                <el-option label="乐天银行" value="乐天银行"></el-option>
               </el-select>
             </el-col>
           </el-row>
@@ -30,8 +42,8 @@
             </el-col>
             <el-col :span="4">
               <el-select v-model="sortKey" placeholder="请选择排序字段" size="mini">
-                <el-option label="用户名" value="username"></el-option>
-                <el-option label="锁定状态" value="lockStatus"></el-option>
+                <el-option label="卡内余额" value="cardBalance"></el-option>
+                <el-option label="办卡人" value="holder"></el-option>
               </el-select>
             </el-col>
             <el-col :span="4">
@@ -43,11 +55,6 @@
             <el-col :span="2" :offset="2">
               <el-button type="primary" class="search-button">
                 <i class="fa fa-search"></i> 查询
-              </el-button>
-            </el-col>
-            <el-col :span="2" :offset="2">
-              <el-button type="warning" class="search-button">
-                <i class="fa fa-plus-circle"></i> 添加新用户
               </el-button>
             </el-col>
           </el-row>
@@ -76,34 +83,39 @@
                   width="55">
                 </el-table-column>
                 <el-table-column
-                  prop="username"
-                  label="用户名"
+                  prop="cardNo"
+                  label="银行卡号"
                   width="120">
                 </el-table-column>
                 <el-table-column
-                  prop="role"
-                  label="用户角色"
+                  prop="cardType"
+                  label="卡的类型"
                   width="120">
                 </el-table-column>
                 <el-table-column
-                  prop="email"
-                  label="Email"
+                  prop="bankType"
+                  label="开户银行"
                   width="120">
                 </el-table-column>
                 <el-table-column
-                  prop="failLoginCount"
-                  label="连续登录失败数"
-                  width="300">
+                  prop="creditSum"
+                  label="信用额度"
+                  width="120">
                 </el-table-column>
                 <el-table-column
-                  prop="lockStatus"
-                  label="锁定状态"
+                  prop="cardBalance"
+                  label="卡内余额"
+                  width="120">
+                </el-table-column>
+                <el-table-column
+                  prop="holder"
+                  label="办卡人"
                   width="120">
                 </el-table-column>
                 <el-table-column
                   sortable
-                  prop="lastLogonTime"
-                  label="上次登录时间"
+                  prop="createCardDate"
+                  label="办卡时间"
                   width="150">
                   <template slot-scope="scope">
                     <i class="el-icon-time"></i>
@@ -111,12 +123,12 @@
                   </template>
                 </el-table-column>
                 <el-table-column
-                  label="操作"
+                  label="编辑"
                   width="200">
                   <template slot-scope="scope">
                     <el-button
-                      size="mini"
                       type="warning"
+                      size="mini"
                       @click="handleEdit(scope.$index, scope.row)">
                       <i class="el-icon-edit">编辑</i>
                     </el-button>
@@ -144,34 +156,37 @@
 import BreadCrumb from '@/components/BreadCrumb.vue';
 
 export default {
-  name: 'UserList',
+  name: 'BankcardList',
   data() {
     return {
       id: '',
-      username: '',
-      role: '',
-      email: '',
-      failLoginCount: 0,
-      lockStatus: '',
-      lastLogonTime: '',
+      cardNo: '',
+      cardType: '',
+      bankType: '',
+      creditSum: 0,
+      cardBalance: '',
+      holder: '',
+      createCardDate: '',
       sortKey: '用户名',
       sortType: '降序',
       currentPage: 1,
       tableData: [
         {
-          username: '2016-05-03',
-          role: 'Tom',
-          email: 'California',
-          failLoginCount: 'Los Angeles',
-          lockStatus: '锁定',
-          lastLogonTime: '2016-05-03',
+          cardNo: '10000010',
+          cardType: 'BankCard',
+          bankType: '三菱UFJ银行',
+          creditSum: 0,
+          cardBalance: 580000,
+          holder: '老公',
+          lastLogonTime: '2015-08-15',
         }, {
-          username: '2016-05-03',
-          role: 'Tom',
-          email: 'California',
-          failLoginCount: 'Los Angeles',
-          lockStatus: '未锁定',
-          lastLogonTime: '2016-05-03',
+          cardNo: '10000020',
+          cardType: 'CreditCard',
+          bankType: '乐天银行',
+          creditSum: 150000,
+          cardBalance: 0,
+          holder: '老公',
+          lastLogonTime: '2015-08-15',
         },
       ],
     };
