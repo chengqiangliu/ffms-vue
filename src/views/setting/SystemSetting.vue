@@ -19,7 +19,7 @@
                     <el-input v-model="goodsType" placeholder="商品类型" size="mini"></el-input>
                   </el-col>
                   <el-col :span="2" :offset="2">
-                    <el-button type="primary" class="search-button">
+                    <el-button type="primary" class="search-button" size="mini">
                       <i class="fa fa-plus-circle"></i> 添加
                     </el-button>
                   </el-col>
@@ -50,7 +50,7 @@
                     <el-input v-model="bankType" placeholder="银行类型" size="mini"></el-input>
                   </el-col>
                   <el-col :span="2" :offset="2">
-                    <el-button type="primary" class="search-button">
+                    <el-button type="primary" class="search-button" size="mini">
                       <i class="fa fa-plus-circle"></i> 添加
                     </el-button>
                   </el-col>
@@ -81,7 +81,7 @@
                     <el-input v-model="cardType" placeholder="银行卡类型" size="mini"></el-input>
                   </el-col>
                   <el-col :span="2" :offset="2">
-                    <el-button type="primary" class="search-button">
+                    <el-button type="primary" class="search-button" size="mini">
                       <i class="fa fa-plus-circle"></i> 添加
                     </el-button>
                   </el-col>
@@ -112,7 +112,7 @@
                     <el-input v-model="currency" placeholder="货币类型" size="mini"></el-input>
                   </el-col>
                   <el-col :span="2" :offset="2">
-                    <el-button type="primary" class="search-button">
+                    <el-button type="primary" class="search-button" size="mini">
                       <i class="fa fa-plus-circle"></i> 添加
                     </el-button>
                   </el-col>

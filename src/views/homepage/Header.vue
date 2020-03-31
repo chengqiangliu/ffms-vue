@@ -10,11 +10,13 @@
         <span class="icon-bar"></span>
       </el-button>
       <div class="nav-notification">
-        <el-dropdown>
-          <div><el-avatar icon="el-icon-user-solid"></el-avatar></div>
+        <el-dropdown trigger="click">
+          <span class="el-dropdown-link">
+            Baobao<i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item><i class="el-icon-edit-outline"></i>Edit Profile</el-dropdown-item>
-            <el-dropdown-item><i class="el-icon-lock"></i>Log out</el-dropdown-item>
+            <el-dropdown-item><i class="el-icon-edit-outline"></i>编辑个人信息</el-dropdown-item>
+            <el-dropdown-item><i class="fa fa-sign-out"></i>退出系统</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -23,13 +25,26 @@
 </template>
 
 <style scoped>
+  .el-dropdown-link {
+    color: #BECFE0;
+  }
+
+  .el-dropdown-link:hover {
+    color: #fff;
+    transition: all .2s ease;
+    -webkit-transition: all .2s ease;
+    -moz-transition: all .2s ease;
+    -ms-transition: all .2s ease;
+    -o-transition: all .2s ease
+  }
+
   #top-nav .brand {
     display: block;
     text-align: center;
     font-size: 17px;
     line-height: 60px;
     width: 165px;
-    color: #999;
+    color: #BECFE0;
     background: #272938;
     float: left;
     cursor: pointer;
@@ -50,13 +65,13 @@
   }
 
   .navbar-toggle .icon-bar {
-      display: block;
-      width: 18px;
-      height: 2px;
-      margin-bottom: 3px;
-      border-radius: 1px;
-      -moz-border-radius: 1px;
-      -webkit-border-radius: 1px
+    display: block;
+    width: 18px;
+    height: 2px;
+    margin-bottom: 3px;
+    border-radius: 1px;
+    -moz-border-radius: 1px;
+    -webkit-border-radius: 1px
   }
 
   .icon-bar {
@@ -81,8 +96,14 @@
     text-align: right;
     width: 100px;
     font-size: 12px;
-    padding-top: 9px;
+    padding-top: 19px;
     cursor: pointer;
+  }
+
+  .el-link {
+    color: #BECFE0;
+    font-size: 13px;
+    font-family: 'Open Sans',sans-serif;
   }
 </style>
 

@@ -1,7 +1,7 @@
 <template>
-  <div class="panel-stat3 fadeInRight animation-delay1" :class="bgClass" @click="onClick">
+  <div class="panel-stat3 fadeInRight animation-delay1" :class="bgClass">
     <div class="dropdown operate-button">
-      <el-dropdown @command="handleCommand">
+      <el-dropdown trigger="click" @command="handleCommand">
         <span class="el-dropdown-link">
           <span class="m-left-xs">操作</span> <i class="fa fa-arrow-circle-o-down fa-lg"></i>
         </span>
@@ -14,7 +14,7 @@
             <i class="fa fa-edit fa-lg"></i> 存款</el-dropdown-item>
           <el-dropdown-item v-if="operateType === '2'">
             <i class="fa fa-exchange fa-lg"></i> 转账</el-dropdown-item>
-          <el-dropdown-item v-if="operateType === '3'">
+          <el-dropdown-item v-if="operateType === '3'" command="3">
             <i class="fa fa-edit fa-lg"></i> 取款</el-dropdown-item>
           <el-dropdown-item v-if="operateType === '4'" command="4">
             <i class="fa fa-edit fa-lg"></i> 录入消费信息</el-dropdown-item>
@@ -35,7 +35,7 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <div>
+    <div @click="onClick">
       <h2 class="h2ValueClass"> {{ value }} </h2>
       <h5 class="h5ValueClass">{{ title }}</h5>
       <div class="stat-icon">
@@ -48,6 +48,13 @@
     <div class="loading-overlay">
       <i class="loading-icon fa fa-refresh fa-spin fa-lg"></i>
     </div>
+    <el-dialog title="Shipping address" :visible.sync="dialogFormVisible" :append-to-body="true">
+      test
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="dialogFormVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="dialogFormVisible = false">Confirm</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -62,11 +69,20 @@ export default {
     operateType: String,
     onClick: Function,
   },
+  data() {
+    return {
+      dialogFormVisible: false,
+    };
+  },
   methods: {
-    handleCommand() {
-      this.$router.push({
-        path: '/consume/register',
-      });
+    handleCommand(command) {
+      if (command === '3') {
+        this.dialogFormVisible = true;
+      } else if (command === '4') {
+        this.$router.push({
+          path: '/consume/register',
+        });
+      }
     },
   },
 };
@@ -221,14 +237,14 @@ export default {
   }
 
   .loading-overlay {
-  position: absolute;
-  display: none;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background: rgba(0, 0, 0, .4);
-  text-align: center
+    position: absolute;
+    display: none;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .4);
+    text-align: center
   }
 
   .loading-overlay.active {

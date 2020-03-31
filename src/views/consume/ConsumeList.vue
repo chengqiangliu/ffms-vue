@@ -148,7 +148,7 @@
                 <el-table-column
                   prop="quantity"
                   label="数量"
-                  width="300">
+                  width="120">
                 </el-table-column>
                 <el-table-column
                   prop="acquisitionValue"
@@ -234,7 +234,7 @@ export default {
           goodsType: 'Tom',
           state: 'California',
           price: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
+          quantity: '189',
           acquisitionValue: 'CA 90036',
           paymentType: 'CA 90036',
           consumer: 'CA 90036',
@@ -244,7 +244,7 @@ export default {
           goodsType: 'Tom',
           price: 'California',
           city: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
+          quantity: '189',
           acquisitionValue: 'CA 90036',
           paymentType: 'CA 90036',
           consumer: 'CA 90036',
@@ -254,7 +254,7 @@ export default {
           goodsType: 'Tom',
           price: 'California',
           city: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
+          quantity: '189',
           acquisitionValue: 'CA 90036',
           paymentType: 'CA 90036',
           consumer: 'CA 90036',
@@ -264,7 +264,7 @@ export default {
           goodsType: 'Tom',
           price: 'California',
           city: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
+          quantity: '189',
           acquisitionValue: 'CA 90036',
           paymentType: 'CA 90036',
           consumer: 'CA 90036',
@@ -274,7 +274,7 @@ export default {
           goodsType: 'Tom',
           price: 'California',
           city: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
+          quantity: '189',
           acquisitionValue: 'CA 90036',
           paymentType: 'CA 90036',
           consumer: 'CA 90036',
@@ -284,7 +284,7 @@ export default {
           goodsType: 'Tom',
           price: 'California',
           city: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
+          quantity: '189',
           acquisitionValue: 'CA 90036',
           paymentType: 'CA 90036',
           consumer: 'CA 90036',
@@ -294,7 +294,7 @@ export default {
           goodsType: 'Tom',
           price: 'California',
           city: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
+          quantity: '189',
           acquisitionValue: 'CA 90036',
           paymentType: 'CA 90036',
           consumer: 'CA 90036',

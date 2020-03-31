@@ -9,54 +9,50 @@
           </div>
           <el-row :gutter="10">
             <el-col :span="2">
-              <div class="condition-label">消费者</div>
+              <div class="condition-label">借款类型</div>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="consumer" placeholder="消费者" size="mini">
-                <el-option label="老公" value="老公"></el-option>
-                <el-option label="老婆" value="老婆"></el-option>
-                <el-option label="宝宝" value="宝宝"></el-option>
+              <el-select v-model="debtType" placeholder="借款类型" size="mini">
+                <el-option label="借出" value="借出"></el-option>
+                <el-option label="借入" value="借入"></el-option>
               </el-select>
             </el-col>
             <el-col :span="2">
-              <div class="condition-label">商品类别</div>
+              <div class="condition-label">债款人</div>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="goodsType" placeholder="商品类别" size="mini">
-                <el-option label="食品" value="食品"></el-option>
-                <el-option label="电子产品" value="电子产品"></el-option>
-              </el-select>
+              <el-input v-model="friend" placeholder="债款人" size="mini"></el-input>
             </el-col>
             <el-col :span="2">
-              <div class="condition-label">付款方式</div>
+              <div class="condition-label">借款方式</div>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="paymentType" placeholder="付款方式" size="mini">
+              <el-select v-model="paymentType" placeholder="借款方式" size="mini">
                 <el-option label="现金" value="现金"></el-option>
-                <el-option label="信用卡" value="信用卡"></el-option>
+                <el-option label="刷卡" value="刷卡"></el-option>
               </el-select>
             </el-col>
             <el-col :span="2">
-              <div class="condition-label">商品名</div>
+              <div class="condition-label">还款情况</div>
             </el-col>
             <el-col :span="4">
-              <el-input v-model="goodsName" placeholder="商品名" size="mini"></el-input>
+              <el-select v-model="isPayoff" placeholder="还款情况" size="mini">
+                <el-option label="还清" value="还清"></el-option>
+                <el-option label="部分" value="部分"></el-option>
+                <el-option label="未还" value="未还"></el-option>
+              </el-select>
             </el-col>
           </el-row>
           <el-row :gutter="10">
             <el-col :span="2">
-              <div class="condition-label">总价</div>
+              <div class="condition-label">姓名</div>
             </el-col>
-            <el-col :span="2">
-              <el-select v-model="sumFlag" placeholder="比较" size="mini">
-                <el-option label="大于" value=">"></el-option>
-                <el-option label="等于" value="="></el-option>
-                <el-option label="小于" value="&lt;"></el-option>
-                <el-option label="不等于" value="!="></el-option>
+            <el-col :span="4">
+              <el-select v-model="debterName" placeholder="姓名" size="mini">
+                <el-option label="老公" value="老公"></el-option>
+                <el-option label="老婆" value="老婆"></el-option>
+                <el-option label="宝宝" value="宝宝"></el-option>
               </el-select>
-            </el-col>
-            <el-col :span="2">
-              <el-input v-model="goodsSum" placeholder="金额" size="mini"></el-input>
             </el-col>
             <el-col :span="2">
               <div class="condition-label">开始时间</div>
@@ -87,11 +83,9 @@
             </el-col>
             <el-col :span="4">
               <el-select v-model="sortKey" placeholder="请选择排序字段" size="mini">
-                <el-option label="消费时间" value="consumeTime"></el-option>
-                <el-option label="商品名" value="goodsName"></el-option>
-                <el-option label="商品类型" value="goodsType"></el-option>
-                <el-option label="总价" value="goodsSum"></el-option>
-                <el-option label="付款方式" value="paymentType"></el-option>
+                <el-option label="还款情况" value="isPayoff"></el-option>
+                <el-option label="借款时间" value="borrowTime"></el-option>
+                <el-option label="借款额" value="srcMoneyNum"></el-option>
               </el-select>
             </el-col>
             <el-col :span="4">
@@ -131,48 +125,53 @@
                   width="55">
                 </el-table-column>
                 <el-table-column
-                  prop="goodsName"
-                  label="商品名"
+                  prop="debterName"
+                  label="自己方"
                   width="120">
                 </el-table-column>
                 <el-table-column
-                  prop="goodsType"
-                  label="商品类别"
+                  prop="friend"
+                  label="债款人"
                   width="120">
                 </el-table-column>
                 <el-table-column
-                  prop="price"
-                  label="单价"
-                  width="120">
-                </el-table-column>
-                <el-table-column
-                  prop="quantity"
-                  label="数量"
-                  width="300">
-                </el-table-column>
-                <el-table-column
-                  prop="acquisitionValue"
-                  label="总价"
+                  prop="debtType"
+                  label="借款类型"
                   width="120">
                 </el-table-column>
                 <el-table-column
                   prop="paymentType"
-                  label="付款方式"
+                  label="借款方式"
                   width="120">
                 </el-table-column>
                 <el-table-column
-                  prop="consumer"
-                  label="消费人"
+                  prop="srcMoneySum"
+                  label="借款额"
+                  width="120">
+                </el-table-column>
+                <el-table-column
+                  prop="hasPaidSum"
+                  label="已还额"
+                  width="120">
+                </el-table-column>
+                <el-table-column
+                  prop="hasNotPaidSum"
+                  label="未还额"
+                  width="120">
+                </el-table-column>
+                <el-table-column
+                  prop="isPayoff"
+                  label="还款情况"
                   width="120">
                 </el-table-column>
                 <el-table-column
                   sortable
-                  prop="consumeDate"
-                  label="消费日期"
+                  prop="borrowTime"
+                  label="借款时间"
                   width="150">
                   <template slot-scope="scope">
                     <i class="el-icon-time"></i>
-                    <span style="margin-left: 10px">{{ scope.row.consumeDate }}</span>
+                    <span style="margin-left: 10px">{{ scope.row.borrowTime }}</span>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -217,88 +216,49 @@ export default {
   name: 'DebtList',
   data() {
     return {
-      consumer: '',
-      goodsType: '',
+      debterName: '',
+      friend: '',
+      debtType: '',
       paymentType: '',
-      goodsName: '',
-      sumFlag: '',
-      goodsSum: '',
-      fromeDate: '',
-      endDate: '',
-      sortKey: '消费时间',
+      srcMoneySum: '',
+      hasPaidSum: '',
+      hasNotPaidSum: '',
+      isPayoff: '',
+      borrowTime: '',
+      sortKey: '借款时间',
       sortType: '降序',
       currentPage: 1,
       tableData: [
         {
-          goodsName: '2016-05-03',
-          goodsType: 'Tom',
-          state: 'California',
-          price: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
-          acquisitionValue: 'CA 90036',
-          paymentType: 'CA 90036',
-          consumer: 'CA 90036',
-          consumeDate: '2016-05-03',
+          debterName: '2016-05-03',
+          friend: 'Tom',
+          debtType: 'California',
+          paymentType: 'Los Angeles',
+          srcMoneySum: '1000',
+          hasPaidSum: 'CA 90036',
+          hasNotPaidSum: 'CA 90036',
+          isPayoff: 'CA 90036',
+          borrowTime: '2016-05-03',
         }, {
-          goodsName: '2016-05-02',
-          goodsType: 'Tom',
-          price: 'California',
-          city: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
-          acquisitionValue: 'CA 90036',
-          paymentType: 'CA 90036',
-          consumer: 'CA 90036',
-          consumeDate: '2016-05-02',
+          debterName: '2016-05-03',
+          friend: 'Tom',
+          debtType: 'California',
+          paymentType: 'Los Angeles',
+          srcMoneySum: '1000',
+          hasPaidSum: 'CA 90036',
+          hasNotPaidSum: 'CA 90036',
+          isPayoff: 'CA 90036',
+          borrowTime: '2016-05-02',
         }, {
-          goodsName: '2016-05-04',
-          goodsType: 'Tom',
-          price: 'California',
-          city: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
-          acquisitionValue: 'CA 90036',
-          paymentType: 'CA 90036',
-          consumer: 'CA 90036',
-          consumeDate: '2016-05-04',
-        }, {
-          goodsName: '2016-05-01',
-          goodsType: 'Tom',
-          price: 'California',
-          city: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
-          acquisitionValue: 'CA 90036',
-          paymentType: 'CA 90036',
-          consumer: 'CA 90036',
-          consumeDate: '2016-05-01',
-        }, {
-          goodsName: '2016-05-08',
-          goodsType: 'Tom',
-          price: 'California',
-          city: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
-          acquisitionValue: 'CA 90036',
-          paymentType: 'CA 90036',
-          consumer: 'CA 90036',
-          consumeDate: '2016-05-08',
-        }, {
-          goodsName: '2016-05-06',
-          goodsType: 'Tom',
-          price: 'California',
-          city: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
-          acquisitionValue: 'CA 90036',
-          paymentType: 'CA 90036',
-          consumer: 'CA 90036',
-          consumeDate: '2016-05-06',
-        }, {
-          goodsName: '2016-05-07',
-          goodsType: 'Tom',
-          price: 'California',
-          city: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
-          acquisitionValue: 'CA 90036',
-          paymentType: 'CA 90036',
-          consumer: 'CA 90036',
-          consumeDate: '2016-05-07',
+          debterName: '2016-05-03',
+          friend: 'Tom',
+          debtType: 'California',
+          paymentType: 'Los Angeles',
+          srcMoneySum: '1000',
+          hasPaidSum: 'CA 90036',
+          hasNotPaidSum: 'CA 90036',
+          isPayoff: 'CA 90036',
+          borrowTime: '2016-05-04',
         },
       ],
     };

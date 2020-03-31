@@ -9,10 +9,10 @@
           </div>
           <el-row :gutter="10">
             <el-col :span="2">
-              <div class="condition-label">消费者</div>
+              <div class="condition-label">销售者</div>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="consumer" placeholder="消费者" size="mini">
+              <el-select v-model="saler" placeholder="销售者" size="mini">
                 <el-option label="老公" value="老公"></el-option>
                 <el-option label="老婆" value="老婆"></el-option>
                 <el-option label="宝宝" value="宝宝"></el-option>
@@ -87,7 +87,7 @@
             </el-col>
             <el-col :span="4">
               <el-select v-model="sortKey" placeholder="请选择排序字段" size="mini">
-                <el-option label="消费时间" value="consumeTime"></el-option>
+                <el-option label="销售时间" value="consumeTime"></el-option>
                 <el-option label="商品名" value="goodsName"></el-option>
                 <el-option label="商品类型" value="goodsType"></el-option>
                 <el-option label="总价" value="goodsSum"></el-option>
@@ -147,7 +147,7 @@
                 </el-table-column>
                 <el-table-column
                   prop="quantity"
-                  label="数量"
+                  label="120"
                   width="300">
                 </el-table-column>
                 <el-table-column
@@ -161,14 +161,14 @@
                   width="120">
                 </el-table-column>
                 <el-table-column
-                  prop="consumer"
-                  label="消费人"
+                  prop="saler"
+                  label="销售人"
                   width="120">
                 </el-table-column>
                 <el-table-column
                   sortable
                   prop="consumeDate"
-                  label="消费日期"
+                  label="销售日期"
                   width="150">
                   <template slot-scope="scope">
                     <i class="el-icon-time"></i>
@@ -217,7 +217,7 @@ export default {
   name: 'SalesList',
   data() {
     return {
-      consumer: '',
+      saler: '',
       goodsType: '',
       paymentType: '',
       goodsName: '',
@@ -225,7 +225,7 @@ export default {
       goodsSum: '',
       fromeDate: '',
       endDate: '',
-      sortKey: '消费时间',
+      sortKey: '销售时间',
       sortType: '降序',
       currentPage: 1,
       tableData: [
@@ -237,7 +237,7 @@ export default {
           quantity: 'No. 189, Grove St, Los Angeles',
           acquisitionValue: 'CA 90036',
           paymentType: 'CA 90036',
-          consumer: 'CA 90036',
+          saler: 'CA 90036',
           consumeDate: '2016-05-03',
         }, {
           goodsName: '2016-05-02',
@@ -247,7 +247,7 @@ export default {
           quantity: 'No. 189, Grove St, Los Angeles',
           acquisitionValue: 'CA 90036',
           paymentType: 'CA 90036',
-          consumer: 'CA 90036',
+          saler: 'CA 90036',
           consumeDate: '2016-05-02',
         }, {
           goodsName: '2016-05-04',
@@ -257,7 +257,7 @@ export default {
           quantity: 'No. 189, Grove St, Los Angeles',
           acquisitionValue: 'CA 90036',
           paymentType: 'CA 90036',
-          consumer: 'CA 90036',
+          saler: 'CA 90036',
           consumeDate: '2016-05-04',
         }, {
           goodsName: '2016-05-01',
@@ -267,7 +267,7 @@ export default {
           quantity: 'No. 189, Grove St, Los Angeles',
           acquisitionValue: 'CA 90036',
           paymentType: 'CA 90036',
-          consumer: 'CA 90036',
+          saler: 'CA 90036',
           consumeDate: '2016-05-01',
         }, {
           goodsName: '2016-05-08',
@@ -277,7 +277,7 @@ export default {
           quantity: 'No. 189, Grove St, Los Angeles',
           acquisitionValue: 'CA 90036',
           paymentType: 'CA 90036',
-          consumer: 'CA 90036',
+          saler: 'CA 90036',
           consumeDate: '2016-05-08',
         }, {
           goodsName: '2016-05-06',
@@ -287,7 +287,7 @@ export default {
           quantity: 'No. 189, Grove St, Los Angeles',
           acquisitionValue: 'CA 90036',
           paymentType: 'CA 90036',
-          consumer: 'CA 90036',
+          saler: 'CA 90036',
           consumeDate: '2016-05-06',
         }, {
           goodsName: '2016-05-07',
@@ -297,7 +297,7 @@ export default {
           quantity: 'No. 189, Grove St, Los Angeles',
           acquisitionValue: 'CA 90036',
           paymentType: 'CA 90036',
-          consumer: 'CA 90036',
+          saler: 'CA 90036',
           consumeDate: '2016-05-07',
         },
       ],

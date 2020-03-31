@@ -94,6 +94,13 @@
         </el-col>
       </el-row>
     </div>
+    <div style="margin-bottom: 70px;">
+      <el-row>
+        <el-col :span="22" :offset="1">
+          <ConsumeLineChat />
+        </el-col>
+      </el-row>
+    </div>
   </div>
 </template>
 
@@ -235,17 +242,15 @@
 
   .pannelContainer {
     padding: 20px 20px;
+    margin-bottom: 20px;
   }
 </style>
 
 <script>
 import StatisticsPanel from '@/components/StatisticsPanel.vue';
+import ConsumeLineChat from '@/components/ConsumeLineChat.vue';
 
 export default {
-  data: () => ({
-    show: true,
-  }),
-
   methods: {
     transitionToSecurityManagement() {
       this.$router.push({
@@ -306,6 +311,7 @@ export default {
 
   components: {
     StatisticsPanel,
+    ConsumeLineChat,
   },
 };
 </script>

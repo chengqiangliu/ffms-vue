@@ -21,7 +21,6 @@
 
   .el-header {
     background: #272938;
-    z-index: 1000;
     position: fixed;
     width: 100%;
     left: 0;

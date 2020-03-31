@@ -9,54 +9,23 @@
           </div>
           <el-row :gutter="10">
             <el-col :span="2">
-              <div class="condition-label">消费者</div>
+              <div class="condition-label">送礼方式</div>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="consumer" placeholder="消费者" size="mini">
-                <el-option label="老公" value="老公"></el-option>
-                <el-option label="老婆" value="老婆"></el-option>
-                <el-option label="宝宝" value="宝宝"></el-option>
+              <el-select v-model="sendType" placeholder="送礼方式" size="mini">
+                <el-option label="送礼" value="1"></el-option>
+                <el-option label="收礼" value="0"></el-option>
               </el-select>
             </el-col>
             <el-col :span="2">
-              <div class="condition-label">商品类别</div>
+              <div class="condition-label">礼品类型</div>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="goodsType" placeholder="商品类别" size="mini">
-                <el-option label="食品" value="食品"></el-option>
-                <el-option label="电子产品" value="电子产品"></el-option>
+              <el-select v-model="presentType" placeholder="礼品类型" size="mini">
+                <el-option label="刷卡" value="1"></el-option>
+                <el-option label="现金" value="2"></el-option>
+                <el-option label="实物" value="3"></el-option>
               </el-select>
-            </el-col>
-            <el-col :span="2">
-              <div class="condition-label">付款方式</div>
-            </el-col>
-            <el-col :span="4">
-              <el-select v-model="paymentType" placeholder="付款方式" size="mini">
-                <el-option label="现金" value="现金"></el-option>
-                <el-option label="信用卡" value="信用卡"></el-option>
-              </el-select>
-            </el-col>
-            <el-col :span="2">
-              <div class="condition-label">商品名</div>
-            </el-col>
-            <el-col :span="4">
-              <el-input v-model="goodsName" placeholder="商品名" size="mini"></el-input>
-            </el-col>
-          </el-row>
-          <el-row :gutter="10">
-            <el-col :span="2">
-              <div class="condition-label">总价</div>
-            </el-col>
-            <el-col :span="2">
-              <el-select v-model="sumFlag" placeholder="比较" size="mini">
-                <el-option label="大于" value=">"></el-option>
-                <el-option label="等于" value="="></el-option>
-                <el-option label="小于" value="&lt;"></el-option>
-                <el-option label="不等于" value="!="></el-option>
-              </el-select>
-            </el-col>
-            <el-col :span="2">
-              <el-input v-model="goodsSum" placeholder="金额" size="mini"></el-input>
             </el-col>
             <el-col :span="2">
               <div class="condition-label">开始时间</div>
@@ -81,17 +50,27 @@
               </el-date-picker>
             </el-col>
           </el-row>
+          <el-row :gutter="10">
+            <el-col :span="2">
+              <div class="condition-label">送礼人</div>
+            </el-col>
+            <el-col :span="4">
+              <el-select v-model="sendorName" placeholder="送礼人" size="mini">
+                <el-option label="老公" value="老公"></el-option>
+                <el-option label="老婆" value="老婆"></el-option>
+                <el-option label="宝宝" value="宝宝"></el-option>
+              </el-select>
+            </el-col>
+          </el-row>
           <el-row :gutter="10" class="search-button-row">
             <el-col :span="2">
               <div class="condition-label">排序字段</div>
             </el-col>
             <el-col :span="4">
               <el-select v-model="sortKey" placeholder="请选择排序字段" size="mini">
-                <el-option label="消费时间" value="consumeTime"></el-option>
-                <el-option label="商品名" value="goodsName"></el-option>
-                <el-option label="商品类型" value="goodsType"></el-option>
-                <el-option label="总价" value="goodsSum"></el-option>
-                <el-option label="付款方式" value="paymentType"></el-option>
+                <el-option label="送礼时间" value="sendDate"></el-option>
+                <el-option label="送礼人" value="sendorName"></el-option>
+                <el-option label="礼金额" value="moneySum"></el-option>
               </el-select>
             </el-col>
             <el-col :span="4">
@@ -131,48 +110,48 @@
                   width="55">
                 </el-table-column>
                 <el-table-column
-                  prop="goodsName"
-                  label="商品名"
+                  prop="sendorName"
+                  label="送礼人"
                   width="120">
                 </el-table-column>
                 <el-table-column
-                  prop="goodsType"
-                  label="商品类别"
+                  prop="sendType"
+                  label="收/送礼"
                   width="120">
                 </el-table-column>
                 <el-table-column
-                  prop="price"
-                  label="单价"
+                  prop="presentType"
+                  label="礼金类别"
+                  width="120">
+                </el-table-column>
+                <el-table-column
+                  prop="friend"
+                  label="朋友"
+                  width="120">
+                </el-table-column>
+                <el-table-column
+                  prop="moneySum"
+                  label="礼金额"
+                  width="120">
+                </el-table-column>
+                <el-table-column
+                  prop="presentName"
+                  label="礼品名"
                   width="120">
                 </el-table-column>
                 <el-table-column
                   prop="quantity"
-                  label="数量"
-                  width="300">
-                </el-table-column>
-                <el-table-column
-                  prop="acquisitionValue"
-                  label="总价"
-                  width="120">
-                </el-table-column>
-                <el-table-column
-                  prop="paymentType"
-                  label="付款方式"
-                  width="120">
-                </el-table-column>
-                <el-table-column
-                  prop="consumer"
-                  label="消费人"
+                  label="礼品数量"
                   width="120">
                 </el-table-column>
                 <el-table-column
                   sortable
-                  prop="consumeDate"
-                  label="消费日期"
+                  prop="sendDate"
+                  label="收/送礼日期"
                   width="150">
                   <template slot-scope="scope">
                     <i class="el-icon-time"></i>
-                    <span style="margin-left: 10px">{{ scope.row.consumeDate }}</span>
+                    <span style="margin-left: 10px">{{ scope.row.sendDate }}</span>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -183,12 +162,6 @@
                       size="mini"
                       @click="handleEdit(scope.$index, scope.row)">
                       <i class="el-icon-edit">编辑</i>
-                    </el-button>
-                    <el-button
-                      size="mini"
-                      type="danger"
-                      @click="handleDelete(scope.$index, scope.row)">
-                      <i class="el-icon-delete">删除</i>
                     </el-button>
                   </template>
                 </el-table-column>
@@ -217,88 +190,45 @@ export default {
   name: 'PresentList',
   data() {
     return {
-      consumer: '',
-      goodsType: '',
-      paymentType: '',
-      goodsName: '',
-      sumFlag: '',
-      goodsSum: '',
-      fromeDate: '',
-      endDate: '',
-      sortKey: '消费时间',
+      sendorName: '',
+      sendType: '',
+      presentType: '',
+      friend: '',
+      moneySum: '',
+      presentName: '',
+      quantity: '',
+      sendDate: '',
+      sortKey: '送礼时间',
       sortType: '降序',
       currentPage: 1,
       tableData: [
         {
-          goodsName: '2016-05-03',
-          goodsType: 'Tom',
-          state: 'California',
-          price: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
-          acquisitionValue: 'CA 90036',
-          paymentType: 'CA 90036',
-          consumer: 'CA 90036',
-          consumeDate: '2016-05-03',
+          sendorName: '2016-05-03',
+          sendType: 'Tom',
+          presentType: 'California',
+          friend: 'Los Angeles',
+          moneySum: '189',
+          presentName: 'CA 90036',
+          quantity: 'CA 90036',
+          sendDate: 'CA 90036',
         }, {
-          goodsName: '2016-05-02',
-          goodsType: 'Tom',
-          price: 'California',
-          city: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
-          acquisitionValue: 'CA 90036',
-          paymentType: 'CA 90036',
-          consumer: 'CA 90036',
-          consumeDate: '2016-05-02',
+          sendorName: '2016-05-03',
+          sendType: 'Tom',
+          presentType: 'California',
+          friend: 'Los Angeles',
+          moneySum: '189',
+          presentName: 'CA 90036',
+          quantity: 'CA 90036',
+          sendDate: '2016-05-02',
         }, {
-          goodsName: '2016-05-04',
-          goodsType: 'Tom',
-          price: 'California',
-          city: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
-          acquisitionValue: 'CA 90036',
-          paymentType: 'CA 90036',
-          consumer: 'CA 90036',
-          consumeDate: '2016-05-04',
-        }, {
-          goodsName: '2016-05-01',
-          goodsType: 'Tom',
-          price: 'California',
-          city: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
-          acquisitionValue: 'CA 90036',
-          paymentType: 'CA 90036',
-          consumer: 'CA 90036',
-          consumeDate: '2016-05-01',
-        }, {
-          goodsName: '2016-05-08',
-          goodsType: 'Tom',
-          price: 'California',
-          city: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
-          acquisitionValue: 'CA 90036',
-          paymentType: 'CA 90036',
-          consumer: 'CA 90036',
-          consumeDate: '2016-05-08',
-        }, {
-          goodsName: '2016-05-06',
-          goodsType: 'Tom',
-          price: 'California',
-          city: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
-          acquisitionValue: 'CA 90036',
-          paymentType: 'CA 90036',
-          consumer: 'CA 90036',
-          consumeDate: '2016-05-06',
-        }, {
-          goodsName: '2016-05-07',
-          goodsType: 'Tom',
-          price: 'California',
-          city: 'Los Angeles',
-          quantity: 'No. 189, Grove St, Los Angeles',
-          acquisitionValue: 'CA 90036',
-          paymentType: 'CA 90036',
-          consumer: 'CA 90036',
-          consumeDate: '2016-05-07',
+          sendorName: '2016-05-03',
+          sendType: 'Tom',
+          presentType: 'California',
+          friend: 'Los Angeles',
+          moneySum: '189',
+          presentName: 'CA 90036',
+          quantity: 'CA 90036',
+          sendDate: '2016-05-04',
         },
       ],
     };
