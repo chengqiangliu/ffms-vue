@@ -52,44 +52,44 @@
       <el-row :gutter="24">
         <el-col :span="6">
           <StatisticsPanel title="工资总额"
-            value="1000" bgClass="bg-info" iconClass="fa-cc-paypal" operateType="1"
+            value="1000" bgClass="bg-info" iconClass="fab fa-cc-paypal" operateType="1"
             :onClick="transitionToSalaryList" />
         </el-col>
         <el-col :span="6">
           <StatisticsPanel title="银行卡总金额"
-            value="1000" bgClass="bg-success" iconClass="fa-credit-card" operateType="2"
+            value="1000" bgClass="bg-success" iconClass="fa fa-credit-card" operateType="2"
             :onClick="transitionToBankcardList"/>
         </el-col>
         <el-col :span="6">
           <StatisticsPanel title="手头现金"
-            value="1000" bgClass="bg-info" iconClass="fa-money" operateType="3"
+            value="1000" bgClass="bg-info" iconClass="fas fa-money-bill-alt" operateType="3"
             :onClick="transitionToAccessCardList" />
         </el-col>
         <el-col :span="6">
           <StatisticsPanel title="消费总金额"
-            value="1000" bgClass="bg-danger" iconClass="fa-shopping-cart" operateType="4"
+            value="1000" bgClass="bg-danger" iconClass="fas fa-shopping-cart" operateType="4"
             :onClick="transitionToConsumeList" />
         </el-col>
       </el-row>
       <el-row :gutter="24">
         <el-col :span="6">
           <StatisticsPanel title="借入总金额"
-            value="1000" bgClass="bg-warning" iconClass="fa-hand-lizard-o" operateType="5"
+            value="1000" bgClass="bg-warning" iconClass="far fa-hand-lizard" operateType="5"
             :onClick="transitionToDebtList" />
         </el-col>
         <el-col :span="6">
           <StatisticsPanel title="借出总金额"
-            value="1000" bgClass="bg-danger" iconClass="fa-paper-plane" operateType="6"
+            value="1000" bgClass="bg-danger" iconClass="fa fa-paper-plane" operateType="6"
             :onClick="transitionToDebtList" />
         </el-col>
         <el-col :span="6">
           <StatisticsPanel title="礼金总金额"
-            value="1000" bgClass="bg-warning" iconClass="fa-gift" operateType="7"
+            value="1000" bgClass="bg-warning" iconClass="fa fa-gift" operateType="7"
             :onClick="transitionToPresentList" />
         </el-col>
         <el-col :span="6">
           <StatisticsPanel title="销售总金额"
-            value="1000" bgClass="bg-success" iconClass="fa-shopping-basket" operateType="8"
+            value="1000" bgClass="bg-success" iconClass="fa fa-shopping-basket" operateType="8"
             :onClick="transitionToSalesList" />
         </el-col>
       </el-row>

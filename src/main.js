@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-import '@/assets/fontawesome/css/font-awesome.min.css';
+import '@/assets/fontawesome/css/all.min.css';
 import '@/assets/css/app.css';
 import App from './App.vue';
 import router from './router';

@@ -12,11 +12,11 @@
       <div class="nav-notification">
         <el-dropdown trigger="click">
           <span class="el-dropdown-link">
-            Baobao<i class="el-icon-arrow-down el-icon--right"></i>
+            <strong>Baobao</strong><i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item><i class="el-icon-edit-outline"></i>编辑个人信息</el-dropdown-item>
-            <el-dropdown-item><i class="fa fa-sign-out"></i>退出系统</el-dropdown-item>
+            <el-dropdown-item><i class="fas fa-user-edit"></i>编辑个人信息</el-dropdown-item>
+            <el-dropdown-item><i class="fas fa-sign-out-alt"></i>退出系统</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
