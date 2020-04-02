@@ -12,7 +12,7 @@
               <div class="condition-label">姓名</div>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="ownerName" placeholder="姓名" size="mini">
+              <el-select v-model="queryCondition.ownerName" placeholder="姓名" size="mini">
                 <el-option label="老公" value="老公"></el-option>
                 <el-option label="老婆" value="老婆"></el-option>
                 <el-option label="宝宝" value="宝宝"></el-option>
@@ -24,7 +24,7 @@
             <el-col :span="4">
               <el-date-picker type="date"
                 placeholder="请选择开始时间"
-                v-model="fromeDate"
+                v-model="queryCondition.fromeDate"
                 style="width: 100%;"
                 size="mini">
               </el-date-picker>
@@ -35,7 +35,7 @@
             <el-col :span="4">
               <el-date-picker type="date"
                 placeholder="请选择结束时间"
-                v-model="endDate"
+                v-model="queryCondition.endDate"
                 style="width: 100%;"
                 size="mini">
               </el-date-picker>
@@ -46,14 +46,14 @@
               <div class="condition-label">排序字段</div>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="sortKey" placeholder="请选择排序字段" size="mini">
+              <el-select v-model="queryCondition.sortKey" placeholder="请选择排序字段" size="mini">
                 <el-option label="发工资时间" value="yearMonth"></el-option>
                 <el-option label="姓名" value="owner"></el-option>
                 <el-option label="工资额" value="salarySum"></el-option>
               </el-select>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="sortType" placeholder="请选择排序方式" size="mini">
+              <el-select v-model="queryCondition.sortType" placeholder="请选择排序方式" size="mini">
                 <el-option label="降序" value="desc"></el-option>
                 <el-option label="升序" value="asc"></el-option>
               </el-select>
@@ -138,7 +138,7 @@
               <el-pagination style="float: right;"
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
-                :current-page.sync="currentPage"
+                :current-page.sync="queryCondition.currentPage"
                 :page-sizes="[100, 200, 300, 400]"
                 :page-size="100"
                 layout="total, sizes, prev, pager, next, jumper"
@@ -159,15 +159,20 @@ export default {
   name: 'SalaryList',
   data() {
     return {
+      queryCondition: {
+        ownerName: '',
+        fromDate: '',
+        endDate: '',
+        sortKey: '消费时间',
+        sortType: '降序',
+        currentPage: 1,
+      },
       ownerName: '',
       paymentType: '',
       cardNo: '',
       salarySum: '',
       yearMonth: '',
       detail: '',
-      sortKey: '消费时间',
-      sortType: '降序',
-      currentPage: 1,
       tableData: [
         {
           ownerName: '2016-05-03',

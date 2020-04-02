@@ -1,7 +1,8 @@
 <template>
   <div>
     <div id="top-nav">
-      <a class="brand"> <span>家庭财务</span>
+      <a class="brand" @click="transitionToDashboard">
+        <span>家庭财务</span>
         <span class="text-toggle">管理系统</span>
       </a>
       <el-button type="button" class="navbar-toggle btn" @click="toggleAside">
@@ -112,6 +113,12 @@ export default {
   methods: {
     toggleAside() {
       this.$root.$emit('toggleSideMenu');
+    },
+
+    transitionToDashboard() {
+      this.$router.push({
+        path: '/',
+      });
     },
   },
 };
