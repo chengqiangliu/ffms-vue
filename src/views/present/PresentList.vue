@@ -150,7 +150,7 @@
                   label="收/送礼日期"
                   width="150">
                   <template slot-scope="scope">
-                    <i class="el-icon-time"></i>
+                    <i class="far fa-clock"></i>
                     <span style="margin-left: 10px">{{ scope.row.sendDate }}</span>
                   </template>
                 </el-table-column>

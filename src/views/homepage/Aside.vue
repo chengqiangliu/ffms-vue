@@ -46,7 +46,7 @@
         <template slot="title"><i class="el-icon-bank-card"></i>银行卡管理</template>
         <el-menu-item-group>
           <el-menu-item index="3-1" route="/consume/register">
-            <i class="el-icon-postcard"></i>
+            <i class="fab fa-cc-visa"></i>
             银行卡信息录入
           </el-menu-item>
           <el-menu-item index="3-2" route="/bankcard/list">
@@ -57,7 +57,7 @@
             <i class="fas fa-list-alt"></i>
             存取款信息列表
           </el-menu-item>
-          <el-menu-item index="3-4" route="/exchange/list">
+          <el-menu-item index="3-4" route="/transfer/list">
             <i class="fas fa-list-alt"></i>
             转账信息列表
           </el-menu-item>

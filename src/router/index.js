@@ -5,7 +5,7 @@ import SystemSetting from '@/views/setting/SystemSetting.vue';
 import SecurityManagement from '@/views/setting/SecurityManagement.vue';
 import BankcardList from '@/views/bankcard/BankcardList.vue';
 import AccesscardList from '@/views/accesscard/AccesscardList.vue';
-import ExchangeList from '@/views/exchange/ExchangeList.vue';
+import TransferList from '@/views/transfer/TransferList.vue';
 import DebtList from '@/views/debt/DebtList.vue';
 import PresentList from '@/views/present/PresentList.vue';
 import SalaryList from '@/views/salary/SalaryList.vue';
@@ -33,9 +33,9 @@ const routes = [
     component: AccesscardList,
   },
   {
-    path: '/exchange/list',
-    name: 'ExchangeList',
-    component: ExchangeList,
+    path: '/transfer/list',
+    name: 'TransferList',
+    component: TransferList,
   },
   {
     path: '/debt/list',

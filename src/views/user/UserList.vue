@@ -106,7 +106,7 @@
                   label="上次登录时间"
                   width="150">
                   <template slot-scope="scope">
-                    <i class="el-icon-time"></i>
+                    <i class="far fa-clock"></i>
                     <span style="margin-left: 10px">{{ scope.row.lastLogonTime }}</span>
                   </template>
                 </el-table-column>
