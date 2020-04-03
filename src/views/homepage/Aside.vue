@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="padding: 0 5px 0 5px;">
     <div class="user-block">
       <el-avatar icon="el-icon-user-solid"
         src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg">
@@ -60,78 +60,84 @@
             <i class="fas fa-list-alt"></i>
             银行卡信息列表
           </el-menu-item>
-          <el-menu-item index="3-3" @click="transferInfoVisible = true">
+        </el-menu-item-group>
+      </el-submenu>
+      <el-submenu index="4">
+        <template slot="title"><i class="el-icon-bank-card"></i>转账管理</template>
+        <el-menu-item-group>
+          <el-menu-item index="4-1" @click="transferInfoVisible = true">
             <i class="fas fa-exchange-alt"></i> 转账信息录入
           </el-menu-item>
-          <el-menu-item index="3-4" route="/transfer/list">
+          <el-menu-item index="4-2" route="/transfer/list">
             <i class="fas fa-list-alt"></i>
             转账信息列表
           </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
-      <el-submenu index="4">
-        <template slot="title"><i class="el-icon-bank-card"></i>存取款信息管理</template>
+      <el-submenu index="5">
+        <template slot="title"><i class="el-icon-bank-card"></i>存取款管理</template>
         <el-menu-item-group>
-          <el-menu-item index="4-1" @click="withdrawInfoVisible = true">
+          <el-menu-item index="5-1" @click="withdrawInfoVisible = true">
             <i class="fas fa-money-bill-wave"></i>
             取款信息录入
           </el-menu-item>
-          <el-menu-item index="4-2" @click="depositInfoVisible = true">
+          <el-menu-item index="5-2" @click="depositInfoVisible = true">
             <i class="fas fa-coins"></i>
             存款信息录入
           </el-menu-item>
-          <el-menu-item index="4-3" route="/accesscard/list">
+          <el-menu-item index="5-3" route="/accesscard/list">
             <i class="fas fa-list-alt"></i>
             存取款信息列表
           </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
-      <el-submenu index="5">
+      <el-submenu index="6">
         <template slot="title"><i class="el-icon-set-up"></i>债务管理</template>
         <el-menu-item-group>
-          <el-menu-item index="5-1" @click="borrowInfoVisible = true">
+          <el-menu-item index="6-1" @click="borrowInfoVisible = true">
             <i class="fas fa-download"></i> 借入信息录入
           </el-menu-item>
-          <el-menu-item index="5-2" @click="lendInfoVisible = true">
+          <el-menu-item index="6-2" @click="lendInfoVisible = true">
             <i class="fas fa-upload"></i> 借出信息录入
           </el-menu-item>
-          <el-menu-item index="5-3" route="/debt/list">
+          <el-menu-item index="6-3" route="/debt/list">
             <i class="fas fa-list-alt"></i>
             债务信息列表
           </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
-      <el-submenu index="6">
+      <el-submenu index="7">
         <template slot="title"><i class="el-icon-present"></i>礼金管理</template>
         <el-menu-item-group>
-          <el-menu-item index="6-1" @click="receivePresentInfoVisible = true">
+          <el-menu-item index="7-1" @click="receivePresentInfoVisible = true">
             <i class="fas fa-hand-holding"></i>
             收礼信息录入
           </el-menu-item>
-          <el-menu-item index="6-2" @click="givePresentInfoVisible = true">
+          <el-menu-item index="7-2" @click="givePresentInfoVisible = true">
             <i class="fas fa-hand-holding-usd"></i>
             送礼信息录入
           </el-menu-item>
-          <el-menu-item index="6-3" route="/present/list">
+          <el-menu-item index="7-3" route="/present/list">
             <i class="fas fa-list-alt"></i>
             礼金信息列表
           </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
-      <el-submenu index="7">
+      <el-submenu index="8">
         <template slot="title"><i class="el-icon-truck"></i>销售管理</template>
         <el-menu-item-group>
-          <el-menu-item index="7-1" route="/consume/register">
+          <el-menu-item index="8-1" route="/sales/register">
             <i class="fas fa-balance-scale"></i>
             销售信息录入
           </el-menu-item>
-          <el-menu-item index="7-2" route="/sales/list">
+          <el-menu-item index="8-2" route="/sales/list">
             <i class="fas fa-list-alt"></i>
             销售信息列表
           </el-menu-item>
         </el-menu-item-group>
       </el-submenu>
     </el-menu>
+    <div style="height: 60px;"></div>
     <el-dialog title="工资信息录入"
       :visible.sync="newSalaryInfoVisible" :close-on-click-modal="false"
       :append-to-body="true">
@@ -279,6 +285,7 @@
   .el-menu {
     margin-top: 3px;
     color: #777;
+    border-right: none;
   }
 
   .el-menu-item {

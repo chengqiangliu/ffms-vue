@@ -42,7 +42,7 @@
           <i class="fa fa-cog"></i></span>
         <span class="text">系统数据管理</span>
       </a>
-      <a class="shortcut-link">
+      <a class="shortcut-link" @click="transitionToHelp">
         <span class="shortcut-icon">
           <i class="fa fa-life-ring"></i></span>
         <span class="text">系统使用说明</span>
@@ -235,9 +235,6 @@
   .el-row {
     margin-top: 5px;
     margin-bottom: 20px;
-    &:last-child {
-      margin-bottom: 0;
-    }
   }
 
   .pannelContainer {
@@ -260,6 +257,11 @@ export default {
     transitionToSetting() {
       this.$router.push({
         path: '/system/setting',
+      });
+    },
+    transitionToHelp() {
+      this.$router.push({
+        path: '/system/help',
       });
     },
     transitionToUserList() {

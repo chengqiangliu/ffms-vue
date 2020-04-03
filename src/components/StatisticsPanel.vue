@@ -30,7 +30,7 @@
             <i class="fas fa-hand-holding"></i> 收礼</el-dropdown-item>
           <el-dropdown-item v-if="operateType === '7'" command="7-2">
             <i class="fas fa-hand-holding-usd"></i> 送礼</el-dropdown-item>
-          <el-dropdown-item v-if="operateType === '8'">
+          <el-dropdown-item v-if="operateType === '8'" command="8">
             <i class="fas fa-balance-scale"></i> 录入销售信息</el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
@@ -216,6 +216,10 @@ export default {
         this.receivePresentInfoVisible = true;
       } else if (command === '7-2') {
         this.givePresentInfoVisible = true;
+      } else if (command === '8') {
+        this.$router.push({
+          path: '/sales/register',
+        });
       }
     },
 

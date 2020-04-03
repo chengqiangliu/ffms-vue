@@ -12,6 +12,7 @@ import SalaryList from '@/views/salary/SalaryList.vue';
 import ConsumeRegister from '@/views/consume/ConsumeRegister.vue';
 import ConsumeList from '@/views/consume/ConsumeList.vue';
 import SalesList from '@/views/sales/SalesList.vue';
+import SalesRegister from '@/views/sales/SalesRegister.vue';
 import UserList from '@/views/user/UserList.vue';
 
 Vue.use(VueRouter);
@@ -63,6 +64,11 @@ const routes = [
     component: ConsumeList,
   },
   {
+    path: '/sales/register',
+    name: 'SalesRegister',
+    component: SalesRegister,
+  },
+  {
     path: '/sales/list',
     name: 'SalesList',
     component: SalesList,
@@ -83,12 +89,12 @@ const routes = [
     component: SecurityManagement,
   },
   {
-    path: '/about',
-    name: 'About',
+    path: '/system/help',
+    name: 'SystemUsage',
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
+    component: () => import(/* webpackChunkName: "about" */ '../views/help/SystemUsage.vue'),
   },
 ];
 
