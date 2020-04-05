@@ -11,13 +11,17 @@
         <span class="icon-bar"></span>
       </el-button>
       <div class="nav-notification">
-        <el-dropdown trigger="click">
+        <el-dropdown trigger="click" @command="handleCommand">
           <span class="el-dropdown-link">
             <strong>Baobao</strong><i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item><i class="fas fa-user-edit"></i>编辑个人信息</el-dropdown-item>
-            <el-dropdown-item><i class="fas fa-sign-out-alt"></i>退出系统</el-dropdown-item>
+            <el-dropdown-item command="1">
+              <i class="fas fa-user-edit"></i>编辑个人信息
+            </el-dropdown-item>
+            <el-dropdown-item command="2">
+              <i class="fas fa-sign-out-alt"></i>退出系统
+            </el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -113,6 +117,19 @@ export default {
   methods: {
     toggleAside() {
       this.$root.$emit('toggleSideMenu');
+    },
+
+    handleCommand(command) {
+      if (command === '1') {
+        this.$router.push({
+          path: '/profile/edit',
+        });
+      } else if (command === '2') {
+        this.$confirm('你确定要退出系统吗？')
+          .then(() => {
+          })
+          .catch(() => {});
+      }
     },
 
     transitionToDashboard() {

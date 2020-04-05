@@ -78,22 +78,22 @@
                 <el-table-column
                   prop="username"
                   label="用户名"
-                  width="120">
+                  width="180">
                 </el-table-column>
                 <el-table-column
                   prop="role"
                   label="用户角色"
-                  width="120">
+                  width="130">
                 </el-table-column>
                 <el-table-column
                   prop="email"
                   label="Email"
-                  width="120">
+                  width="180">
                 </el-table-column>
                 <el-table-column
                   prop="failLoginCount"
                   label="连续登录失败数"
-                  width="300">
+                  width="150">
                 </el-table-column>
                 <el-table-column
                   prop="lockStatus"

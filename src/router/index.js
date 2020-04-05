@@ -14,6 +14,8 @@ import ConsumeList from '@/views/consume/ConsumeList.vue';
 import SalesList from '@/views/sales/SalesList.vue';
 import SalesRegister from '@/views/sales/SalesRegister.vue';
 import UserList from '@/views/user/UserList.vue';
+import EditProfile from '@/views/profile/EditProfile.vue';
+import Profile from '@/views/profile/Profile.vue';
 
 Vue.use(VueRouter);
 
@@ -87,6 +89,16 @@ const routes = [
     path: '/system/securitymanagement',
     name: 'SecurityManagement',
     component: SecurityManagement,
+  },
+  {
+    path: '/profile/baseinfo',
+    name: 'Profile',
+    component: Profile,
+  },
+  {
+    path: '/profile/edit',
+    name: 'EditProfile',
+    component: EditProfile,
   },
   {
     path: '/system/help',

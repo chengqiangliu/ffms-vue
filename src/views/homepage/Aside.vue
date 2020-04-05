@@ -7,7 +7,7 @@
       <div class="user-detail">
         <strong>Baobao</strong>
         <ul class="list-inline">
-          <li><a>个人信息</a></li>
+          <li><a @click="transitionToProfile">个人信息</a></li>
         </ul>
       </div>
     </div>
@@ -330,6 +330,12 @@ export default {
     transitionToDashboard() {
       this.$router.push({
         path: '/',
+      });
+    },
+
+    transitionToProfile() {
+      this.$router.push({
+        path: '/profile/baseinfo',
       });
     },
 
