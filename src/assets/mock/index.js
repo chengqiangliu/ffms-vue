@@ -1,7 +1,5 @@
 import Mock from 'mockjs';
 
-const { Random } = Mock.Random;
-
 const result = {
   status: 'OK',
   resultCode: 200,
@@ -11,7 +9,7 @@ const result = {
 
 const loginResult = () => {
   result.data = {
-    token: Random.string(10),
+    token: Mock.mock('@string(10)'),
     userInfo: {
       name: 'admin',
       role: {
@@ -46,7 +44,7 @@ const loginResult = () => {
 };
 
 const consumeSearchResult = () => {
-  const length = Random.integer(1, 20);
+  const length = Mock.mock('@integer(20, 100)');
   const numPerPage = 20;
   const maxPage = (length % numPerPage === 0) ? length / numPerPage
     : (length / numPerPage + 1);
@@ -58,37 +56,24 @@ const consumeSearchResult = () => {
       countPerPage: numPerPage,
       currentPage: 1,
     },
-    details: [
-      {
-        id: 1,
-        goodsName: '苹果',
-        goodsType: '水果',
-        price: 5,
-        quantity: 5,
-        totalAmount: 25,
-        paymentType: 1,
-        consumer: 1,
-        consumeDate: '2020-04-03',
-        updateTime: '2020-04-03 20:15:16',
-      },
-    ],
+    details: [],
   };
 
   for (let i = 0; i < length; i += 1) {
     result.data.details[i] = {
-      id: Random.id(),
-      name: Random.cname(),
-      price: Random.integer(1, 100),
-      quantity: Random.integer(1, 100),
-      totalAmount: Random.integer(1, 100),
-      paymentType: Random.integer(0, 1),
-      consumer: Random.integer(0, 1),
-      consumeDate: Random.date(),
-      updateTime: Random.datetime(),
+      id: Mock.mock('@string(8)'),
+      name: Mock.mock('@string(5)'),
+      price: Mock.mock('@integer(1, 100)'),
+      quantity: Mock.mock('@integer(1, 100)'),
+      totalAmount: Mock.mock('@integer(1, 100)'),
+      paymentType: Mock.mock('@integer(0, 1)'),
+      consumer: Mock.mock('@integer(0, 1)'),
+      consumeDate: Mock.mock('@date("yyyy-MM-dd")'),
+      updateTime: Mock.mock('@datetime("yyyy-MM-dd HH:mm:ss")'),
     };
   }
   return result;
 };
 
 Mock.mock('/login', 'post', loginResult);
-Mock.mock('/consume/list', 'post', consumeSearchResult);
+Mock.mock('/consume/list', () => consumeSearchResult);

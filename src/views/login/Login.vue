@@ -60,7 +60,7 @@ export default {
     return {
       loginForm: {
         username: '',
-        goodsType: '',
+        password: '',
       },
       rules: {
         username: [
@@ -95,10 +95,20 @@ export default {
 
   methods: {
     hangdleLogin() {
-      localStorage.setItem('ADMIN_TOKEN', 'logged');
-      this.$router.push({
-        path: '/dashboard',
-      }).catch((err) => err);
+      this.$axios.post('/login', {})
+        .then((response) => {
+          localStorage.setItem('ADMIN_TOKEN', 'logged');
+          this.$router.push({
+            path: '/dashboard',
+          }).catch((err) => err);
+        })
+        .catch((error) => {
+          this.$message({
+            message: `login error, ${error}`,
+            type: 'error',
+            duration: 3000,
+          });
+        });
     },
   },
 

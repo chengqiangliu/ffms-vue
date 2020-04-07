@@ -1,16 +1,18 @@
 import axios from 'axios';
-import { getToken } from '@/assets/utils/token';
+// import { getToken } from '@/assets/utils/token';
 
 // create axios instance
 const service = axios.create({
-  baseURL: process.env.BASE_API,
+  // baseURL: process.env.BASE_API,
+  baseURL: 'http://localhost:8080',
   timeout: 10000,
 });
 
 // create request interceptor
 service.interceptors.request.use(
   () => {
-    const token = getToken();
+    // const token = getToken();
+    const token = 'test';
     const config = {};
     if (token != null) {
       config.headers.Authorization = token;
