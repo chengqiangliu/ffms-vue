@@ -1,16 +1,12 @@
 <template>
   <div id="app">
-    <Home />
+    <router-view/>
   </div>
 </template>
 
-<script>
-// @ is an alias to /src
-import Home from '@/views/homepage/Home.vue';
-
-export default {
-  components: {
-    Home,
-  },
-};
-</script>
+<style scoped>
+  #app {
+    height: 100%;
+    width: 100%;
+  }
+</style>

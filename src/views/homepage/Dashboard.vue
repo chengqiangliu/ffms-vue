@@ -252,62 +252,62 @@ export default {
     transitionToSecurityManagement() {
       this.$router.push({
         path: '/system/securitymanagement',
-      });
+      }).catch((err) => err);
     },
     transitionToSetting() {
       this.$router.push({
         path: '/system/setting',
-      });
+      }).catch((err) => err);
     },
     transitionToHelp() {
       this.$router.push({
         path: '/system/help',
-      });
+      }).catch((err) => err);
     },
     transitionToUserList() {
       this.$router.push({
         path: '/user/list',
-      });
+      }).catch((err) => err);
     },
     transitionToConsumeList() {
       this.$router.push({
         path: '/consume/list',
-      });
+      }).catch((err) => err);
     },
     transitionToBankcardList() {
       this.$router.push({
         path: '/bankcard/list',
-      });
+      }).catch((err) => err);
     },
     transitionToSalaryList() {
       this.$router.push({
         path: '/salary/list',
-      });
+      }).catch((err) => err);
     },
     transitionToDebtList() {
       this.$router.push({
         path: '/debt/list',
-      });
+      }).catch((err) => err);
     },
     transitionToAccessCardList() {
       this.$router.push({
         path: '/accesscard/list',
-      });
+      }).catch((err) => err);
     },
     transitionToExchangeList() {
       this.$router.push({
         path: '/exchange/list',
-      });
+      }).catch((err) => err);
     },
     transitionToPresentList() {
       this.$router.push({
         path: '/present/list',
-      });
+      }).catch((err) => err);
     },
     transitionToSalesList() {
       this.$router.push({
         path: '/sales/list',
-      });
+      }).catch((err) => err);
     },
   },
 

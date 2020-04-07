@@ -203,7 +203,7 @@ export default {
       } else if (command === '4') {
         this.$router.push({
           path: '/consume/register',
-        });
+        }).catch((err) => err);
       } else if (command === '5-1') {
         this.borrowInfoVisible = true;
       } else if (command === '5-2') {
@@ -219,7 +219,7 @@ export default {
       } else if (command === '8') {
         this.$router.push({
           path: '/sales/register',
-        });
+        }).catch((err) => err);
       }
     },
 

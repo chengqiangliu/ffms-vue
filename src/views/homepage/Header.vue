@@ -123,10 +123,14 @@ export default {
       if (command === '1') {
         this.$router.push({
           path: '/profile/edit',
-        });
+        }).catch((err) => err);
       } else if (command === '2') {
         this.$confirm('你确定要退出系统吗？')
           .then(() => {
+            localStorage.removeItem('ADMIN_TOKEN');
+            this.$router.push({
+              path: '/login',
+            }).catch((err) => err);
           })
           .catch(() => {});
       }
@@ -134,8 +138,8 @@ export default {
 
     transitionToDashboard() {
       this.$router.push({
-        path: '/',
-      });
+        path: '/dashboard',
+      }).catch((err) => err);
     },
   },
 };

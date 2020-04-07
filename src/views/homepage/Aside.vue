@@ -39,7 +39,7 @@
       <el-submenu index="2">
         <template slot="title"><i class="el-icon-money"></i>工资管理</template>
         <el-menu-item-group>
-          <el-menu-item index="2-1" @click="newSalaryInfoVisible = true">
+          <el-menu-item @click="newSalaryInfoVisible = true">
             <i class="fab fa-paypal"></i>
             工资信息录入
           </el-menu-item>
@@ -52,7 +52,7 @@
       <el-submenu index="3">
         <template slot="title"><i class="el-icon-bank-card"></i>银行卡管理</template>
         <el-menu-item-group>
-          <el-menu-item index="3-1" @click="newSalaryInfoVisible = true">
+          <el-menu-item @click="newSalaryInfoVisible = true">
             <i class="fab fa-cc-visa"></i>
             银行卡信息录入
           </el-menu-item>
@@ -65,7 +65,7 @@
       <el-submenu index="4">
         <template slot="title"><i class="el-icon-bank-card"></i>转账管理</template>
         <el-menu-item-group>
-          <el-menu-item index="4-1" @click="transferInfoVisible = true">
+          <el-menu-item @click="transferInfoVisible = true">
             <i class="fas fa-exchange-alt"></i> 转账信息录入
           </el-menu-item>
           <el-menu-item index="4-2" route="/transfer/list">
@@ -77,11 +77,11 @@
       <el-submenu index="5">
         <template slot="title"><i class="el-icon-bank-card"></i>存取款管理</template>
         <el-menu-item-group>
-          <el-menu-item index="5-1" @click="withdrawInfoVisible = true">
+          <el-menu-item @click="withdrawInfoVisible = true">
             <i class="fas fa-money-bill-wave"></i>
             取款信息录入
           </el-menu-item>
-          <el-menu-item index="5-2" @click="depositInfoVisible = true">
+          <el-menu-item @click="depositInfoVisible = true">
             <i class="fas fa-coins"></i>
             存款信息录入
           </el-menu-item>
@@ -94,10 +94,10 @@
       <el-submenu index="6">
         <template slot="title"><i class="el-icon-set-up"></i>债务管理</template>
         <el-menu-item-group>
-          <el-menu-item index="6-1" @click="borrowInfoVisible = true">
+          <el-menu-item @click="borrowInfoVisible = true">
             <i class="fas fa-download"></i> 借入信息录入
           </el-menu-item>
-          <el-menu-item index="6-2" @click="lendInfoVisible = true">
+          <el-menu-item @click="lendInfoVisible = true">
             <i class="fas fa-upload"></i> 借出信息录入
           </el-menu-item>
           <el-menu-item index="6-3" route="/debt/list">
@@ -109,11 +109,11 @@
       <el-submenu index="7">
         <template slot="title"><i class="el-icon-present"></i>礼金管理</template>
         <el-menu-item-group>
-          <el-menu-item index="7-1" @click="receivePresentInfoVisible = true">
+          <el-menu-item @click="receivePresentInfoVisible = true">
             <i class="fas fa-hand-holding"></i>
             收礼信息录入
           </el-menu-item>
-          <el-menu-item index="7-2" @click="givePresentInfoVisible = true">
+          <el-menu-item @click="givePresentInfoVisible = true">
             <i class="fas fa-hand-holding-usd"></i>
             送礼信息录入
           </el-menu-item>
@@ -329,14 +329,14 @@ export default {
   methods: {
     transitionToDashboard() {
       this.$router.push({
-        path: '/',
-      });
+        path: '/dashboard',
+      }).catch((err) => err);
     },
 
     transitionToProfile() {
       this.$router.push({
         path: '/profile/baseinfo',
-      });
+      }).catch((err) => err);
     },
 
     closePopup(command) {
@@ -359,7 +359,6 @@ export default {
       } else if (command === 9) {
         this.givePresentInfoVisible = false;
       }
-      this.$router.go(-1);
     },
 
     newSalary() {
@@ -368,7 +367,6 @@ export default {
         type: 'success',
       });
       this.newSalaryInfoVisible = false;
-      this.$router.go(-1);
     },
 
     newCard() {
@@ -377,7 +375,6 @@ export default {
         type: 'success',
       });
       this.newCardInfoVisible = false;
-      this.$router.go(-1);
     },
 
     transfer() {
@@ -386,7 +383,6 @@ export default {
         type: 'success',
       });
       this.transferInfoVisible = false;
-      this.$router.go(-1);
     },
 
     withdraw() {
@@ -395,7 +391,6 @@ export default {
         type: 'success',
       });
       this.withdrawInfoVisible = false;
-      this.$router.go(-1);
     },
 
     deposit() {
@@ -404,7 +399,6 @@ export default {
         type: 'success',
       });
       this.depositInfoVisible = false;
-      this.$router.go(-1);
     },
 
     borrow() {
@@ -413,7 +407,6 @@ export default {
         type: 'success',
       });
       this.borrowInfoVisible = false;
-      this.$router.go(-1);
     },
 
     lend() {
@@ -422,7 +415,6 @@ export default {
         type: 'success',
       });
       this.lendInfoVisible = false;
-      this.$router.go(-1);
     },
 
     receivePresent() {
@@ -431,7 +423,6 @@ export default {
         type: 'success',
       });
       this.receivePresentInfoVisible = false;
-      this.$router.go(-1);
     },
 
     givePresent() {
@@ -440,7 +431,6 @@ export default {
         type: 'success',
       });
       this.givePresentInfoVisible = false;
-      this.$router.go(-1);
     },
   },
 

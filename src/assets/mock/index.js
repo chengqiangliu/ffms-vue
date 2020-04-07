@@ -1,6 +1,6 @@
 import Mock from 'mockjs';
 
-const Random = Mock.Random;
+const { Random } = Mock.Random;
 
 const result = {
   status: 'OK',
@@ -47,15 +47,15 @@ const loginResult = () => {
 
 const consumeSearchResult = () => {
   const length = Random.integer(1, 20);
-  const countPerPage = 20;
-  const maxPageNum = (length % countPerPage === 0) ? length / countPerPage
-    : (length / countPerPage + 1);
+  const numPerPage = 20;
+  const maxPage = (length % numPerPage === 0) ? length / numPerPage
+    : (length / numPerPage + 1);
 
   result.data = {
     pageInfo: {
       totalCount: length,
-      maxPageNum: maxPageNum,
-      countPerPage: countPerPage,
+      maxPageNum: maxPage,
+      countPerPage: numPerPage,
       currentPage: 1,
     },
     details: [
@@ -74,18 +74,21 @@ const consumeSearchResult = () => {
     ],
   };
 
-  for (let i = 0; i < length; i++) {
+  for (let i = 0; i < length; i += 1) {
     result.data.details[i] = {
       id: Random.id(),
       name: Random.cname(),
       price: Random.integer(1, 100),
       quantity: Random.integer(1, 100),
-      totalAmount: Random.integer(1, 100), 
+      totalAmount: Random.integer(1, 100),
       paymentType: Random.integer(0, 1),
       consumer: Random.integer(0, 1),
       consumeDate: Random.date(),
       updateTime: Random.datetime(),
-    }
+    };
   }
   return result;
 };
+
+Mock.mock('/login', 'post', loginResult);
+Mock.mock('/consume/list', 'post', consumeSearchResult);

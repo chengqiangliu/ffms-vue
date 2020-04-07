@@ -1,6 +1,6 @@
 <template>
   <el-breadcrumb separator-class="el-icon-arrow-right" class="breadcrumb">
-    <el-breadcrumb-item :to="{ path: '/' }">
+    <el-breadcrumb-item :to="{ path: '/dashboard' }">
       <i class="fas fa-tachometer-alt"></i> 系统首页
     </el-breadcrumb-item>
     <el-breadcrumb-item>{{ subTitle }}</el-breadcrumb-item>
