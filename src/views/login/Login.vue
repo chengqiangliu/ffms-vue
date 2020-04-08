@@ -53,7 +53,6 @@
 </style>
 
 <script>
-// import BreadCrumb from '@/components/BreadCrumb.vue';
 
 export default {
   data() {
@@ -95,20 +94,18 @@ export default {
 
   methods: {
     hangdleLogin() {
-      this.$axios.post('/login', {})
-        .then((response) => {
-          localStorage.setItem('ADMIN_TOKEN', 'logged');
-          this.$router.push({
+      const that = this;
+      this.$request.httpRequest({
+        method: 'post',
+        url: '/login',
+        params: {},
+        success(data) {
+          localStorage.setItem('LOGIN_TOKEN', data.token);
+          that.$router.push({
             path: '/dashboard',
           }).catch((err) => err);
-        })
-        .catch((error) => {
-          this.$message({
-            message: `login error, ${error}`,
-            type: 'error',
-            duration: 3000,
-          });
-        });
+        },
+      });
     },
   },
 

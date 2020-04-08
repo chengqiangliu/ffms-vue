@@ -5,8 +5,9 @@ import NProgress from 'nprogress';
 import 'nprogress/nprogress.css';
 import '@/assets/fontawesome/css/all.min.css';
 import '@/assets/css/app.css';
-import axios from 'axios';
 import '@/assets/mock';
+import request from '@/assets/http';
+
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -14,7 +15,7 @@ import store from './store';
 Vue.config.productionTip = false;
 
 Vue.use(ElementUI);
-Vue.prototype.$axios = axios;
+Vue.prototype.$request = request;
 
 NProgress.inc(0.2);
 NProgress.configure({ easing: 'ease', speed: 500, showSpinner: false });
@@ -24,7 +25,7 @@ const whiteList = ['/login'];
 router.beforeEach(async (to, from, next) => {
   NProgress.start();
 
-  const token = localStorage.getItem('ADMIN_TOKEN');
+  const token = localStorage.getItem('LOGIN_TOKEN');
   if (token) {
     if (whiteList.includes(to.path)) {
       next();

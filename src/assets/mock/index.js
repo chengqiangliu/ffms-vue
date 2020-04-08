@@ -43,6 +43,13 @@ const loginResult = () => {
   return result;
 };
 
+const consumeRegisterResult = () => {
+  result.data = {
+    message: 'sucess',
+  };
+  return result;
+};
+
 const consumeSearchResult = () => {
   const length = Mock.mock('@integer(20, 100)');
   const numPerPage = 20;
@@ -76,4 +83,5 @@ const consumeSearchResult = () => {
 };
 
 Mock.mock('/login', 'post', loginResult);
-Mock.mock('/consume/list', () => consumeSearchResult);
+Mock.mock('/consume/register', consumeRegisterResult);
+Mock.mock('/consume/list', consumeSearchResult);

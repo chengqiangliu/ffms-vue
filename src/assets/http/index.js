@@ -1,7 +1,7 @@
 /* 封装axios请求 */
 /* 用法示例：(*)为必须参数
   this.$request.httpRequest({
-    headers: false, // 是否格式化参数
+    isFormSubmit: false, // 是否格式化参数
     (*)method: 'post', // 请求方式，post或get
     (*)url: this.API.ResetPassword, // 请求地址，请求地址的配置在@/api/apiUrl.js
     (*)params: {}, // 请求参数，object类型
@@ -14,6 +14,7 @@
   })
 */
 import qs from 'qs';
+import { Message, Loading } from 'element-ui';
 import service from './service';
 
 function requestMethods(options) {
@@ -21,12 +22,12 @@ function requestMethods(options) {
     try {
       switch (options.method) {
         case 'post':
-          if (options.headers) {
+          if (options.isFormSubmit) {
             resolve(
               service({
                 url: options.url,
                 method: 'post',
-                data: options.params,
+                data: qs.stringify(options.params),
               }),
             );
           } else {
@@ -34,7 +35,7 @@ function requestMethods(options) {
               service({
                 url: options.url,
                 method: 'post',
-                data: qs.stringify(options.params),
+                data: options.params,
               }),
             );
           }
@@ -58,19 +59,13 @@ function requestMethods(options) {
           );
       }
     } catch (e) {
-      this.$message({
-        showClose: true,
-        message: 'HTTP请求方法出错！',
-        type: 'error',
-        duration: 3 * 1000,
-      });
-      reject(new Error('methods error!'));
+      reject(new Error('HTTP请求方法出错！'));
     }
   });
 }
 
-function httpRequest(options = {}) {
-  const loading = this.$loading({
+const httpRequest = function (options) {
+  const loading = Loading.service({
     lock: true,
     text: '加载中...',
     spinner: 'el-icon-loading',
@@ -89,7 +84,7 @@ function httpRequest(options = {}) {
         if (result.resultCode === 401) {
           errorInfo.message = '暂无操作权限';
         }
-        this.$message({
+        Message({
           showClose: true,
           message: errorInfo.message,
           type: 'error',
@@ -100,16 +95,23 @@ function httpRequest(options = {}) {
       // loading完毕
       loading.close();
     }).catch((e) => {
-      options.error(e.response);
+      Message({
+        showClose: true,
+        message: e.message,
+        type: 'error',
+        duration: 3000,
+      });
+      loading.close();
     });
   } catch (e) {
-    this.$message({
+    Message({
       showClose: true,
       message: 'Axios请求出错！',
       type: 'error',
       duration: 3 * 1000,
     });
+    loading.close();
   }
-}
+};
 
-export default httpRequest;
+export default { httpRequest };

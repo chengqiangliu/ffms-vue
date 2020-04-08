@@ -3,27 +3,26 @@ import axios from 'axios';
 
 // create axios instance
 const service = axios.create({
-  // baseURL: process.env.BASE_API,
-  baseURL: 'http://localhost:8080',
+  baseURL: process.env.BASE_API,
   timeout: 10000,
 });
 
 // create request interceptor
-service.interceptors.request.use(
-  () => {
-    // const token = getToken();
-    const token = 'test';
-    const config = {};
-    if (token != null) {
-      config.headers.Authorization = token;
-    }
-    return config;
-  },
-  (error) => {
-    console.log(error);
-    return Promise.reject(error);
-  },
-);
+// service.interceptors.request.use(
+//   () => {
+//     // const token = getToken();
+//     const token = 'test';
+//     const config = {};
+//     if (token != null) {
+//       config.headers.Authorization = token;
+//     }
+//     return config;
+//   },
+//   (error) => {
+//     console.log(error);
+//     return Promise.reject(error);
+//   },
+// );
 
 service.interceptors.response.use(
   (response) => response,
@@ -85,3 +84,5 @@ service.interceptors.response.use(
     });
   },
 );
+
+export default service;
