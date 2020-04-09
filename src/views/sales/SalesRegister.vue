@@ -5,53 +5,53 @@
       <el-row :gutter="20" class="elrow">
         <el-col :span="10" :offset=6>
           <el-form :model="salesForm" :rules="rules" ref="salesForm"
-            label-width="120px" class="demo-salesForm">
-            <el-form-item label="商品名" prop="goodsName">
+            label-width="120px">
+            <el-form-item label="商品名" prop="goodsName" required>
               <el-input v-model="salesForm.goodsName" placeholder="商品名" size="mini"></el-input>
             </el-form-item>
             <el-form-item label="商品类别" prop="goodsType">
-              <el-select v-model="salesForm.goodsType" placeholder="商品类别" size="mini">
+              <el-select v-model="salesForm.goodsType" placeholder="请选择商品类别" size="mini">
                 <el-option label="食品" value="食品"></el-option>
                 <el-option label="电子产品" value="电子产品"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="单价" prop="price">
-              <el-input v-model="salesForm.price" size="mini"></el-input>
+              <el-input v-model="salesForm.price" placeholder="单价" size="mini"></el-input>
             </el-form-item>
             <el-form-item label="数量" prop="quantity">
               <el-input-number v-model="salesForm.quantity" :min="1" :max="1000" size="mini">
               </el-input-number>
             </el-form-item>
             <el-form-item label="总价" prop="goodsSum">
-              <el-input v-model="salesForm.goodsSum" size="mini"></el-input>
+              <el-input v-model="salesForm.goodsSum" disabled size="mini"></el-input>
             </el-form-item>
             <el-form-item label="付款方式" prop="paymentType">
               <el-radio-group v-model="salesForm.paymentType" size="mini">
-                <el-radio label="现金"></el-radio>
-                <el-radio label="信用卡"></el-radio>
+                <el-radio label="现金" value="0"></el-radio>
+                <el-radio label="刷卡" value="1"></el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item label="银行卡类型" prop="bankType">
-              <el-select v-model="salesForm.bankType" placeholder="银行卡类型" size="mini">
+            <el-form-item v-if="salesForm.paymentType == '刷卡'" label="银行卡类型" prop="bankType">
+              <el-select v-model="salesForm.bankType" placeholder="请选择银行卡类型" size="mini">
                 <el-option label="东京三菱UFJ银行" value="东京三菱UFJ银行"></el-option>
                 <el-option label="乐天银行" value="乐天银行"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="银行卡号" prop="cardNo">
-              <el-select v-model="salesForm.cardNo" placeholder="银行卡号" size="mini">
+            <el-form-item v-if="salesForm.paymentType == '刷卡'" label="银行卡号" prop="cardNo">
+              <el-select v-model="salesForm.cardNo" placeholder="请选择银行卡号" size="mini">
                 <el-option label="1xxx008" value="1xxx008"></el-option>
                 <el-option label="1xxx009" value="1xxx009"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="货币类型" prop="currency">
-              <el-select v-model="salesForm.currency" placeholder="货币类型" size="mini">
-                <el-option label="人民币" value="人民币"></el-option>
-                <el-option label="日元" value="日元"></el-option>
+            <el-form-item label="销售人" prop="consumer">
+              <el-select v-model="salesForm.consumer" placeholder="请选择销售人" size="mini">
+                <el-option label="老公" value="老公"></el-option>
+                <el-option label="老婆" value="老婆"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="消费时间" required>
+            <el-form-item label="销售日期" prop="consumeDate">
               <el-date-picker type="date"
-                placeholder="请选择消费时间"
+                placeholder="请选择销售日期"
                 v-model="salesForm.consumeDate"
                 size="mini">
               </el-date-picker>
@@ -101,10 +101,10 @@ export default {
         price: 0,
         quantity: 1,
         goodsSum: 0,
-        paymentType: '',
+        paymentType: '现金',
         bankType: '',
         cardNo: '',
-        currency: '',
+        consumer: '',
         consumeDate: '',
       },
       rules: {
@@ -149,16 +149,19 @@ export default {
             trigger: 'change',
           },
         ],
-        currency: [
+        consumer: [
           {
             required: true,
-            message: '请选择货币类型',
+            message: '请选择销售人',
             trigger: 'change',
           },
         ],
         consumeDate: [
           {
-            type: 'date', required: true, message: '请选择一个消费日期', trigger: 'change',
+            required: true,
+            type: 'date',
+            message: '请选择一个销售日期',
+            trigger: 'change',
           },
         ],
       },
@@ -169,9 +172,19 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!');
+          const that = this;
+          this.$request.httpRequest({
+            method: 'post',
+            url: '/sales/register',
+            params: {},
+            success() {
+              that.$message({
+                message: '恭喜，销售信息录入成功。',
+                type: 'success',
+              });
+            },
+          });
         } else {
-          console.log('error submit!!');
           return false;
         }
         return false;

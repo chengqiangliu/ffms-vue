@@ -69,7 +69,7 @@ const httpRequest = function (options) {
     lock: true,
     text: '加载中...',
     spinner: 'el-icon-loading',
-    background: 'rgba(0, 0, 0, 0.7)',
+    background: 'rgba(0, 0, 0, 0.6)',
   });
 
   try {

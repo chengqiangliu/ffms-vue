@@ -25,6 +25,8 @@
     width: 100%;
     left: 0;
     top: 0;
+    padding:0px;
+    box-shadow:0px 0px 8px rgba(0,0,0,.4);
   }
 
   .main-container {

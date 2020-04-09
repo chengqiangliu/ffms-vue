@@ -1,7 +1,7 @@
 <template>
   <div class="main-div">
     <el-row :gutter="20">
-      <el-col :span="8" :offset=9>
+      <el-col :span="6" :offset=9 style="text-align: center;">
         <span><h3>欢迎登录家庭财务管理系统</h3></span>
       </el-col>
     </el-row>
@@ -27,6 +27,10 @@
 </template>
 
 <style scoped>
+  h3{
+    color: #BECFE0;
+  }
+
   .main-div {
     width: 100%;
     padding-top: 60px;

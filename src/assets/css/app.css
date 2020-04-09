@@ -1,3 +1,7 @@
+body {
+  background-color: #272938;
+}
+
 .el-row {
   padding: 0 10px;
   margin-bottom: 10px;
@@ -73,12 +77,25 @@
 
 .el-dialog__title {
   font-size: 17px;
-  color: #777;
+  color: #31708f;
+}
+
+.el-dialog__header {
+  border: solid 1px #bce8f1;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: #d9edf7;
 }
 
 .el-dialog__body {
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 20px;
+  padding-bottom: 0;
+}
+
+.el-dialog__footer {
+  border: solid 1px #bce8f1;
+  padding-top: 12px;
+  padding-bottom: 12px;
 }
 
 .el-collapse-item__header {

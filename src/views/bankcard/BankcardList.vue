@@ -12,25 +12,25 @@
               <div class="condition-label">办卡人</div>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="lockStatus" placeholder="办卡人" size="mini">
+              <el-select v-model="requestParams.holder" placeholder="请选择办卡人" size="mini">
                 <el-option label="老公" value="老公"></el-option>
                 <el-option label="老婆" value="老婆"></el-option>
-              </el-select>
-            </el-col>
-            <el-col :span="2">
-              <div class="condition-label">开户银行</div>
-            </el-col>
-            <el-col :span="4">
-              <el-select v-model="lockStatus" placeholder="卡的类型" size="mini">
-                <el-option label="银行卡" value="银行卡"></el-option>
-                <el-option label="信用卡" value="信用卡"></el-option>
               </el-select>
             </el-col>
             <el-col :span="2">
               <div class="condition-label">卡的类型</div>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="lockStatus" placeholder="开户银行" size="mini">
+              <el-select v-model="requestParams.cardType" placeholder="请选择卡的类型" size="mini">
+                <el-option label="银行卡" value="银行卡"></el-option>
+                <el-option label="信用卡" value="信用卡"></el-option>
+              </el-select>
+            </el-col>
+            <el-col :span="2">
+              <div class="condition-label">开户银行</div>
+            </el-col>
+            <el-col :span="4">
+              <el-select v-model="requestParams.bankType" placeholder="请选择开户银行" size="mini">
                 <el-option label="东京三菱UFJ银行" value="东京三菱UFJ银行"></el-option>
                 <el-option label="乐天银行" value="乐天银行"></el-option>
               </el-select>
@@ -41,19 +41,19 @@
               <div class="condition-label">排序字段</div>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="sortKey" placeholder="请选择排序字段" size="mini">
+              <el-select v-model="requestParams.sortKey" placeholder="请选择排序字段" size="mini">
                 <el-option label="卡内余额" value="cardBalance"></el-option>
                 <el-option label="办卡人" value="holder"></el-option>
               </el-select>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="sortType" placeholder="请选择排序方式" size="mini">
+              <el-select v-model="requestParams.sortType" placeholder="请选择排序方式" size="mini">
                 <el-option label="降序" value="desc"></el-option>
                 <el-option label="升序" value="asc"></el-option>
               </el-select>
             </el-col>
             <el-col :span="2" :offset="2">
-              <el-button type="primary" class="search-button">
+              <el-button type="primary" class="search-button" @click="handleSearch">
                 <i class="fa fa-search"></i> 查询
               </el-button>
             </el-col>
@@ -119,7 +119,7 @@
                   width="150">
                   <template slot-scope="scope">
                     <i class="far fa-clock"></i>
-                    <span style="margin-left: 10px">{{ scope.row.lastLogonTime }}</span>
+                    <span style="margin-left: 10px">{{ scope.row.createCardDate }}</span>
                   </template>
                 </el-table-column>
                 <el-table-column
@@ -138,11 +138,11 @@
               <el-pagination style="float: right;"
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
-                :current-page.sync="currentPage"
-                :page-sizes="[100, 200, 300, 400]"
-                :page-size="100"
+                :current-page.sync="requestParams.currentPage"
+                :page-sizes="[20, 40, 60]"
+                :page-size="requestParams.countPerPage"
                 layout="total, sizes, prev, pager, next, jumper"
-                :total="400">
+                :total="requestParams.totalCount">
               </el-pagination>
             </el-col>
           </el-row>
@@ -159,46 +159,43 @@ export default {
   name: 'BankcardList',
   data() {
     return {
-      id: '',
-      cardNo: '',
-      cardType: '',
-      bankType: '',
-      creditSum: 0,
-      cardBalance: '',
-      holder: '',
-      createCardDate: '',
-      sortKey: '用户名',
-      sortType: '降序',
-      currentPage: 1,
-      tableData: [
-        {
-          cardNo: '10000010',
-          cardType: 'BankCard',
-          bankType: '三菱UFJ银行',
-          creditSum: 0,
-          cardBalance: 580000,
-          holder: '老公',
-          lastLogonTime: '2015-08-15',
-        }, {
-          cardNo: '10000020',
-          cardType: 'CreditCard',
-          bankType: '乐天银行',
-          creditSum: 150000,
-          cardBalance: 0,
-          holder: '老公',
-          lastLogonTime: '2015-08-15',
-        },
-      ],
+      requestParams: {
+        holder: '',
+        bankType: '',
+        cardType: '',
+        sortKey: '用户名',
+        sortType: '降序',
+        currentPage: 1,
+        totalCount: 0,
+        countPerPage: 20,
+      },
+      tableData: [],
     };
   },
 
   methods: {
-    handleSizeChange() {
-
+    handleSearch() {
+      const that = this;
+      this.$request.httpRequest({
+        method: 'post',
+        url: '/bankcard/list',
+        params: that.requestParams,
+        success(response) {
+          that.tableData = response.data.details;
+          that.requestParams.totalCount = response.data.pageInfo.totalCount;
+        },
+      });
     },
 
-    handleCurrentChange() {
+    handleSizeChange(value) {
+      this.requestParams.currentPage = 1;
+      this.requestParams.countPerPage = value;
+      this.handleSearch();
+    },
 
+    handleCurrentChange(value) {
+      this.requestParams.currentPage = value;
+      this.handleSearch();
     },
 
     handleEdit(index, row) {

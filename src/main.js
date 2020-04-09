@@ -49,6 +49,5 @@ router.afterEach(() => {
 new Vue({
   router,
   store,
-  Request,
   render: (h) => h(App),
 }).$mount('#app');
