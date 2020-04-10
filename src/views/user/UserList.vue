@@ -12,13 +12,13 @@
               <div class="condition-label">用户名</div>
             </el-col>
             <el-col :span="4">
-              <el-input v-model="username" placeholder="用户名" size="mini"></el-input>
+              <el-input v-model="requestParams.username" placeholder="用户名" size="mini"></el-input>
             </el-col>
             <el-col :span="2">
               <div class="condition-label">锁定状态</div>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="lockStatus" placeholder="锁定状态" size="mini">
+              <el-select v-model="requestParams.lockStatus" placeholder="锁定状态" size="mini">
                 <el-option label="锁定" value="锁定"></el-option>
                 <el-option label="未锁定" value="未锁定"></el-option>
               </el-select>
@@ -29,19 +29,19 @@
               <div class="condition-label">排序字段</div>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="sortKey" placeholder="请选择排序字段" size="mini">
+              <el-select v-model="requestParams.sortKey" placeholder="请选择排序字段" size="mini">
                 <el-option label="用户名" value="username"></el-option>
                 <el-option label="锁定状态" value="lockStatus"></el-option>
               </el-select>
             </el-col>
             <el-col :span="4">
-              <el-select v-model="sortType" placeholder="请选择排序方式" size="mini">
+              <el-select v-model="requestParams.sortType" placeholder="请选择排序方式" size="mini">
                 <el-option label="降序" value="desc"></el-option>
                 <el-option label="升序" value="asc"></el-option>
               </el-select>
             </el-col>
             <el-col :span="2" :offset="2">
-              <el-button type="primary" class="search-button">
+              <el-button type="primary" class="search-button" @click="handleSearch">
                 <i class="fa fa-search"></i> 查询
               </el-button>
             </el-col>
@@ -112,25 +112,28 @@
                 </el-table-column>
                 <el-table-column
                   label="操作"
-                  width="200">
+                  fixed="right"
+                  width="120">
                   <template slot-scope="scope">
-                    <el-button
-                      size="mini"
-                      type="warning"
-                      @click="handleEdit(scope.$index, scope.row)">
+                    <el-button size="mini" type="text" class="opt-button"
+                      @click="handleEdit(scope.row)">
                       <i class="el-icon-edit">编辑</i>
+                    </el-button>
+                    <el-button size="mini" type="text" class="opt-button"
+                      @click="handleDelete(scope.row)">
+                      <i class="el-icon-delete">删除</i>
                     </el-button>
                   </template>
                 </el-table-column>
               </el-table>
-              <el-pagination style="float: right;"
+              <el-pagination v-if="tableData.length > 0" style="float: right;"
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
-                :current-page.sync="currentPage"
-                :page-sizes="[100, 200, 300, 400]"
-                :page-size="100"
+                :current-page.sync="requestParams.currentPage"
+                :page-sizes="[20, 40, 60]"
+                :page-size="requestParams.countPerPage"
                 layout="total, sizes, prev, pager, next, jumper"
-                :total="400">
+                :total="requestParams.totalCount">
               </el-pagination>
             </el-col>
           </el-row>
@@ -147,48 +150,59 @@ export default {
   name: 'UserList',
   data() {
     return {
-      id: '',
-      username: '',
-      role: '',
-      email: '',
-      failLoginCount: 0,
-      lockStatus: '',
-      lastLogonTime: '',
-      sortKey: '用户名',
-      sortType: '降序',
-      currentPage: 1,
-      tableData: [
-        {
-          username: '2016-05-03',
-          role: 'Tom',
-          email: 'California',
-          failLoginCount: 'Los Angeles',
-          lockStatus: '锁定',
-          lastLogonTime: '2016-05-03',
-        }, {
-          username: '2016-05-03',
-          role: 'Tom',
-          email: 'California',
-          failLoginCount: 'Los Angeles',
-          lockStatus: '未锁定',
-          lastLogonTime: '2016-05-03',
-        },
-      ],
+      requestParams: {
+        username: '',
+        lockStatus: '',
+        sortKey: '用户名',
+        sortType: '降序',
+        currentPage: 1,
+        totalCount: 0,
+        countPerPage: 20,
+      },
+      tableData: [],
     };
   },
 
   methods: {
-    handleSizeChange() {
-
+    handleSearch() {
+      const that = this;
+      this.$request.httpRequest({
+        method: 'post',
+        url: '/user/list',
+        params: that.requestParams,
+        success(response) {
+          that.tableData = response.data.details;
+          that.requestParams.totalCount = response.data.pageInfo.totalCount;
+        },
+      });
     },
 
-    handleCurrentChange() {
+    handleSizeChange(value) {
+      this.requestParams.currentPage = 1;
+      this.requestParams.countPerPage = value;
+      this.handleSearch();
+    },
 
+    handleCurrentChange(value) {
+      this.requestParams.currentPage = value;
+      this.handleSearch();
     },
 
     handleEdit(index, row) {
       this.$confirm(`你确定要删除这条记录吗? RowNum: ${index}, 单价：${row.price}`)
         .then(() => {
+        })
+        .catch(() => {});
+    },
+
+    handleDelete(row) {
+      this.$confirm('你确定要删除这条记录吗', '提示', { type: 'warning' })
+        .then(() => {
+          console.log(row);
+          this.$message({
+            message: '该用户已被删除成功。',
+            type: 'success',
+          });
         })
         .catch(() => {});
     },

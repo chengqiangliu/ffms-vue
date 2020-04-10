@@ -90,7 +90,7 @@ export default {
     },
 
     logout() {
-      this.$confirm('你确定要退出系统吗？', '提醒', { type: 'warning' })
+      this.$confirm('你确定要退出系统吗？', '提示', { type: 'warning' })
         .then(() => {
           localStorage.removeItem('ADMIN_TOKEN');
           this.$router.push({

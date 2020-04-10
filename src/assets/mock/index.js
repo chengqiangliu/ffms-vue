@@ -170,6 +170,82 @@ const accesscardSearchResult = () => {
   return result;
 };
 
+const userSearchResult = () => {
+  initCommonSearchResult();
+
+  for (let i = 0; i < result.data.pageInfo.totalCount; i += 1) {
+    result.data.details[i] = {
+      username: Mock.mock('@string(8)'),
+      role: Mock.mock('@string(5)'),
+      email: Mock.mock('@email'),
+      failLoginCount: Mock.mock('@integer(0, 5)'),
+      lockStatus: Mock.mock('@integer(0, 1)'),
+      lastLogonTime: Mock.mock('@datetime("yyyy-MM-dd HH:mm:ss")'),
+    };
+  }
+
+  return result;
+};
+
+const presentSearchResult = () => {
+  initCommonSearchResult();
+
+  for (let i = 0; i < result.data.pageInfo.totalCount; i += 1) {
+    result.data.details[i] = {
+      sendorName: Mock.mock('@string(8)'),
+      sendType: Mock.mock('@string(5)'),
+      presentType: Mock.mock('@string(5)'),
+      friend: Mock.mock('@string(5)'),
+      moneySum: Mock.mock('@integer(1000, 50000)'),
+      presentName: Mock.mock('@string(5)'),
+      quantity: Mock.mock('@integer(0, 5)'),
+      sendDate: Mock.mock('@date("yyyy-MM-dd")'),
+    };
+  }
+
+  return result;
+};
+
+const debtSearchResult = () => {
+  initCommonSearchResult();
+
+  for (let i = 0; i < result.data.pageInfo.totalCount; i += 1) {
+    result.data.details[i] = {
+      debterName: Mock.mock('@string(8)'),
+      friend: Mock.mock('@string(5)'),
+      debtType: Mock.mock('@string(5)'),
+      paymentType: Mock.mock('@string(5)'),
+      srcMoneySum: Mock.mock('@integer(1000, 50000)'),
+      hasPaidSum: Mock.mock('@integer(1000, 40000)'),
+      hasNotPaidSum: Mock.mock('@integer(1000, 10000)'),
+      isPayoff: Mock.mock('@string(5)'),
+      debtDate: Mock.mock('@date("yyyy-MM-dd")'),
+    };
+  }
+
+  return result;
+};
+
+const transferSearchResult = () => {
+  initCommonSearchResult();
+
+  for (let i = 0; i < result.data.pageInfo.totalCount; i += 1) {
+    result.data.details[i] = {
+      transferPerson: Mock.mock('@string(8)'),
+      srcBankType: Mock.mock('@string(5)'),
+      srcCardNo: Mock.mock('@integer(1000000000000, 9000000000000)'),
+      srcMoneySum: Mock.mock('@integer(1000, 50000)'),
+      targetBankType: Mock.mock('@string(5)'),
+      targetCardNo: Mock.mock('@integer(1000000000000, 9000000000000)'),
+      rate: Mock.mock('@float(60, 100, 2, 2)'),
+      targetMoneySum: Mock.mock('@integer(1000, 50000)'),
+      transferDate: Mock.mock('@date("yyyy-MM-dd")'),
+    };
+  }
+
+  return result;
+};
+
 Mock.mock('/login', 'post', loginResult);
 Mock.mock('/consume/register', registerResult);
 Mock.mock('/consume/list', consumeSearchResult);
@@ -178,3 +254,7 @@ Mock.mock('/sales/list', salesSearchResult);
 Mock.mock('/bankcard/list', cardSearchResult);
 Mock.mock('/salary/list', salarySearchResult);
 Mock.mock('/accesscard/list', accesscardSearchResult);
+Mock.mock('/user/list', userSearchResult);
+Mock.mock('/present/list', presentSearchResult);
+Mock.mock('/debt/list', debtSearchResult);
+Mock.mock('/transfer/list', transferSearchResult);

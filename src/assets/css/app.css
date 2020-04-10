@@ -101,3 +101,9 @@ body {
 .el-collapse-item__header {
   padding-left: 15px;
 }
+
+.opt-button {
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0 3px;
+}

@@ -123,19 +123,22 @@
                   </template>
                 </el-table-column>
                 <el-table-column
-                  label="编辑"
-                  width="200">
+                  label="操作"
+                  fixed="right"
+                  width="120">
                   <template slot-scope="scope">
-                    <el-button
-                      type="warning"
-                      size="mini"
-                      @click="handleEdit(scope.$index, scope.row)">
+                    <el-button size="mini" type="text" class="opt-button"
+                      @click="handleEdit(scope.row)">
                       <i class="el-icon-edit">编辑</i>
+                    </el-button>
+                    <el-button size="mini" type="text" class="opt-button"
+                      @click="handleDelete(scope.row)">
+                      <i class="el-icon-delete">删除</i>
                     </el-button>
                   </template>
                 </el-table-column>
               </el-table>
-              <el-pagination style="float: right;"
+              <el-pagination v-if="tableData.length > 0" style="float: right;"
                 @size-change="handleSizeChange"
                 @current-change="handleCurrentChange"
                 :current-page.sync="requestParams.currentPage"
@@ -201,6 +204,18 @@ export default {
     handleEdit(index, row) {
       this.$confirm(`你确定要删除这条记录吗? RowNum: ${index}, 单价：${row.price}`)
         .then(() => {
+        })
+        .catch(() => {});
+    },
+
+    handleDelete(row) {
+      this.$confirm('你确定要删除这条记录吗', '提示', { type: 'warning' })
+        .then(() => {
+          console.log(row);
+          this.$message({
+            message: '银行卡信息已被删除成功。',
+            type: 'success',
+          });
         })
         .catch(() => {});
     },
