@@ -52,7 +52,7 @@
       <el-submenu index="3">
         <template slot="title"><i class="el-icon-bank-card"></i>银行卡管理</template>
         <el-menu-item-group>
-          <el-menu-item @click="newSalaryInfoVisible = true">
+          <el-menu-item @click="openBankcardDialog">
             <i class="fab fa-cc-visa"></i>
             银行卡信息录入
           </el-menu-item>
@@ -77,11 +77,11 @@
       <el-submenu index="5">
         <template slot="title"><i class="el-icon-bank-card"></i>存取款管理</template>
         <el-menu-item-group>
-          <el-menu-item @click="withdrawInfoVisible = true">
+          <el-menu-item @click="openWithdrawDialog">
             <i class="fas fa-money-bill-wave"></i>
             取款信息录入
           </el-menu-item>
-          <el-menu-item @click="depositInfoVisible = true">
+          <el-menu-item @click="openDepositDialog">
             <i class="fas fa-coins"></i>
             存款信息录入
           </el-menu-item>
@@ -147,15 +147,7 @@
         <el-button type="primary" @click="newSalary">确定</el-button>
       </span>
     </el-dialog>
-    <el-dialog title="新卡信息录入"
-      :visible.sync="newCardInfoVisible" :close-on-click-modal="false"
-      :append-to-body="true">
-      <NewCardInfo />
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="closePopup(2)">取消</el-button>
-        <el-button type="primary" @click="newCard">确定</el-button>
-      </span>
-    </el-dialog>
+    <bankcard-dialog ref="bankcardDialog" @update="reload" />
     <el-dialog title="转账信息录入"
       :visible.sync="transferInfoVisible" :close-on-click-modal="false"
       :append-to-body="true">
@@ -165,24 +157,8 @@
         <el-button type="primary" @click="transfer">确定</el-button>
       </span>
     </el-dialog>
-    <el-dialog title="取款信息录入"
-      :visible.sync="withdrawInfoVisible" :close-on-click-modal="false"
-      :append-to-body="true">
-      <WithdrawInfo />
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="closePopup(4)">取消</el-button>
-        <el-button type="primary" @click="withdraw">确定</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog title="存款信息录入"
-      :visible.sync="depositInfoVisible" :close-on-click-modal="false"
-      :append-to-body="true">
-      <DepositInfo />
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="closePopup(5)">取消</el-button>
-        <el-button type="primary" @click="deposit">确定</el-button>
-      </span>
-    </el-dialog>
+    <access-card-dialog ref="withdrawDialog" @update="reload" />
+    <access-card-dialog ref="depositDialog" @update="reload" />
     <el-dialog title="借款（入）信息录入"
       :visible.sync="borrowInfoVisible" :close-on-click-modal="false"
       :append-to-body="true">
@@ -302,23 +278,19 @@
 <script>
 import TransferInfo from '@/views/transfer/TransferInfo.vue';
 import NewSalaryInfo from '@/views/salary/NewSalaryInfo.vue';
-import NewCardInfo from '@/views/bankcard/NewCardInfo.vue';
-import WithdrawInfo from '@/views/accesscard/WithdrawInfo.vue';
-import DepositInfo from '@/views/accesscard/DepositInfo.vue';
+import BankcardDialog from '@/components/BankcardDialog.vue';
 import BorrowInfo from '@/views/debt/BorrowInfo.vue';
 import LendInfo from '@/views/debt/LendInfo.vue';
 import ReceivePresentInfo from '@/views/present/ReceivePresentInfo.vue';
 import GivePresentInfo from '@/views/present/GivePresentInfo.vue';
+import AccessCardDialog from '@/components/AccessCardDialog.vue';
 
 export default {
   data() {
     return {
       isCollapse: false,
       newSalaryInfoVisible: false,
-      newCardInfoVisible: false,
       transferInfoVisible: false,
-      withdrawInfoVisible: false,
-      depositInfoVisible: false,
       borrowInfoVisible: false,
       lendInfoVisible: false,
       receivePresentInfoVisible: false,
@@ -342,14 +314,8 @@ export default {
     closePopup(command) {
       if (command === 1) {
         this.newSalaryInfoVisible = false;
-      } else if (command === 2) {
-        this.newCardInfoVisible = false;
       } else if (command === 3) {
         this.transferInfoVisible = false;
-      } else if (command === 4) {
-        this.withdrawInfoVisible = false;
-      } else if (command === 5) {
-        this.depositInfoVisible = false;
       } else if (command === 6) {
         this.borrowInfoVisible = false;
       } else if (command === 7) {
@@ -361,6 +327,28 @@ export default {
       }
     },
 
+    openBankcardDialog() {
+      this.$refs.bankcardDialog.open().then((that) => {
+        that.initData({ formType: 1 });
+      });
+    },
+
+    openWithdrawDialog() {
+      this.$refs.withdrawDialog.open().then((that) => {
+        that.initData({ formType: 1 });
+      });
+    },
+
+    openDepositDialog() {
+      this.$refs.depositDialog.open().then((that) => {
+        that.initData({ formType: 2 });
+      });
+    },
+
+    reload() {
+      console.log('reload');
+    },
+
     newSalary() {
       this.$message({
         message: 'Congrats, this is a success message.',
@@ -369,36 +357,12 @@ export default {
       this.newSalaryInfoVisible = false;
     },
 
-    newCard() {
-      this.$message({
-        message: 'Congrats, this is a success message.',
-        type: 'success',
-      });
-      this.newCardInfoVisible = false;
-    },
-
     transfer() {
       this.$message({
         message: 'Congrats, this is a success message.',
         type: 'success',
       });
       this.transferInfoVisible = false;
-    },
-
-    withdraw() {
-      this.$message({
-        message: 'Congrats, this is a success message.',
-        type: 'success',
-      });
-      this.withdrawInfoVisible = false;
-    },
-
-    deposit() {
-      this.$message({
-        message: 'Congrats, this is a success message.',
-        type: 'success',
-      });
-      this.depositInfoVisible = false;
     },
 
     borrow() {
@@ -443,9 +407,8 @@ export default {
   components: {
     TransferInfo,
     NewSalaryInfo,
-    NewCardInfo,
-    WithdrawInfo,
-    DepositInfo,
+    BankcardDialog,
+    AccessCardDialog,
     LendInfo,
     BorrowInfo,
     ReceivePresentInfo,

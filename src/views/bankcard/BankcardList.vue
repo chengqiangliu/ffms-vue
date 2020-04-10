@@ -70,13 +70,13 @@
               <i class="fa fa-trash-o"></i> 删除
             </el-button>
           </div>
-          <el-row>
+          <el-row style="height: 320px;">
             <el-col>
               <el-table
                 :data="tableData"
                 :default-sort = "{prop: 'date', order: 'descending'}"
                 stripe
-                height="280">
+                height="290">
                 <el-table-column
                   type="selection"
                   fixed
@@ -85,7 +85,7 @@
                 <el-table-column
                   prop="cardNo"
                   label="银行卡号"
-                  width="120">
+                  width="150">
                 </el-table-column>
                 <el-table-column
                   prop="cardType"
@@ -152,11 +152,13 @@
         </el-card>
       </el-col>
     </el-row>
+    <bankcard-dialog ref="editDialog" @update="handleSearch" />
   </div>
 </template>
 
 <script>
 import BreadCrumb from '@/components/BreadCrumb.vue';
+import BankcardDialog from '@/components/BankcardDialog.vue';
 
 export default {
   name: 'BankcardList',
@@ -201,11 +203,10 @@ export default {
       this.handleSearch();
     },
 
-    handleEdit(index, row) {
-      this.$confirm(`你确定要删除这条记录吗? RowNum: ${index}, 单价：${row.price}`)
-        .then(() => {
-        })
-        .catch(() => {});
+    handleEdit(row) {
+      this.$refs.editDialog.open().then((that) => {
+        that.initData(row);
+      });
     },
 
     handleDelete(row) {
@@ -223,6 +224,7 @@ export default {
 
   components: {
     BreadCrumb,
+    BankcardDialog,
   },
 };
 </script>

@@ -118,7 +118,7 @@
               <i class="fa fa-trash-o"></i> 删除
             </el-button>
           </div>
-          <el-row>
+          <el-row style="height: 280px;">
             <el-col>
               <el-table
                 :data="tableData"
@@ -205,11 +205,13 @@
         </el-card>
       </el-col>
     </el-row>
+    <ConsumeEdit ref='editDialog' @updated="handleSearch" />
   </div>
 </template>
 
 <script>
 import BreadCrumb from '@/components/BreadCrumb.vue';
+import ConsumeEdit from '@/views/consume/ConsumeEdit.vue';
 
 export default {
   name: 'ConsumeList',
@@ -260,10 +262,9 @@ export default {
     },
 
     handleEdit(row) {
-      this.$confirm(`你确定要删除这条记录吗? 单价：${row.price}`)
-        .then(() => {
-        })
-        .catch(() => {});
+      this.$refs.editDialog.open().then((that) => {
+        that.initData(row);
+      });
     },
 
     handleDelete(row) {
@@ -281,6 +282,7 @@ export default {
 
   components: {
     BreadCrumb,
+    ConsumeEdit,
   },
 };
 </script>

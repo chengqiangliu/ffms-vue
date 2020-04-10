@@ -97,7 +97,7 @@
               <i class="fa fa-trash-o"></i> 删除
             </el-button>
           </div>
-          <el-row>
+          <el-row style="height: 280px;">
             <el-col>
               <el-table
                 :data="tableData"

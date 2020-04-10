@@ -96,13 +96,13 @@
               <i class="fa fa-trash-o"></i> 删除
             </el-button>
           </div>
-          <el-row>
+          <el-row style="height: 280px;">
             <el-col>
               <el-table
                 :data="tableData"
                 :default-sort = "{prop: 'date', order: 'descending'}"
                 stripe
-                height="250">
+                height="260">
                 <el-table-column
                   type="selection"
                   fixed
@@ -173,11 +173,13 @@
         </el-card>
       </el-col>
     </el-row>
+    <access-card-dialog ref="editDialog" @update="handleSearch" />
   </div>
 </template>
 
 <script>
 import BreadCrumb from '@/components/BreadCrumb.vue';
+import AccessCardDialog from '@/components/AccessCardDialog.vue';
 
 export default {
   name: 'AccesscardList',
@@ -224,11 +226,10 @@ export default {
       this.handleSearch();
     },
 
-    handleEdit(index, row) {
-      this.$confirm(`你确定要删除这条记录吗? RowNum: ${index}, 单价：${row.price}`)
-        .then(() => {
-        })
-        .catch(() => {});
+    handleEdit(row) {
+      this.$refs.editDialog.open().then((that) => {
+        that.initData(row);
+      });
     },
 
     handleDelete(row) {
@@ -246,6 +247,7 @@ export default {
 
   components: {
     BreadCrumb,
+    AccessCardDialog,
   },
 };
 </script>

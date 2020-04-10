@@ -43,7 +43,7 @@ const loginResult = () => {
   return result;
 };
 
-const registerResult = () => {
+const simpleResult = () => {
   result.data = {
     message: 'sucess',
   };
@@ -247,9 +247,10 @@ const transferSearchResult = () => {
 };
 
 Mock.mock('/login', 'post', loginResult);
-Mock.mock('/consume/register', registerResult);
+Mock.mock('/consume/register', simpleResult);
 Mock.mock('/consume/list', consumeSearchResult);
-Mock.mock('/sales/register', registerResult);
+Mock.mock('/consume/update', simpleResult);
+Mock.mock('/sales/register', simpleResult);
 Mock.mock('/sales/list', salesSearchResult);
 Mock.mock('/bankcard/list', cardSearchResult);
 Mock.mock('/salary/list', salarySearchResult);

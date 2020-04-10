@@ -85,13 +85,13 @@
               <i class="fa fa-trash-o"></i> 删除
             </el-button>
           </div>
-          <el-row>
+          <el-row style="height: 320px;">
             <el-col>
               <el-table
                 :data="tableData"
                 :default-sort = "{prop: 'date', order: 'descending'}"
                 stripe
-                height="250">
+                height="290">
                 <el-table-column
                   type="selection"
                   fixed
