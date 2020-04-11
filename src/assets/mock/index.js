@@ -246,6 +246,30 @@ const transferSearchResult = () => {
   return result;
 };
 
+const dashboardResult = () => {
+  result.data = {
+    salaryMoneySum: Mock.mock('@integer(500000, 1000000)'),
+    bankcardMoneySum: Mock.mock('@integer(6000000, 10000000)'),
+    handMoneySum: Mock.mock('@integer(3000, 20000)'),
+    consumeMoneySum: Mock.mock('@integer(1000000, 3000000)'),
+    borrowMoneySum: Mock.mock('@integer(10000, 30000)'),
+    lendMoneySum: Mock.mock('@integer(10000, 30000)'),
+    receivePresentMoneySum: Mock.mock('@integer(10000, 30000)'),
+    sendPresentMoneySum: Mock.mock('@integer(10000, 30000)'),
+    salesMoneySum: Mock.mock('@integer(10000, 30000)'),
+    income: Mock.mock('@integer(500000, 1000000)'),
+    outcome: Mock.mock('@integer(500000, 1000000)'),
+  };
+  return result;
+};
+
+const singleDashboardResult = () => {
+  result.data = {
+    moneySum: Mock.mock('@integer(500000, 1000000)'),
+  };
+  return result;
+};
+
 Mock.mock('/login', 'post', loginResult);
 Mock.mock('/consume/register', simpleResult);
 Mock.mock('/consume/list', consumeSearchResult);
@@ -259,3 +283,5 @@ Mock.mock('/user/list', userSearchResult);
 Mock.mock('/present/list', presentSearchResult);
 Mock.mock('/debt/list', debtSearchResult);
 Mock.mock('/transfer/list', transferSearchResult);
+Mock.mock('/dashboard/init', dashboardResult);
+Mock.mock('/dashboard/refresh', singleDashboardResult);

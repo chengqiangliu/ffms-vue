@@ -4,7 +4,7 @@
       <el-col :span="6">
         <div class="page-title">
           <h3>系统首页</h3>
-          <span>财务状况：<strong>良好</strong></span>
+          <span>财务状况：<strong :style="{'color': statusColor}">{{ financeStatus }}</strong></span>
         </div><!-- /page-title -->
       </el-col>
       <el-col :span="6" :offset=12>
@@ -12,13 +12,13 @@
           <li>
             <div class="value">
               <span>总收入</span>
-              <h4>500</h4>
+              <h4>{{ dashboardValues.income }}</h4>
             </div>
           </li>
           <li>
             <div class="value">
               <span>总支出</span>
-              <h4>100</h4>
+              <h4>{{ dashboardValues.outcome }}</h4>
             </div>
           </li>
         </ul>
@@ -51,58 +51,227 @@
     <div class="pannelContainer">
       <el-row :gutter="24">
         <el-col :span="6">
-          <StatisticsPanel title="工资总额"
-            value="1000" bgClass="bg-info" iconClass="fab fa-cc-paypal" operateType="1"
-            :onClick="transitionToSalaryList" />
+          <statistics-panel title="工资总额"
+            :value="dashboardValues.salaryMoneySum" iconClass="fab fa-cc-paypal"
+            bgClass="bg-info" operateType="1" :onClick="transitionToSalaryList"
+            @actived="refresh(1)" ref="statsPanel1"/>
         </el-col>
         <el-col :span="6">
-          <StatisticsPanel title="银行卡总金额"
-            value="1000" bgClass="bg-success" iconClass="fa fa-credit-card" operateType="2"
-            :onClick="transitionToBankcardList"/>
+          <statistics-panel title="银行卡总金额"
+            :value="dashboardValues.bankcardMoneySum" iconClass="fa fa-credit-card"
+            bgClass="bg-success" operateType="2" :onClick="transitionToBankcardList"
+            @actived="refresh(2)" ref="statsPanel2"/>
         </el-col>
         <el-col :span="6">
-          <StatisticsPanel title="手头现金"
-            value="1000" bgClass="bg-info" iconClass="fas fa-money-bill-alt" operateType="3"
-            :onClick="transitionToAccessCardList" />
+          <statistics-panel title="手头现金"
+            :value="dashboardValues.handMoneySum" iconClass="fas fa-money-bill-alt"
+            bgClass="bg-info" operateType="3" :onClick="transitionToAccessCardList"
+            @actived="refresh(3)" ref="statsPanel3"/>
         </el-col>
         <el-col :span="6">
-          <StatisticsPanel title="消费总金额"
-            value="1000" bgClass="bg-danger" iconClass="fas fa-shopping-cart" operateType="4"
-            :onClick="transitionToConsumeList" />
+          <statistics-panel title="消费总金额"
+            :value="dashboardValues.consumeMoneySum" iconClass="fas fa-shopping-cart"
+            bgClass="bg-danger" operateType="4" :onClick="transitionToConsumeList"
+            @actived="refresh(4)" ref="statsPanel4"/>
         </el-col>
       </el-row>
       <el-row :gutter="24">
         <el-col :span="6">
-          <StatisticsPanel title="借入总金额"
-            value="1000" bgClass="bg-warning" iconClass="far fa-hand-lizard" operateType="5"
-            :onClick="transitionToDebtList" />
+          <statistics-panel title="借入总金额"
+            :value="dashboardValues.borrowMoneySum" iconClass="far fa-hand-lizard"
+            bgClass="bg-warning" operateType="5" :onClick="transitionToDebtList"
+            @actived="refresh(5)" ref="statsPanel5"/>
         </el-col>
         <el-col :span="6">
-          <StatisticsPanel title="借出总金额"
-            value="1000" bgClass="bg-danger" iconClass="fa fa-paper-plane" operateType="6"
-            :onClick="transitionToDebtList" />
+          <statistics-panel title="借出总金额"
+            :value="dashboardValues.lendMoneySum" iconClass="fa fa-paper-plane"
+            bgClass="bg-danger" operateType="6" :onClick="transitionToDebtList"
+            @actived="refresh(6)" ref="statsPanel6"/>
         </el-col>
         <el-col :span="6">
-          <StatisticsPanel title="礼金总金额"
-            value="1000" bgClass="bg-warning" iconClass="fa fa-gift" operateType="7"
-            :onClick="transitionToPresentList" />
+          <statistics-panel title="礼金总金额"
+            :value="dashboardValues.receivePresentMoneySum" iconClass="fa fa-gift"
+            bgClass="bg-warning" operateType="7" :onClick="transitionToPresentList"
+            @actived="refresh(7)" ref="statsPanel7"/>
         </el-col>
         <el-col :span="6">
-          <StatisticsPanel title="销售总金额"
-            value="1000" bgClass="bg-success" iconClass="fa fa-shopping-basket" operateType="8"
-            :onClick="transitionToSalesList" />
+          <statistics-panel title="销售总金额"
+            :value="dashboardValues.salesMoneySum" iconClass="fa fa-shopping-basket"
+            bgClass="bg-success" operateType="8" :onClick="transitionToSalesList"
+            @actived="refresh(8)" ref="statsPanel8"/>
         </el-col>
       </el-row>
     </div>
     <div style="margin-bottom: 70px;">
       <el-row>
         <el-col :span="22" :offset="1">
-          <ConsumeLineChat />
+          <consume-line-chat />
         </el-col>
       </el-row>
     </div>
   </div>
 </template>
+
+<script>
+import StatisticsPanel from '@/components/StatisticsPanel.vue';
+import ConsumeLineChat from '@/components/ConsumeLineChat.vue';
+
+export default {
+  data() {
+    return {
+      dashboardValues: {
+        salaryMoneySum: 0,
+        bankcardMoneySum: 0,
+        handMoneySum: 0,
+        consumeMoneySum: 0,
+        borrowMoneySum: 0,
+        lendMoneySum: 0,
+        receivePresentMoneySum: 0,
+        sendPresentMoneySum: 0,
+        salesMoneySum: 0,
+        income: 0,
+        outcome: 0,
+      },
+      statusColor: '#67C23A',
+      financeStatus: '良好',
+    };
+  },
+
+  mounted() {
+    const that = this;
+    this.$request.httpRequest({
+      method: 'post',
+      url: '/dashboard/init',
+      params: {},
+      success(response) {
+        that.dashboardValues = { ...response.data };
+        if (that.dashboardValues.income <= that.dashboardValues.outcome) {
+          that.statusColor = '#F56C6C';
+          that.financeStatus = '危险';
+        } else {
+          that.statusColor = '#67C23A';
+          that.financeStatus = '良好';
+        }
+      },
+    });
+  },
+
+  methods: {
+    refresh(operateType) {
+      const that = this;
+      this.$request.httpRequest({
+        method: 'post',
+        url: '/dashboard/refresh',
+        params: {},
+        success(response) {
+          if (operateType === 1) {
+            that.dashboardValues.salaryMoneySum = response.data.moneySum;
+            that.$refs.statsPanel1.inactive();
+          } else if (operateType === 2) {
+            that.dashboardValues.handMoneySum = response.data.moneySum;
+            that.$refs.statsPanel2.inactive();
+          } else if (operateType === 3) {
+            that.dashboardValues.handMoneySum = response.data.moneySum;
+            that.$refs.statsPanel3.inactive();
+          } else if (operateType === 4) {
+            that.dashboardValues.consumeMoneySum = response.data.moneySum;
+            that.$refs.statsPanel4.inactive();
+          } else if (operateType === 5) {
+            that.dashboardValues.borrowMoneySum = response.data.moneySum;
+            that.$refs.statsPanel5.inactive();
+          } else if (operateType === 6) {
+            that.dashboardValues.lendMoneySum = response.data.moneySum;
+            that.$refs.statsPanel6.inactive();
+          } else if (operateType === 7) {
+            that.dashboardValues.receivePresentMoneySum = response.data.moneySum;
+            that.$refs.statsPanel7.inactive();
+          } else if (operateType === 8) {
+            that.dashboardValues.salesMoneySum = response.data.moneySum;
+            that.$refs.statsPanel8.inactive();
+          }
+        },
+      });
+    },
+
+    transitionToSecurityManagement() {
+      this.$router.push({
+        path: '/system/securitymanagement',
+      }).catch((err) => err);
+    },
+
+    transitionToSetting() {
+      this.$router.push({
+        path: '/system/setting',
+      }).catch((err) => err);
+    },
+
+    transitionToHelp() {
+      this.$router.push({
+        path: '/system/help',
+      }).catch((err) => err);
+    },
+
+    transitionToUserList() {
+      this.$router.push({
+        path: '/user/list',
+      }).catch((err) => err);
+    },
+
+    transitionToConsumeList() {
+      this.$router.push({
+        path: '/consume/list',
+      }).catch((err) => err);
+    },
+
+    transitionToBankcardList() {
+      this.$router.push({
+        path: '/bankcard/list',
+      }).catch((err) => err);
+    },
+
+    transitionToSalaryList() {
+      this.$router.push({
+        path: '/salary/list',
+      }).catch((err) => err);
+    },
+
+    transitionToDebtList() {
+      this.$router.push({
+        path: '/debt/list',
+      }).catch((err) => err);
+    },
+
+    transitionToAccessCardList() {
+      this.$router.push({
+        path: '/accesscard/list',
+      }).catch((err) => err);
+    },
+
+    transitionToExchangeList() {
+      this.$router.push({
+        path: '/exchange/list',
+      }).catch((err) => err);
+    },
+
+    transitionToPresentList() {
+      this.$router.push({
+        path: '/present/list',
+      }).catch((err) => err);
+    },
+
+    transitionToSalesList() {
+      this.$router.push({
+        path: '/sales/list',
+      }).catch((err) => err);
+    },
+  },
+
+  components: {
+    StatisticsPanel,
+    ConsumeLineChat,
+  },
+};
+</script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
@@ -242,78 +411,3 @@
     margin-bottom: 20px;
   }
 </style>
-
-<script>
-import StatisticsPanel from '@/components/StatisticsPanel.vue';
-import ConsumeLineChat from '@/components/ConsumeLineChat.vue';
-
-export default {
-  methods: {
-    transitionToSecurityManagement() {
-      this.$router.push({
-        path: '/system/securitymanagement',
-      }).catch((err) => err);
-    },
-    transitionToSetting() {
-      this.$router.push({
-        path: '/system/setting',
-      }).catch((err) => err);
-    },
-    transitionToHelp() {
-      this.$router.push({
-        path: '/system/help',
-      }).catch((err) => err);
-    },
-    transitionToUserList() {
-      this.$router.push({
-        path: '/user/list',
-      }).catch((err) => err);
-    },
-    transitionToConsumeList() {
-      this.$router.push({
-        path: '/consume/list',
-      }).catch((err) => err);
-    },
-    transitionToBankcardList() {
-      this.$router.push({
-        path: '/bankcard/list',
-      }).catch((err) => err);
-    },
-    transitionToSalaryList() {
-      this.$router.push({
-        path: '/salary/list',
-      }).catch((err) => err);
-    },
-    transitionToDebtList() {
-      this.$router.push({
-        path: '/debt/list',
-      }).catch((err) => err);
-    },
-    transitionToAccessCardList() {
-      this.$router.push({
-        path: '/accesscard/list',
-      }).catch((err) => err);
-    },
-    transitionToExchangeList() {
-      this.$router.push({
-        path: '/exchange/list',
-      }).catch((err) => err);
-    },
-    transitionToPresentList() {
-      this.$router.push({
-        path: '/present/list',
-      }).catch((err) => err);
-    },
-    transitionToSalesList() {
-      this.$router.push({
-        path: '/sales/list',
-      }).catch((err) => err);
-    },
-  },
-
-  components: {
-    StatisticsPanel,
-    ConsumeLineChat,
-  },
-};
-</script>

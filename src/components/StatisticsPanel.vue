@@ -1,5 +1,5 @@
 <template>
-  <div class="panel-stat3 fadeInRight animation-delay1" :class="bgClass">
+  <div class="panel-stat3" :class="bgClass">
     <div class="dropdown operate-button">
       <el-dropdown trigger="click" @command="handleCommand">
         <span class="el-dropdown-link">
@@ -35,18 +35,18 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
-    <div @click="onClick">
+    <div @click="onClick" v-loading='false'>
       <h2 class="h2ValueClass"> {{ value }} </h2>
       <h5 class="h5ValueClass">{{ title }}</h5>
       <div class="stat-icon">
         <i class="fa-3x" :class="iconClass"></i>
       </div>
     </div>
-    <div id="refreshPresentMoneySum" class="refresh-button">
+    <div id="refreshPresentMoneySum" class="refresh-button" @click="refresh">
       <i class="fas fa-sync-alt"></i>
     </div>
-    <div class="loading-overlay">
-      <i class="loading-icon fa fa-refresh fa-spin fa-lg"></i>
+    <div class="loading-overlay" :class="activeClass">
+      <i class="loading-icon fas fa-sync-alt"></i>
     </div>
     <salary-dialog v-if="operateType === '1'" ref="salaryDialog" @update="reload" />
     <bankcard-dialog v-if="operateType === '2'" ref="bankcardDialog" @update="reload" />
@@ -75,7 +75,7 @@ export default {
   name: 'StatisticsPanel',
   props: {
     title: String,
-    value: String,
+    value: Number,
     bgClass: String,
     iconClass: String,
     operateType: String,
@@ -83,6 +83,7 @@ export default {
   },
   data() {
     return {
+      activeClass: '',
     };
   },
   methods: {
@@ -118,6 +119,15 @@ export default {
           path: '/sales/register',
         }).catch((err) => err);
       }
+    },
+
+    refresh() {
+      this.activeClass = 'active';
+      this.$emit('actived');
+    },
+
+    inactive() {
+      this.activeClass = '';
     },
 
     openTransferDialog() {
@@ -286,35 +296,31 @@ export default {
     color: #fff
   }
 
-  .fadeInRight {
-    animation-name: fadeInRight;
-    -webkit-animation-name: fadeInRight;
-    -moz-animation-name: fadeInRight;
-    -ms-animation-name: fadeInRight;
-    -o-animation-name: fadeInRight;
-    animation-duration: 1s;
-    -webkit-animation-duration: 1s;
-    -moz-animation-duration: 1s;
-    -ms-animation-duration: 1s;
-    -o-animation-duration: 1s
+  .loading-overlay {
+    position: absolute;
+    display: none;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .4);
+    text-align: center
   }
 
-  .animation-delay1 {
-    animation-delay: .1s;
-    -webkit-animation-delay: .1s;
-    -moz-animation-delay: .1s;
-    -ms-animation-delay: .1s;
-    -o-animation-delay: .1s;
-    animation-timing-function: ease;
-    -webkit-animation-timing-function: ease;
-    -moz-animation-timing-function: ease;
-    -ms-animation-timing-function: ease;
-    -o-animation-timing-function: ease;
-    animation-fill-mode: both;
-    -webkit-animation-fill-mode: both;
-    -moz-animation-fill-mode: both;
-    -ms-animation-fill-mode: both;
-    -o-animation-fill-mode: both
+  .loading-overlay.active {
+    display: block
+  }
+
+  .loading-overlay .loading-icon {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    color: #fff;
+    animation: fa-spin .8s infinite linear;
+    -webkit-animation: fa-spin .8s infinite linear;
+    -moz-animation: fa-spin .8s infinite linear;
+    -ms-animation: fa-spin .8s infinite linear;
+    -o-animation: fa-spin .8s infinite linear;
   }
 
   .m-left-xs {
@@ -348,32 +354,5 @@ export default {
 
   .h5ValueClass {
     margin-top: 10px;
-  }
-
-  .loading-overlay {
-    position: absolute;
-    display: none;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background: rgba(0, 0, 0, .4);
-    text-align: center
-  }
-
-  .loading-overlay.active {
-    display: block
-  }
-
-  .loading-overlay .loading-icon {
-    position: absolute;
-    top: 45%;
-    left: 50%;
-    color: #fff;
-    animation: fa-spin .8s infinite linear;
-    -webkit-animation: fa-spin .8s infinite linear;
-    -moz-animation: fa-spin .8s infinite linear;
-    -ms-animation: fa-spin .8s infinite linear;
-    -o-animation: fa-spin .8s infinite linear
   }
 </style>
