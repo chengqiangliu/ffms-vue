@@ -153,11 +153,13 @@
         </el-card>
       </el-col>
     </el-row>
+    <salary-dialog ref="editDialog" @updated="handleSearch" />
   </div>
 </template>
 
 <script>
 import BreadCrumb from '@/components/BreadCrumb.vue';
+import SalaryDialog from '@/components/dialog/SalaryDialog.vue';
 
 export default {
   name: 'SalaryList',
@@ -202,11 +204,10 @@ export default {
       this.handleSearch();
     },
 
-    handleEdit(index, row) {
-      this.$confirm(`你确定要删除这条记录吗? RowNum: ${index}, 单价：${row.price}`)
-        .then(() => {
-        })
-        .catch(() => {});
+    handleEdit(row) {
+      this.$refs.editDialog.open().then((that) => {
+        that.initData(row);
+      });
     },
 
     handleDelete(row) {
@@ -224,6 +225,7 @@ export default {
 
   components: {
     BreadCrumb,
+    SalaryDialog,
   },
 };
 </script>

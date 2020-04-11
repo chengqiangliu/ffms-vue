@@ -5,41 +5,31 @@
       <el-row :gutter="20">
         <el-col :span="14" :offset="4">
           <el-form :model="form">
-            <el-form-item label="银行卡类型" prop="cardType" :label-width="formLabelWidth">
-              <el-select v-model="form.cardType" placeholder="请选择银行卡类型" size="mini">
-                <el-option label="储蓄卡" value="储蓄卡"></el-option>
-                <el-option label="信用卡" value="信用卡"></el-option>
+            <el-form-item label="取款人" :label-width="formLabelWidth">
+              <el-select v-model="form.accessorName" placeholder="请选择取款人" size="mini">
+                <el-option label="老公" value="老公"></el-option>
+                <el-option label="老婆" value="老婆"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="开户银行" prop="bankType" :label-width="formLabelWidth">
-              <el-select v-model="form.bankType" placeholder="请选择开户银行" size="mini">
+            <el-form-item label="银行卡类型" prop="bankType" :label-width="formLabelWidth">
+              <el-select v-model="form.bankType" placeholder="请选择银行卡类型" size="mini">
                 <el-option label="东京三菱UFJ银行" value="东京三菱UFJ银行"></el-option>
                 <el-option label="乐天银行" value="乐天银行"></el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="银行卡号" prop="cardNo" :label-width="formLabelWidth">
-              <el-input v-model="form.cardNo" placeholder="银行卡号" size="mini"></el-input>
-            </el-form-item>
-            <el-form-item label="办卡人" :label-width="formLabelWidth">
-              <el-select v-model="form.holder" placeholder="请选择办卡人" size="mini">
-                <el-option label="老公" value="老公"></el-option>
-                <el-option label="老婆" value="老婆"></el-option>
+              <el-select v-model="form.cardNo" placeholder="请选择银行卡号" size="mini">
+                <el-option label="1xxx008" value="1xxx008"></el-option>
+                <el-option label="1xxx009" value="1xxx009"></el-option>
               </el-select>
             </el-form-item>
-            <el-form-item label="货币类型" prop="currency" :label-width="formLabelWidth">
-              <el-select v-model="form.currency" placeholder="货币类型" size="mini">
-                <el-option label="人民币" value="人民币"></el-option>
-                <el-option label="日元" value="日元"></el-option>
-              </el-select>
+            <el-form-item label="取款金额" prop="moneySum" :label-width="formLabelWidth">
+              <el-input v-model="form.moneySum" placeholder="取款金额" size="mini"></el-input>
             </el-form-item>
-            <el-form-item v-if="form.cardType == '信用卡'" label="信用额度"
-              prop="creditSum" :label-width="formLabelWidth">
-              <el-input v-model="form.creditSum" placeholder="信用额度" size="mini"></el-input>
-            </el-form-item>
-            <el-form-item label="办卡日期" :label-width="formLabelWidth">
+            <el-form-item label="取款日期" :label-width="formLabelWidth">
               <el-date-picker type="date"
-                placeholder="请选择办卡日期"
-                v-model="form.createCardDate"
+                placeholder="请选择取款日期"
+                v-model="form.withdrawDate"
                 size="mini">
               </el-date-picker>
             </el-form-item>
@@ -63,13 +53,12 @@ export default {
       loading: false,
       updated: false,
       form: {
-        cardType: '储蓄卡',
+        accessorName: '',
         bankType: '',
         cardNo: '',
-        holder: '',
-        currency: '',
-        creditSum: '',
-        createCardDate: '',
+        moneySum: '',
+        withdrawDate: '',
+        formType: 0,
       },
       formLabelWidth: '125px',
     };
@@ -79,9 +68,11 @@ export default {
     dialogTitle() {
       let title = '';
       if (this.form.formType === 1) {
-        title = '银行卡信息录入';
+        title = '取款信息录入';
+      } else if (this.form.formType === 2) {
+        title = '存款信息录入';
       } else {
-        title = '银行卡信息修改';
+        title = '存款信息修改';
       }
       return title;
     },
@@ -123,7 +114,7 @@ export default {
         success() {
           that.updated = true;
           that.$message({
-            message: '恭喜，银行卡信息修改成功。',
+            message: '恭喜，取款信息修改成功。',
             type: 'success',
           });
           that.loading = false;
@@ -137,6 +128,7 @@ export default {
 <style scoped>
   .dialog-content {
     width: 100%;
+    padding-top: 15px;
   }
 
   .el-input, .el-select {

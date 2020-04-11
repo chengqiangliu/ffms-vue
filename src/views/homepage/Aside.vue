@@ -39,7 +39,7 @@
       <el-submenu index="2">
         <template slot="title"><i class="el-icon-money"></i>工资管理</template>
         <el-menu-item-group>
-          <el-menu-item @click="newSalaryInfoVisible = true">
+          <el-menu-item @click="openSalaryDialog">
             <i class="fab fa-paypal"></i>
             工资信息录入
           </el-menu-item>
@@ -65,7 +65,7 @@
       <el-submenu index="4">
         <template slot="title"><i class="el-icon-bank-card"></i>转账管理</template>
         <el-menu-item-group>
-          <el-menu-item @click="transferInfoVisible = true">
+          <el-menu-item @click="openTransferDialog">
             <i class="fas fa-exchange-alt"></i> 转账信息录入
           </el-menu-item>
           <el-menu-item index="4-2" route="/transfer/list">
@@ -109,11 +109,11 @@
       <el-submenu index="7">
         <template slot="title"><i class="el-icon-present"></i>礼金管理</template>
         <el-menu-item-group>
-          <el-menu-item @click="receivePresentInfoVisible = true">
+          <el-menu-item @click="openReceivePresentDialog">
             <i class="fas fa-hand-holding"></i>
             收礼信息录入
           </el-menu-item>
-          <el-menu-item @click="givePresentInfoVisible = true">
+          <el-menu-item @click="openGivePresentDialog">
             <i class="fas fa-hand-holding-usd"></i>
             送礼信息录入
           </el-menu-item>
@@ -138,63 +138,15 @@
       </el-submenu>
     </el-menu>
     <div style="height: 60px;"></div>
-    <el-dialog title="工资信息录入"
-      :visible.sync="newSalaryInfoVisible" :close-on-click-modal="false"
-      :append-to-body="true">
-      <NewSalaryInfo />
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="closePopup(1)">取消</el-button>
-        <el-button type="primary" @click="newSalary">确定</el-button>
-      </span>
-    </el-dialog>
+    <salary-dialog ref="salaryDialog" @update="reload" />
     <bankcard-dialog ref="bankcardDialog" @update="reload" />
-    <el-dialog title="转账信息录入"
-      :visible.sync="transferInfoVisible" :close-on-click-modal="false"
-      :append-to-body="true">
-      <TransferInfo />
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="closePopup(3)">取消</el-button>
-        <el-button type="primary" @click="transfer">确定</el-button>
-      </span>
-    </el-dialog>
+    <transfer-dialog ref="transferDialog" @update="reload" />
     <access-card-dialog ref="withdrawDialog" @update="reload" />
     <access-card-dialog ref="depositDialog" @update="reload" />
-    <el-dialog title="借款（入）信息录入"
-      :visible.sync="borrowInfoVisible" :close-on-click-modal="false"
-      :append-to-body="true">
-      <BorrowInfo />
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="closePopup(6)">取消</el-button>
-        <el-button type="primary" @click="borrow">确定</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog title="借款（出）信息录入"
-      :visible.sync="lendInfoVisible" :close-on-click-modal="false"
-      :append-to-body="true">
-      <LendInfo />
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="closePopup(7)">取消</el-button>
-        <el-button type="primary" @click="lend">确定</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog title="收礼信息录入"
-      :visible.sync="receivePresentInfoVisible" :close-on-click-modal="false"
-      :append-to-body="true">
-      <ReceivePresentInfo />
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="closePopup(8)">取消</el-button>
-        <el-button type="primary" @click="receivePresent">确定</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog title="送礼信息录入"
-      :visible.sync="givePresentInfoVisible" :close-on-click-modal="false"
-      :append-to-body="true">
-      <GivePresentInfo />
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="closePopup(9)">取消</el-button>
-        <el-button type="primary" @click="givePresent">确定</el-button>
-      </span>
-    </el-dialog>
+    <debt-dialog ref="borrowDialog" @update="reload" />
+    <debt-dialog ref="lendDialog" @update="reload" />
+    <present-dialog ref="givePresentDialog" @update="reload" />
+    <present-dialog ref="receivePresentDialog" @update="reload" />
   </div>
 </template>
 
@@ -276,25 +228,17 @@
 
 
 <script>
-import TransferInfo from '@/views/transfer/TransferInfo.vue';
-import NewSalaryInfo from '@/views/salary/NewSalaryInfo.vue';
-import BankcardDialog from '@/components/BankcardDialog.vue';
-import BorrowInfo from '@/views/debt/BorrowInfo.vue';
-import LendInfo from '@/views/debt/LendInfo.vue';
-import ReceivePresentInfo from '@/views/present/ReceivePresentInfo.vue';
-import GivePresentInfo from '@/views/present/GivePresentInfo.vue';
-import AccessCardDialog from '@/components/AccessCardDialog.vue';
+import TransferDialog from '@/components/dialog/TransferDialog.vue';
+import SalaryDialog from '@/components/dialog/SalaryDialog.vue';
+import BankcardDialog from '@/components/dialog/BankcardDialog.vue';
+import DebtDialog from '@/components/dialog/DebtDialog.vue';
+import PresentDialog from '@/components/dialog/PresentDialog.vue';
+import AccessCardDialog from '@/components/dialog/AccessCardDialog.vue';
 
 export default {
   data() {
     return {
       isCollapse: false,
-      newSalaryInfoVisible: false,
-      transferInfoVisible: false,
-      borrowInfoVisible: false,
-      lendInfoVisible: false,
-      receivePresentInfoVisible: false,
-      givePresentInfoVisible: false,
     };
   },
 
@@ -311,20 +255,16 @@ export default {
       }).catch((err) => err);
     },
 
-    closePopup(command) {
-      if (command === 1) {
-        this.newSalaryInfoVisible = false;
-      } else if (command === 3) {
-        this.transferInfoVisible = false;
-      } else if (command === 6) {
-        this.borrowInfoVisible = false;
-      } else if (command === 7) {
-        this.lendInfoVisible = false;
-      } else if (command === 8) {
-        this.receivePresentInfoVisible = false;
-      } else if (command === 9) {
-        this.givePresentInfoVisible = false;
-      }
+    openSalaryDialog() {
+      this.$refs.salaryDialog.open().then((that) => {
+        that.initData({ formType: 1 });
+      });
+    },
+
+    openTransferDialog() {
+      this.$refs.transferDialog.open().then((that) => {
+        that.initData({ formType: 1 });
+      });
     },
 
     openBankcardDialog() {
@@ -345,56 +285,32 @@ export default {
       });
     },
 
+    openBorrowDialog() {
+      this.$refs.borrowDialog.open().then((that) => {
+        that.initData({ formType: 1 });
+      });
+    },
+
+    openLendDialog() {
+      this.$refs.lendDialog.open().then((that) => {
+        that.initData({ formType: 2 });
+      });
+    },
+
+    openReceivePresentDialog() {
+      this.$refs.receivePresentDialog.open().then((that) => {
+        that.initData({ formType: 1 });
+      });
+    },
+
+    openGivePresentDialog() {
+      this.$refs.givePresentDialog.open().then((that) => {
+        that.initData({ formType: 2 });
+      });
+    },
+
     reload() {
       console.log('reload');
-    },
-
-    newSalary() {
-      this.$message({
-        message: 'Congrats, this is a success message.',
-        type: 'success',
-      });
-      this.newSalaryInfoVisible = false;
-    },
-
-    transfer() {
-      this.$message({
-        message: 'Congrats, this is a success message.',
-        type: 'success',
-      });
-      this.transferInfoVisible = false;
-    },
-
-    borrow() {
-      this.$message({
-        message: 'Congrats, this is a success message.',
-        type: 'success',
-      });
-      this.borrowInfoVisible = false;
-    },
-
-    lend() {
-      this.$message({
-        message: 'Congrats, this is a success message.',
-        type: 'success',
-      });
-      this.lendInfoVisible = false;
-    },
-
-    receivePresent() {
-      this.$message({
-        message: 'Congrats, this is a success message.',
-        type: 'success',
-      });
-      this.receivePresentInfoVisible = false;
-    },
-
-    givePresent() {
-      this.$message({
-        message: 'Congrats, this is a success message.',
-        type: 'success',
-      });
-      this.givePresentInfoVisible = false;
     },
   },
 
@@ -405,14 +321,12 @@ export default {
   },
 
   components: {
-    TransferInfo,
-    NewSalaryInfo,
+    TransferDialog,
+    SalaryDialog,
     BankcardDialog,
     AccessCardDialog,
-    LendInfo,
-    BorrowInfo,
-    ReceivePresentInfo,
-    GivePresentInfo,
+    DebtDialog,
+    PresentDialog,
   },
 };
 </script>

@@ -205,11 +205,13 @@
         </el-card>
       </el-col>
     </el-row>
+    <trade-dialog ref='editDialog' @updated="handleSearch" />
   </div>
 </template>
 
 <script>
 import BreadCrumb from '@/components/BreadCrumb.vue';
+import TradeDialog from '@/components/dialog/TradeDialog.vue';
 
 export default {
   name: 'SalesList',
@@ -259,11 +261,12 @@ export default {
       this.handleSearch();
     },
 
-    handleEdit(index, row) {
-      this.$confirm(`你确定要删除这条记录吗? RowNum: ${index}, 单价：${row.price}`)
-        .then(() => {
-        })
-        .catch(() => {});
+    handleEdit(row) {
+      this.$refs.editDialog.open().then((that) => {
+        const data = { ...row };
+        data.formType = 2;
+        that.initData(data);
+      });
     },
 
     handleDelete(row) {
@@ -281,6 +284,7 @@ export default {
 
   components: {
     BreadCrumb,
+    TradeDialog,
   },
 };
 </script>

@@ -152,13 +152,13 @@
         </el-card>
       </el-col>
     </el-row>
-    <bankcard-dialog ref="editDialog" @update="handleSearch" />
+    <bankcard-dialog ref="editDialog" @updated="handleSearch" />
   </div>
 </template>
 
 <script>
 import BreadCrumb from '@/components/BreadCrumb.vue';
-import BankcardDialog from '@/components/BankcardDialog.vue';
+import BankcardDialog from '@/components/dialog/BankcardDialog.vue';
 
 export default {
   name: 'BankcardList',

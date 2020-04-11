@@ -173,13 +173,13 @@
         </el-card>
       </el-col>
     </el-row>
-    <access-card-dialog ref="editDialog" @update="handleSearch" />
+    <access-card-dialog ref="editDialog" @updated="handleSearch" />
   </div>
 </template>
 
 <script>
 import BreadCrumb from '@/components/BreadCrumb.vue';
-import AccessCardDialog from '@/components/AccessCardDialog.vue';
+import AccessCardDialog from '@/components/dialog/AccessCardDialog.vue';
 
 export default {
   name: 'AccesscardList',

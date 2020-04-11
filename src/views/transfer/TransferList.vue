@@ -177,11 +177,13 @@
         </el-card>
       </el-col>
     </el-row>
+    <transfer-dialog ref="editDialog" @update="handleSearch" />
   </div>
 </template>
 
 <script>
 import BreadCrumb from '@/components/BreadCrumb.vue';
+import TransferDialog from '@/components/dialog/TransferDialog.vue';
 
 export default {
   name: 'TransferList',
@@ -227,11 +229,10 @@ export default {
       this.handleSearch();
     },
 
-    handleEdit(index, row) {
-      this.$confirm(`你确定要删除这条记录吗? RowNum: ${index}, 单价：${row.price}`)
-        .then(() => {
-        })
-        .catch(() => {});
+    handleEdit(row) {
+      this.$refs.editDialog.open().then((that) => {
+        that.initData(row);
+      });
     },
 
     handleDelete(row) {
@@ -249,6 +250,7 @@ export default {
 
   components: {
     BreadCrumb,
+    TransferDialog,
   },
 };
 </script>

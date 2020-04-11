@@ -48,95 +48,28 @@
     <div class="loading-overlay">
       <i class="loading-icon fa fa-refresh fa-spin fa-lg"></i>
     </div>
-    <el-dialog v-if="operateType === '1'" title="工资信息录入"
-      :visible.sync="newSalaryInfoVisible" :close-on-click-modal="false"
-      :append-to-body="true">
-      <NewSalaryInfo />
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="newSalaryInfoVisible = false">取消</el-button>
-        <el-button type="primary" @click="newSalary">确定</el-button>
-      </span>
-    </el-dialog>
-    <bankcard-dialog ref="bankcardDialog" @update="reload" />
-    <el-dialog v-if="operateType === '2'" title="转账信息录入"
-      :visible.sync="transferInfoVisible" :close-on-click-modal="false"
-      :append-to-body="true">
-      <TransferInfo />
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="transferInfoVisible = false">取消</el-button>
-        <el-button type="primary" @click="transfer">确定</el-button>
-      </span>
-    </el-dialog>
-    <access-card-dialog ref="withdrawDialog" @update="reload" />
-    <access-card-dialog ref="depositDialog" @update="reload" />
-    <el-dialog v-if="operateType === '5'" title="借款（入）信息录入"
-      :visible.sync="borrowInfoVisible" :close-on-click-modal="false"
-      :append-to-body="true">
-      <BorrowInfo />
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="borrowInfoVisible = false">取消</el-button>
-        <el-button type="primary" @click="borrow">确定</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog v-if="operateType === '5'" title="还款（出）信息录入"
-      :visible.sync="paybackOutInfoVisible" :close-on-click-modal="false"
-      :append-to-body="true">
-      <PaybackOutInfo />
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="paybackOutInfoVisible = false">取消</el-button>
-        <el-button type="primary" @click="paybackOut">还款</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog v-if="operateType === '6'" title="借款（出）信息录入"
-      :visible.sync="lendInfoVisible" :close-on-click-modal="false"
-      :append-to-body="true">
-      <LendInfo />
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="lendInfoVisible = false">取消</el-button>
-        <el-button type="primary" @click="lend">确定</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog v-if="operateType === '6'" title="还款（入）信息录入"
-      :visible.sync="paybackInInfoVisible" :close-on-click-modal="false"
-      :append-to-body="true">
-      <PaybackInInfo />
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="paybackInInfoVisible = false">取消</el-button>
-        <el-button type="primary" @click="paybackIn">还款</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog v-if="operateType === '7'" title="收礼信息录入"
-      :visible.sync="receivePresentInfoVisible" :close-on-click-modal="false"
-      :append-to-body="true">
-      <ReceivePresentInfo />
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="receivePresentInfoVisible = false">取消</el-button>
-        <el-button type="primary" @click="receivePresent">确定</el-button>
-      </span>
-    </el-dialog>
-    <el-dialog v-if="operateType === '7'" title="送礼信息录入"
-      :visible.sync="givePresentInfoVisible" :close-on-click-modal="false"
-      :append-to-body="true">
-      <GivePresentInfo />
-      <span slot="footer" class="dialog-footer">
-        <el-button @click="givePresentInfoVisible = false">取消</el-button>
-        <el-button type="primary" @click="givePresent">确定</el-button>
-      </span>
-    </el-dialog>
+    <salary-dialog v-if="operateType === '1'" ref="salaryDialog" @update="reload" />
+    <bankcard-dialog v-if="operateType === '2'" ref="bankcardDialog" @update="reload" />
+    <transfer-dialog v-if="operateType === '2'" ref="transferDialog" @update="reload" />
+    <access-card-dialog v-if="operateType === '3'" ref="withdrawDialog" @update="reload" />
+    <access-card-dialog v-if="operateType === '3'" ref="depositDialog" @update="reload" />
+    <debt-dialog v-if="operateType === '5'" ref="borrowDialog" @update="reload" />
+    <payback-dialog v-if="operateType === '5'" ref="paybackOutDialog" @update="reload" />
+    <debt-dialog v-if="operateType === '6'" ref="lendDialog" @update="reload" />
+    <payback-dialog v-if="operateType === '6'" ref="paybackInDialog" @update="reload" />
+    <present-dialog v-if="operateType === '7'" ref="givePresentDialog" @update="reload" />
+    <present-dialog v-if="operateType === '7'" ref="receivePresentDialog" @update="reload" />
   </div>
 </template>
 
 <script>
-import TransferInfo from '@/views/transfer/TransferInfo.vue';
-import NewSalaryInfo from '@/views/salary/NewSalaryInfo.vue';
-import BorrowInfo from '@/views/debt/BorrowInfo.vue';
-import LendInfo from '@/views/debt/LendInfo.vue';
-import ReceivePresentInfo from '@/views/present/ReceivePresentInfo.vue';
-import GivePresentInfo from '@/views/present/GivePresentInfo.vue';
-import PaybackInInfo from '@/views/debt/PaybackInInfo.vue';
-import PaybackOutInfo from '@/views/debt/PaybackOutInfo.vue';
-import AccessCardDialog from '@/components/AccessCardDialog.vue';
-import BankcardDialog from '@/components/BankcardDialog.vue';
+import TransferDialog from '@/components/dialog/TransferDialog.vue';
+import AccessCardDialog from '@/components/dialog/AccessCardDialog.vue';
+import BankcardDialog from '@/components/dialog/BankcardDialog.vue';
+import SalaryDialog from '@/components/dialog/SalaryDialog.vue';
+import PresentDialog from '@/components/dialog/PresentDialog.vue';
+import DebtDialog from '@/components/dialog/DebtDialog.vue';
+import PaybackDialog from '@/components/dialog/PaybackDialog.vue';
 
 export default {
   name: 'StatisticsPanel',
@@ -150,24 +83,16 @@ export default {
   },
   data() {
     return {
-      newSalaryInfoVisible: false,
-      transferInfoVisible: false,
-      borrowInfoVisible: false,
-      lendInfoVisible: false,
-      receivePresentInfoVisible: false,
-      givePresentInfoVisible: false,
-      paybackInInfoVisible: false,
-      paybackOutInfoVisible: false,
     };
   },
   methods: {
     handleCommand(command) {
       if (command === '1') {
-        this.newSalaryInfoVisible = true;
+        this.openSalaryDialog();
       } else if (command === '2-1') {
         this.openBankcardDialog();
       } else if (command === '2-2') {
-        this.transferInfoVisible = true;
+        this.openTransferDialog();
       } else if (command === '3-1') {
         this.openWithdrawDialog();
       } else if (command === '3-2') {
@@ -177,22 +102,34 @@ export default {
           path: '/consume/register',
         }).catch((err) => err);
       } else if (command === '5-1') {
-        this.borrowInfoVisible = true;
+        this.openBorrowDialog();
       } else if (command === '5-2') {
-        this.paybackOutInfoVisible = true;
+        this.openPaybackOutDialog();
       } else if (command === '6-1') {
-        this.lendInfoVisible = true;
+        this.openLendDialog();
       } else if (command === '6-2') {
-        this.paybackInInfoVisible = true;
+        this.openPaybackInDialog();
       } else if (command === '7-1') {
-        this.receivePresentInfoVisible = true;
+        this.openReceivePresentDialog();
       } else if (command === '7-2') {
-        this.givePresentInfoVisible = true;
+        this.openGivePresentDialog();
       } else if (command === '8') {
         this.$router.push({
           path: '/sales/register',
         }).catch((err) => err);
       }
+    },
+
+    openTransferDialog() {
+      this.$refs.transferDialog.open().then((that) => {
+        that.initData({ formType: 1 });
+      });
+    },
+
+    openSalaryDialog() {
+      this.$refs.salaryDialog.open().then((that) => {
+        that.initData({ formType: 1 });
+      });
     },
 
     openBankcardDialog() {
@@ -213,85 +150,54 @@ export default {
       });
     },
 
+    openReceivePresentDialog() {
+      this.$refs.receivePresentDialog.open().then((that) => {
+        that.initData({ formType: 1 });
+      });
+    },
+
+    openGivePresentDialog() {
+      this.$refs.givePresentDialog.open().then((that) => {
+        that.initData({ formType: 2 });
+      });
+    },
+
+    openBorrowDialog() {
+      this.$refs.borrowDialog.open().then((that) => {
+        that.initData({ formType: 1 });
+      });
+    },
+
+    openLendDialog() {
+      this.$refs.lendDialog.open().then((that) => {
+        that.initData({ formType: 2 });
+      });
+    },
+
+    openPaybackOutDialog() {
+      this.$refs.paybackOutDialog.open().then((that) => {
+        that.initData({ formType: 1 });
+      });
+    },
+
+    openPaybackInDialog() {
+      this.$refs.paybackInDialog.open().then((that) => {
+        that.initData({ formType: 2 });
+      });
+    },
+
     reload() {
       console.log('reload');
     },
-
-    newSalary() {
-      this.$message({
-        message: 'Congrats, this is a success message.',
-        type: 'success',
-      });
-      this.newSalaryInfoVisible = false;
-    },
-
-    transfer() {
-      this.$message({
-        message: 'Congrats, this is a success message.',
-        type: 'success',
-      });
-      this.transferInfoVisible = false;
-    },
-
-    borrow() {
-      this.$message({
-        message: 'Congrats, this is a success message.',
-        type: 'success',
-      });
-      this.borrowInfoVisible = false;
-    },
-
-    paybackOut() {
-      this.$message({
-        message: 'Congrats, this is a success message.',
-        type: 'success',
-      });
-      this.paybackOutInfoVisible = false;
-    },
-
-    lend() {
-      this.$message({
-        message: 'Congrats, this is a success message.',
-        type: 'success',
-      });
-      this.lendInfoVisible = false;
-    },
-
-    paybackIn() {
-      this.$message({
-        message: 'Congrats, this is a success message.',
-        type: 'success',
-      });
-      this.paybackInInfoVisible = false;
-    },
-
-    receivePresent() {
-      this.$message({
-        message: 'Congrats, this is a success message.',
-        type: 'success',
-      });
-      this.receivePresentInfoVisible = false;
-    },
-
-    givePresent() {
-      this.$message({
-        message: 'Congrats, this is a success message.',
-        type: 'success',
-      });
-      this.givePresentInfoVisible = false;
-    },
   },
   components: {
-    TransferInfo,
-    NewSalaryInfo,
-    LendInfo,
-    BorrowInfo,
-    ReceivePresentInfo,
-    GivePresentInfo,
-    PaybackInInfo,
-    PaybackOutInfo,
+    TransferDialog,
+    SalaryDialog,
+    PresentDialog,
+    PaybackDialog,
     AccessCardDialog,
     BankcardDialog,
+    DebtDialog,
   },
 };
 </script>

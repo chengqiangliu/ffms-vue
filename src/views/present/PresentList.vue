@@ -184,11 +184,13 @@
         </el-card>
       </el-col>
     </el-row>
+    <present-dialog ref="editDialog" @updated="handleSearch" />
   </div>
 </template>
 
 <script>
 import BreadCrumb from '@/components/BreadCrumb.vue';
+import PresentDialog from '@/components/dialog/PresentDialog.vue';
 
 export default {
   name: 'PresentList',
@@ -235,11 +237,10 @@ export default {
       this.handleSearch();
     },
 
-    handleEdit(index, row) {
-      this.$confirm(`你确定要删除这条记录吗? RowNum: ${index}, 单价：${row.price}`)
-        .then(() => {
-        })
-        .catch(() => {});
+    handleEdit(row) {
+      this.$refs.editDialog.open().then((that) => {
+        that.initData(row);
+      });
     },
 
     handleDelete(row) {
@@ -257,6 +258,7 @@ export default {
 
   components: {
     BreadCrumb,
+    PresentDialog,
   },
 };
 </script>

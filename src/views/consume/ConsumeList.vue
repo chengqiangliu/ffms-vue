@@ -205,13 +205,13 @@
         </el-card>
       </el-col>
     </el-row>
-    <ConsumeEdit ref='editDialog' @updated="handleSearch" />
+    <trade-dialog ref='editDialog' @updated="handleSearch" />
   </div>
 </template>
 
 <script>
 import BreadCrumb from '@/components/BreadCrumb.vue';
-import ConsumeEdit from '@/views/consume/ConsumeEdit.vue';
+import TradeDialog from '@/components/dialog/TradeDialog.vue';
 
 export default {
   name: 'ConsumeList',
@@ -263,7 +263,9 @@ export default {
 
     handleEdit(row) {
       this.$refs.editDialog.open().then((that) => {
-        that.initData(row);
+        const data = { ...row };
+        data.formType = 1;
+        that.initData(data);
       });
     },
 
@@ -282,7 +284,7 @@ export default {
 
   components: {
     BreadCrumb,
-    ConsumeEdit,
+    TradeDialog,
   },
 };
 </script>

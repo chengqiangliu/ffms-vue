@@ -204,11 +204,13 @@
         </el-card>
       </el-col>
     </el-row>
+    <debt-dialog ref="editDialog" @updated="handleSearch" />
   </div>
 </template>
 
 <script>
 import BreadCrumb from '@/components/BreadCrumb.vue';
+import DebtDialog from '@/components/dialog/DebtDialog.vue';
 
 export default {
   name: 'DebtList',
@@ -256,11 +258,10 @@ export default {
       this.handleSearch();
     },
 
-    handleEdit(index, row) {
-      this.$confirm(`你确定要删除这条记录吗? RowNum: ${index}, 单价：${row.price}`)
-        .then(() => {
-        })
-        .catch(() => {});
+    handleEdit(row) {
+      this.$refs.editDialog.open().then((that) => {
+        that.initData(row);
+      });
     },
 
     handleDelete(row) {
@@ -268,7 +269,7 @@ export default {
         .then(() => {
           console.log(row);
           this.$message({
-            message: '债务信息已被删除成功。',
+            message: '借款信息已被删除成功。',
             type: 'success',
           });
         })
@@ -278,6 +279,7 @@ export default {
 
   components: {
     BreadCrumb,
+    DebtDialog,
   },
 };
 </script>
