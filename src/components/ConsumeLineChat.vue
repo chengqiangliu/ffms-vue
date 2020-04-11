@@ -4,28 +4,47 @@ import { Line } from 'vue-chartjs';
 export default {
   name: 'ConsumeLineChat',
   extends: Line,
+  data() {
+    return {
+      chartData: {
+        consumeData: [],
+        salaryData: [],
+      },
+    };
+  },
+
   mounted() {
-    this.renderChart({
-      labels: ['January', 'February', 'March', 'April', 'May', 'June',
-        'July', 'August', 'September', 'October', 'November', 'December'],
-      datasets: [{
-        label: '工资金额',
-        borderWidth: 3,
-        borderColor: '#65cea7',
-        backgroundColor: 'transparent',
-        pointBackgroundColor: '#f87979',
-        data: [60, 69, 60, 60, 69, 90, 60, 60, 69, 60],
-      }, {
-        label: '消费金额',
-        borderWidth: 3,
-        borderColor: '#f87979',
-        backgroundColor: 'transparent',
-        pointBackgroundColor: '#65cea7',
-        data: [40, 39, 10, 40, 39, 80, 40, 10, 40, 39],
-      }],
-    }, {
-      responsive: true,
-      maintainAspectRatio: false,
+    const that = this;
+    this.$request.httpRequest({
+      method: 'get',
+      url: '/chart/list',
+      params: {},
+      success(response) {
+        that.chartData = { ...response.data };
+        console.log(that.chartData);
+        that.renderChart({
+          labels: ['January', 'February', 'March', 'April', 'May', 'June',
+            'July', 'August', 'September', 'October', 'November', 'December'],
+          datasets: [{
+            label: '工资金额',
+            borderWidth: 2,
+            borderColor: '#65cea7',
+            backgroundColor: 'transparent',
+            pointBackgroundColor: '#f87979',
+            data: that.chartData.salaryData,
+          }, {
+            label: '消费金额',
+            borderWidth: 2,
+            borderColor: '#f87979',
+            backgroundColor: 'transparent',
+            pointBackgroundColor: '#65cea7',
+            data: that.chartData.consumeData,
+          }],
+        }, {
+          responsive: true,
+          maintainAspectRatio: false,
+        });
+      },
     });
   },
 };

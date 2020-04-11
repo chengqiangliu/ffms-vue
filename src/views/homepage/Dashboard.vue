@@ -168,7 +168,7 @@ export default {
             that.dashboardValues.salaryMoneySum = response.data.moneySum;
             that.$refs.statsPanel1.inactive();
           } else if (operateType === 2) {
-            that.dashboardValues.handMoneySum = response.data.moneySum;
+            that.dashboardValues.bankcardMoneySum = response.data.moneySum;
             that.$refs.statsPanel2.inactive();
           } else if (operateType === 3) {
             that.dashboardValues.handMoneySum = response.data.moneySum;

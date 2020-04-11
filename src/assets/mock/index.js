@@ -270,6 +270,14 @@ const singleDashboardResult = () => {
   return result;
 };
 
+const consumeChartResult = () => {
+  result.data = {
+    salaryData: [60, 69, 60, 60, 69, 90, 60, 60, 69, 60, 65, 58],
+    consumeData: [40, 39, 34, 40, 39, 30, 40, 30, 40, 25, 20, 23],
+  };
+  return result;
+};
+
 Mock.mock('/login', 'post', loginResult);
 Mock.mock('/consume/register', simpleResult);
 Mock.mock('/consume/list', consumeSearchResult);
@@ -285,3 +293,4 @@ Mock.mock('/debt/list', debtSearchResult);
 Mock.mock('/transfer/list', transferSearchResult);
 Mock.mock('/dashboard/init', dashboardResult);
 Mock.mock('/dashboard/refresh', singleDashboardResult);
+Mock.mock('/chart/list', 'get', consumeChartResult);
