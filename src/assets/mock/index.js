@@ -294,3 +294,5 @@ Mock.mock('/transfer/list', transferSearchResult);
 Mock.mock('/dashboard/init', dashboardResult);
 Mock.mock('/dashboard/refresh', singleDashboardResult);
 Mock.mock('/chart/list', 'get', consumeChartResult);
+Mock.mock('/masterdata/delete', 'post', simpleResult);
+Mock.mock('/masterdata/add', 'post', simpleResult);
