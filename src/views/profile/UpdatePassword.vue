@@ -7,7 +7,8 @@
           <el-form :model="profileForm" :rules="rules" ref="profileForm"
             label-width="120px" class="demo-profileForm">
             <el-form-item label="用户名" prop="userName">
-              <el-input v-model="profileForm.userName" placeholder="用户名" readOnly size="mini">
+              <el-input v-model="profileForm.userName" placeholder="用户名" disabled="true"
+                size="mini">
               </el-input>
             </el-form-item>
             <el-form-item label="原密码" prop="password">
@@ -22,16 +23,16 @@
               <el-input v-model="profileForm.confirmNewPassword" placeholder="确认新密码"
                 show-password size="mini"></el-input>
             </el-form-item>
-            <el-form-item label="Email" prop="email">
-              <el-input v-model="profileForm.email" size="mini">
-              </el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button @click="resetForm('profileForm')" size="mini">重置</el-button>
-              <el-button type="primary" @click="submitForm('profileForm')" size="mini">
-                修改</el-button>
-            </el-form-item>
           </el-form>
+        </el-col>
+      </el-row>
+      <el-row :gutter="20" class="elrow">
+        <el-col :span="2" :offset=8>
+          <el-button @click="resetForm('profileForm')" size="mini">重置</el-button>
+        </el-col>
+        <el-col :span="2" :offset=2>
+          <el-button type="primary" @click="submitForm('profileForm')" size="mini">
+            修改</el-button>
         </el-col>
       </el-row>
     </div>
@@ -72,11 +73,10 @@ export default {
   data() {
     return {
       profileForm: {
-        userName: '',
+        userName: this.$store.getters.userInfo.username,
         password: '',
         newPassword: '',
         confirmNewPassword: '',
-        email: '',
       },
       rules: {
         password: [
@@ -122,21 +122,38 @@ export default {
     };
   },
 
+  mounted: {
+
+  },
+
   methods: {
+    resetForm(formName) {
+      this.$refs[formName].resetFields();
+    },
+
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!');
+          const that = this;
+          this.$request.httpRequest({
+            method: 'post',
+            url: '/password/update',
+            params: that.profileForm,
+            success() {
+              that.profileForm.password = '';
+              that.profileForm.newPassword = '';
+              that.profileForm.confirmNewPassword = '';
+              that.$message({
+                message: '恭喜，密码修改成功。',
+                type: 'success',
+              });
+            },
+          });
         } else {
-          console.log('error submit!!');
           return false;
         }
         return false;
       });
-    },
-
-    resetForm(formName) {
-      this.$refs[formName].resetFields();
     },
   },
 

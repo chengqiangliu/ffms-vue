@@ -26,38 +26,7 @@
   </div>
 </template>
 
-<style scoped>
-  h3{
-    color: #BECFE0;
-  }
-
-  .main-div {
-    width: 100%;
-    padding-top: 60px;
-  }
-
-  .el-card {
-    padding-top: 40px;
-    padding-bottom: 40px;
-  }
-
-  .elrow {
-    margin-top: 20px;
-  }
-
-  .el-button {
-    margin-top: 10px;
-    margin-left: 80px;
-    width: 300px;
-  }
-
-  .el-input, .el-select {
-    width: 220px;
-  }
-</style>
-
 <script>
-
 export default {
   data() {
     return {
@@ -98,23 +67,64 @@ export default {
 
   methods: {
     hangdleLogin() {
-      const that = this;
-      this.$request.httpRequest({
-        method: 'post',
-        url: '/login',
-        params: {},
-        success(data) {
-          localStorage.setItem('LOGIN_TOKEN', data.token);
-          that.$router.push({
-            path: '/dashboard',
-          }).catch((err) => err);
-        },
+      this.$refs.loginForm.validate((valid) => {
+        if (valid) {
+          const that = this;
+          this.$request.httpRequest({
+            method: 'post',
+            url: '/login',
+            params: that.loginForm,
+            success(data) {
+              localStorage.setItem('LOGIN_TOKEN', data.token);
+              const uesrInfo = {
+                username: that.loginForm.username,
+                role: '',
+              };
+              that.$store.commit('setUserInfo', uesrInfo);
+              that.$router.push({
+                path: '/dashboard',
+              }).catch((err) => err);
+            },
+          });
+        } else {
+          return false;
+        }
+        return false;
       });
     },
   },
 
   components: {
-    // BreadCrumb,
   },
 };
 </script>
+
+<style scoped>
+  h3{
+    color: #BECFE0;
+  }
+
+  .main-div {
+    width: 100%;
+    padding-top: 60px;
+  }
+
+  .el-card {
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .elrow {
+    margin-top: 20px;
+  }
+
+  .el-button {
+    margin-top: 10px;
+    margin-left: 80px;
+    width: 300px;
+  }
+
+  .el-input, .el-select {
+    width: 220px;
+  }
+</style>

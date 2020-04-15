@@ -79,6 +79,7 @@ export default {
       updated: false,
       form: {},
       formType: 0,
+      rules: {},
     };
   },
 

@@ -5,7 +5,7 @@
         src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg">
       </el-avatar>
       <div class="user-detail">
-        <strong>Baobao</strong>
+        <strong>{{ $store.getters.userInfo.username }}</strong>
         <ul class="list-inline">
           <li><a @click="transitionToProfile">个人信息</a></li>
         </ul>
@@ -188,21 +188,11 @@
     color: #e6f1f7;
     text-decoration: none;
     cursor: pointer;
-    transition: all .2s ease;
-    -webkit-transition: all .2s ease;
-    -moz-transition: all .2s ease;
-    -ms-transition: all .2s ease;
-    -o-transition: all .2s ease
   }
 
   a:focus, a:hover {
     color: #999;
     text-decoration: none;
-    transition: all .2s ease;
-    -webkit-transition: all .2s ease;
-    -moz-transition: all .2s ease;
-    -ms-transition: all .2s ease;
-    -o-transition: all .2s ease
   }
 
   .list-inline{

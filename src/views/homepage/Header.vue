@@ -17,9 +17,9 @@
           text-color="#BECFE0"
           active-text-color="#BECFE0">
           <el-submenu index="1">
-            <template slot="title">Baobao</template>
-            <el-menu-item index="1-1" @click="editUserInfo">
-              <i class="fas fa-user-edit"></i>&nbsp;编辑个人信息
+            <template slot="title">{{ $store.getters.userInfo.username }}</template>
+            <el-menu-item index="1-1" @click="updatePassword">
+              <i class="fas fa-key"></i>&nbsp;修改密码
             </el-menu-item>
             <el-menu-item index="1-2" @click="logout">
               <i class="fas fa-sign-out-alt"></i>&nbsp;退出系统
@@ -83,9 +83,9 @@ export default {
       this.$root.$emit('toggleSideMenu');
     },
 
-    editUserInfo() {
+    updatePassword() {
       this.$router.push({
-        path: '/profile/edit',
+        path: 'password/update',
       }).catch((err) => err);
     },
 

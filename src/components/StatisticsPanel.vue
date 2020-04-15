@@ -237,11 +237,6 @@ export default {
     position: absolute;
     top: 10px;
     right: 10px;
-    transition: all .2s ease;
-    -webkit-transition: all .2s ease;
-    -moz-transition: all .2s ease;
-    -ms-transition: all .2s ease;
-    -o-transition: all .2s ease;
     color: rgba(0, 0, 0, .3)
   }
 
@@ -249,31 +244,16 @@ export default {
     position: absolute;
     top: 10px;
     left: 10px;
-    transition: all .2s ease;
-    -webkit-transition: all .2s ease;
-    -moz-transition: all .2s ease;
-    -ms-transition: all .2s ease;
-    -o-transition: all .2s ease;
     color: rgba(0, 0, 0, .3);
     font-size: 12px;
   }
 
   .panel-stat3 .el-dropdown-link:hover {
     color: #fff;
-    transition: all .2s ease;
-    -webkit-transition: all .2s ease;
-    -moz-transition: all .2s ease;
-    -ms-transition: all .2s ease;
-    -o-transition: all .2s ease
   }
 
   .panel-stat3 .refresh-button:hover {
     color: #fff;
-    transition: all .2s ease;
-    -webkit-transition: all .2s ease;
-    -moz-transition: all .2s ease;
-    -ms-transition: all .2s ease;
-    -o-transition: all .2s ease
   }
 
   .bg-info {
@@ -330,21 +310,11 @@ export default {
   a {
     color: #555;
     text-decoration: none;
-    transition: all .2s ease;
-    -webkit-transition: all .2s ease;
-    -moz-transition: all .2s ease;
-    -ms-transition: all .2s ease;
-    -o-transition: all .2s ease
   }
 
   a:focus, a:hover {
     color: #999;
     text-decoration: none;
-    transition: all .2s ease;
-    -webkit-transition: all .2s ease;
-    -moz-transition: all .2s ease;
-    -ms-transition: all .2s ease;
-    -o-transition: all .2s ease
   }
 
   .h2ValueClass {

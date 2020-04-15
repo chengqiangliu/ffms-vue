@@ -279,6 +279,7 @@ const consumeChartResult = () => {
 };
 
 Mock.mock('/login', 'post', loginResult);
+Mock.mock('/password/update', 'post', simpleResult);
 Mock.mock('/consume/register', simpleResult);
 Mock.mock('/consume/list', consumeSearchResult);
 Mock.mock('/consume/update', simpleResult);

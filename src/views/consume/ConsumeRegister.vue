@@ -168,6 +168,22 @@ export default {
     };
   },
 
+  computed: {
+    calPrice() {
+      return this.consumeForm.price;
+    },
+  },
+
+  watch: {
+    calPrice(newValue) {
+      console.log(newValue);
+      // handle(newValue) {
+      //   this.consumeForm.goodsSum = newValue * this.consumeForm.quantity;
+      // },
+      // deep: true,
+    },
+  },
+
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {

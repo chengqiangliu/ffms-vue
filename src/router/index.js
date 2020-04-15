@@ -15,7 +15,7 @@ import ConsumeList from '@/views/consume/ConsumeList.vue';
 import SalesList from '@/views/sales/SalesList.vue';
 import SalesRegister from '@/views/sales/SalesRegister.vue';
 import UserList from '@/views/user/UserList.vue';
-import EditProfile from '@/views/profile/EditProfile.vue';
+import UpdatePassword from '@/views/profile/UpdatePassword.vue';
 import Profile from '@/views/profile/Profile.vue';
 import Login from '@/views/login/Login.vue';
 
@@ -112,9 +112,9 @@ const routes = [
         },
       },
       {
-        path: 'profile/edit',
-        name: 'EditProfile',
-        component: EditProfile,
+        path: 'password/update',
+        name: 'UpdatePassword',
+        component: UpdatePassword,
       },
       {
         path: 'system/help',
