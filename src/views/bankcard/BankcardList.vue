@@ -68,17 +68,17 @@
         <el-card>
           <div slot="header">
             <i class="fa fa-table"></i> 查询结果
-            <el-button style="float: right; margin-top: -6px;" type="danger">
+            <el-button style="float: right; margin-top: -6px;" type="danger"
+              :disabled="multipleSelection.length === 0" @click="handleMultipleDelete">
               <i class="fa fa-trash-o"></i> 删除
             </el-button>
           </div>
           <el-row style="height: 320px;">
             <el-col>
-              <el-table
-                :data="tableData"
+              <el-table :data="tableData"
+                @selection-change="handleSelectionChange"
                 :default-sort = "{prop: 'date', order: 'descending'}"
-                stripe
-                height="290">
+                stripe height="290">
                 <el-table-column
                   type="selection"
                   fixed
@@ -177,6 +177,7 @@ export default {
         countPerPage: 20,
       },
       tableData: [],
+      multipleSelection: [],
     };
   },
 
@@ -187,6 +188,10 @@ export default {
   },
 
   methods: {
+    handleSelectionChange(val) {
+      this.multipleSelection = val;
+    },
+
     handleSearch() {
       const that = this;
       this.$request.httpRequest({
@@ -217,13 +222,41 @@ export default {
       });
     },
 
+    handleMultipleDelete() {
+      this.$confirm('你确定要删除选择的记录吗', '提示', { type: 'warning' })
+        .then(() => {
+          const that = this;
+          this.$request.httpRequest({
+            method: 'post',
+            url: '/bankcard/delete',
+            params: that.multipleSelection,
+            success() {
+              that.handleSearch();
+              that.$message({
+                message: '恭喜，删除成功。',
+                type: 'success',
+              });
+            },
+          });
+        })
+        .catch(() => {});
+    },
+
     handleDelete(row) {
       this.$confirm('你确定要删除这条记录吗', '提示', { type: 'warning' })
         .then(() => {
-          console.log(row);
-          this.$message({
-            message: '银行卡信息已被删除成功。',
-            type: 'success',
+          const that = this;
+          this.$request.httpRequest({
+            method: 'post',
+            url: '/bankcard/delete',
+            params: row,
+            success() {
+              that.handleSearch();
+              that.$message({
+                message: '恭喜，删除成功。',
+                type: 'success',
+              });
+            },
           });
         })
         .catch(() => {});
