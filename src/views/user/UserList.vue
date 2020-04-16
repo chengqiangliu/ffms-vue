@@ -46,7 +46,7 @@
               </el-button>
             </el-col>
             <el-col :span="2" :offset="2">
-              <el-button type="warning" class="search-button">
+              <el-button type="warning" class="search-button" @click="handleAdd">
                 <i class="fa fa-plus-circle"></i> 添加新用户
               </el-button>
             </el-col>
@@ -104,7 +104,7 @@
                   sortable
                   prop="lastLogonTime"
                   label="上次登录时间"
-                  width="150">
+                  width="200">
                   <template slot-scope="scope">
                     <i class="far fa-clock"></i>
                     <span style="margin-left: 10px">{{ scope.row.lastLogonTime }}</span>
@@ -140,11 +140,14 @@
         </el-card>
       </el-col>
     </el-row>
+    <user-dialog ref='editDialog' @updated="handleSearch" />
+    <user-dialog ref='addDialog' @updated="handleSearch" />
   </div>
 </template>
 
 <script>
 import BreadCrumb from '@/components/BreadCrumb.vue';
+import UserDialog from '@/components/dialog/UserDialog.vue';
 
 export default {
   name: 'UserList',
@@ -193,11 +196,19 @@ export default {
       this.handleSearch();
     },
 
-    handleEdit(index, row) {
-      this.$confirm(`你确定要删除这条记录吗? RowNum: ${index}, 单价：${row.price}`)
-        .then(() => {
-        })
-        .catch(() => {});
+    handleAdd() {
+      this.$refs.addDialog.open().then((that) => {
+        const data = { formType: 0 };
+        that.initData(data);
+      });
+    },
+
+    handleEdit(row) {
+      this.$refs.editDialog.open().then((that) => {
+        const data = { ...row };
+        data.formType = 1;
+        that.initData(data);
+      });
     },
 
     handleMultipleDelete() {
@@ -243,6 +254,7 @@ export default {
 
   components: {
     BreadCrumb,
+    UserDialog,
   },
 };
 </script>
