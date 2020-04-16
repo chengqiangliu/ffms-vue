@@ -23,8 +23,9 @@
             <el-form-item v-if="form.paymentType == '刷卡'" label="开户银行"
               prop="bankType" :label-width="formLabelWidth">
               <el-select v-model="form.bankType" placeholder="请选择开户银行" size="mini">
-                <el-option label="东京三菱UFJ银行" value="东京三菱UFJ银行"></el-option>
-                <el-option label="乐天银行" value="乐天银行"></el-option>
+                <el-option v-for="item in masterData.bankTypeList"
+                  :key="item.key" :value="item.value">
+                </el-option>
               </el-select>
             </el-form-item>
             <el-form-item  v-if="form.paymentType == '刷卡'" label="银行卡号"
@@ -89,6 +90,10 @@ export default {
         title = '借款信息修改';
       }
       return title;
+    },
+
+    masterData() {
+      return this.$store.getters.masterData;
     },
   },
 

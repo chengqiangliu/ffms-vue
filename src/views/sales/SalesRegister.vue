@@ -11,8 +11,9 @@
             </el-form-item>
             <el-form-item label="商品类别" prop="goodsType">
               <el-select v-model="salesForm.goodsType" placeholder="请选择商品类别" size="mini">
-                <el-option label="食品" value="食品"></el-option>
-                <el-option label="电子产品" value="电子产品"></el-option>
+                <el-option v-for="item in masterData.goodsTypeList"
+                  :key="item.key" :value="item.value">
+                </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="单价" prop="price">
@@ -31,10 +32,11 @@
                 <el-radio label="刷卡" value="1"></el-radio>
               </el-radio-group>
             </el-form-item>
-            <el-form-item v-if="salesForm.paymentType == '刷卡'" label="银行卡类型" prop="bankType">
-              <el-select v-model="salesForm.bankType" placeholder="请选择银行卡类型" size="mini">
-                <el-option label="东京三菱UFJ银行" value="东京三菱UFJ银行"></el-option>
-                <el-option label="乐天银行" value="乐天银行"></el-option>
+            <el-form-item v-if="salesForm.paymentType == '刷卡'" label="开户银行" prop="bankType">
+              <el-select v-model="salesForm.bankType" placeholder="请选择开户银行" size="mini">
+                <el-option v-for="item in masterData.bankTypeList"
+                  :key="item.key" :value="item.value">
+                </el-option>
               </el-select>
             </el-form-item>
             <el-form-item v-if="salesForm.paymentType == '刷卡'" label="银行卡号" prop="cardNo">
@@ -166,6 +168,12 @@ export default {
         ],
       },
     };
+  },
+
+  computed: {
+    masterData() {
+      return this.$store.getters.masterData;
+    },
   },
 
   methods: {

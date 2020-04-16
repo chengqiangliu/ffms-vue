@@ -17,7 +17,7 @@
           text-color="#BECFE0"
           active-text-color="#BECFE0">
           <el-submenu index="1">
-            <template slot="title">{{ $store.getters.userInfo.username }}</template>
+            <template slot="title">{{ username }}</template>
             <el-menu-item index="1-1" @click="updatePassword">
               <i class="fas fa-key"></i>&nbsp;修改密码
             </el-menu-item>
@@ -78,6 +78,12 @@
 
 <script>
 export default {
+  computed: {
+    username() {
+      return this.$store.getters.userInfo.username;
+    },
+  },
+
   methods: {
     toggleAside() {
       this.$root.$emit('toggleSideMenu');

@@ -64,6 +64,10 @@ export default {
     },
   },
 
+  created() {
+    this.fetchMasterData();
+  },
+
   mounted() {
     this.$root.$on('toggleSideMenu', () => {
       if (this.asideWidth === 200) {
@@ -72,6 +76,20 @@ export default {
         this.asideWidth = 200;
       }
     });
+  },
+
+  methods: {
+    fetchMasterData() {
+      const that = this;
+      this.$request.httpRequest({
+        method: 'get',
+        url: '/masterdata/fetch',
+        params: {},
+        success(data) {
+          that.$store.commit('setMasterData', data.data);
+        },
+      });
+    },
   },
 
   components: {

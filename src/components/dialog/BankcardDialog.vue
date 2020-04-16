@@ -7,14 +7,16 @@
           <el-form :model="form">
             <el-form-item label="银行卡类型" prop="cardType" :label-width="formLabelWidth">
               <el-select v-model="form.cardType" placeholder="请选择银行卡类型" size="mini">
-                <el-option label="储蓄卡" value="储蓄卡"></el-option>
-                <el-option label="信用卡" value="信用卡"></el-option>
+                <el-option v-for="item in masterData.cardTypeList"
+                  :key="item.key" :value="item.value">
+                </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="开户银行" prop="bankType" :label-width="formLabelWidth">
               <el-select v-model="form.bankType" placeholder="请选择开户银行" size="mini">
-                <el-option label="东京三菱UFJ银行" value="东京三菱UFJ银行"></el-option>
-                <el-option label="乐天银行" value="乐天银行"></el-option>
+                <el-option v-for="item in masterData.bankTypeList"
+                  :key="item.key" :value="item.value">
+                </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="银行卡号" prop="cardNo" :label-width="formLabelWidth">
@@ -28,8 +30,9 @@
             </el-form-item>
             <el-form-item label="货币类型" prop="currency" :label-width="formLabelWidth">
               <el-select v-model="form.currency" placeholder="货币类型" size="mini">
-                <el-option label="人民币" value="人民币"></el-option>
-                <el-option label="日元" value="日元"></el-option>
+                <el-option v-for="item in masterData.currencyList"
+                  :key="item.key" :value="item.value">
+                </el-option>
               </el-select>
             </el-form-item>
             <el-form-item v-if="form.cardType == '信用卡'" label="信用额度"
@@ -85,6 +88,10 @@ export default {
         title = '银行卡信息修改';
       }
       return title;
+    },
+
+    masterData() {
+      return this.$store.getters.masterData;
     },
   },
 

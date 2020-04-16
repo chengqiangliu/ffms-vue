@@ -278,6 +278,29 @@ const consumeChartResult = () => {
   return result;
 };
 
+const masterDataResult = () => {
+  result.data = {
+    goodsTypeList: [
+      { key: '1', value: '水果' },
+      { key: '2', value: '蔬菜' },
+      { key: '3', value: '房租' },
+      { key: '4', value: '学费' },
+      { key: '5', value: '旅游' }],
+    bankTypeList: [
+      { key: '1', value: '工商银行' },
+      { key: '2', value: '建设银行' },
+      { key: '3', value: '东京三菱UFJ银行' },
+      { key: '4', value: '乐天银行' }],
+    cardTypeList: [
+      { key: '1', value: '储蓄卡' },
+      { key: '2', value: '信用卡' }],
+    currencyList: [
+      { key: '1', value: '人民币' },
+      { key: '2', value: '日元' }],
+  };
+  return result;
+};
+
 Mock.mock('/login', 'post', loginResult);
 Mock.mock('/password/update', 'post', simpleResult);
 Mock.mock('/consume/register', simpleResult);
@@ -297,3 +320,4 @@ Mock.mock('/dashboard/refresh', singleDashboardResult);
 Mock.mock('/chart/list', 'get', consumeChartResult);
 Mock.mock('/masterdata/delete', 'post', simpleResult);
 Mock.mock('/masterdata/add', 'post', simpleResult);
+Mock.mock('/masterdata/fetch', 'get', masterDataResult);

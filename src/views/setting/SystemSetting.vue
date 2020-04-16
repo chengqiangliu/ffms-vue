@@ -62,8 +62,8 @@
                 </div>
                 <select multiple="multiple" v-model="willDeleteGoodsTypes"
                   class="select-box pull-right">
-                  <option v-for="goodsType in goodsTypeListInDb" :key="goodsType">
-                    {{ goodsType }}
+                  <option v-for="item in goodsTypeListInDb" :key="item.key">
+                    {{ item.value }}
                   </option>
                 </select>
               </div>
@@ -122,8 +122,8 @@
                 </div>
                 <select multiple="multiple" v-model="willDeleteBankTypes"
                   class="select-box pull-right">
-                  <option v-for="bankType in bankTypeListInDb" :key="bankType">
-                    {{ bankType }}
+                  <option v-for="item in bankTypeListInDb" :key="item.key">
+                    {{ item.value }}
                   </option>
                 </select>
               </div>
@@ -182,8 +182,8 @@
                 </div>
                 <select multiple="multiple" v-model="willDeleteCardTypes"
                   class="select-box pull-right">
-                  <option v-for="cardType in cardTypeListInDb" :key="cardType">
-                    {{ cardType }}
+                  <option v-for="item in cardTypeListInDb" :key="item.key">
+                    {{ item.value }}
                   </option>
                 </select>
               </div>
@@ -242,8 +242,8 @@
                 </div>
                 <select multiple="multiple" v-model="willDeleteCurrencys"
                   class="select-box pull-right">
-                  <option v-for="currency in currencyListInDb" :key="currency">
-                    {{ currency }}
+                  <option v-for="item in currencyListInDb" :key="item.key">
+                    {{ item.value }}
                   </option>
                 </select>
               </div>
@@ -282,6 +282,13 @@ export default {
       willDeleteCurrencys: [],
       currencyListInDb: [],
     };
+  },
+
+  mounted() {
+    this.goodsTypeListInDb = this.$store.getters.masterData.goodsTypeList;
+    this.bankTypeListInDb = this.$store.getters.masterData.bankTypeList;
+    this.cardTypeListInDb = this.$store.getters.masterData.cardTypeList;
+    this.currencyListInDb = this.$store.getters.masterData.currencyList;
   },
 
   methods: {

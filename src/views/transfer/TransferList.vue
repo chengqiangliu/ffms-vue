@@ -23,8 +23,9 @@
             </el-col>
             <el-col :span="4">
               <el-select v-model="requestParams.bankType" placeholder="请选择开户银行" size="mini">
-                <el-option label="东京三菱UFJ银行" value="东京三菱UFJ银行"></el-option>
-                <el-option label="乐天银行" value="乐天银行"></el-option>
+                <el-option v-for="item in masterData.bankTypeList"
+                  :key="item.key" :value="item.value">
+                </el-option>
               </el-select>
             </el-col>
             <el-col :span="2">
@@ -202,6 +203,12 @@ export default {
       },
       tableData: [],
     };
+  },
+
+  computed: {
+    masterData() {
+      return this.$store.getters.masterData;
+    },
   },
 
   methods: {

@@ -23,8 +23,9 @@
             </el-col>
             <el-col :span="4">
               <el-select v-model="requestParams.goodsType" placeholder="商品类别" size="mini">
-                <el-option label="食品" value="食品"></el-option>
-                <el-option label="电子产品" value="电子产品"></el-option>
+                <el-option v-for="item in masterData.goodsTypeList"
+                  :key="item.key" :value="item.value">
+                </el-option>
               </el-select>
             </el-col>
             <el-col :span="2">
@@ -234,6 +235,12 @@ export default {
       },
       tableData: [],
     };
+  },
+
+  computed: {
+    masterData() {
+      return this.$store.getters.masterData;
+    },
   },
 
   methods: {

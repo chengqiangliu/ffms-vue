@@ -5,7 +5,7 @@
         src="https://fuss10.elemecdn.com/e/5d/4a731a90594a4af544c0c25941171jpeg.jpeg">
       </el-avatar>
       <div class="user-detail">
-        <strong>{{ $store.getters.userInfo.username }}</strong>
+        <strong>{{ username }}</strong>
         <ul class="list-inline">
           <li><a @click="transitionToProfile">个人信息</a></li>
         </ul>
@@ -230,6 +230,12 @@ export default {
     return {
       isCollapse: false,
     };
+  },
+
+  computed: {
+    username() {
+      return this.$store.getters.userInfo.username;
+    },
   },
 
   methods: {

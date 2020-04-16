@@ -8,8 +8,9 @@
             <el-form-item label="原卡开户银行" prop="srcBankType"
               :label-width="formLabelWidth">
               <el-select v-model="form.srcBankType" placeholder="请选择原卡开户银行" size="mini">
-                <el-option label="东京三菱UFJ银行" value="东京三菱UFJ银行"></el-option>
-                <el-option label="乐天银行" value="乐天银行"></el-option>
+                <el-option v-for="item in masterData.bankTypeList"
+                  :key="item.key" :value="item.value">
+                </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="原卡号" :label-width="formLabelWidth">
@@ -22,8 +23,9 @@
               :label-width="formLabelWidth">
               <el-select v-model="form.targetBankType" placeholder="请选择目标卡开户银行"
                 size="mini">
-                <el-option label="东京三菱UFJ银行" value="东京三菱UFJ银行"></el-option>
-                <el-option label="乐天银行" value="乐天银行"></el-option>
+                <el-option v-for="item in masterData.bankTypeList"
+                  :key="item.key" :value="item.value">
+                </el-option>
               </el-select>
             </el-form-item>
             <el-form-item label="目标卡卡号" :label-width="formLabelWidth">
@@ -103,6 +105,10 @@ export default {
         title = '转账信息修改';
       }
       return title;
+    },
+
+    masterData() {
+      return this.$store.getters.masterData;
     },
   },
 
