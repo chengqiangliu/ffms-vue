@@ -18,7 +18,8 @@
               </el-select>
             </el-form-item>
             <el-form-item label="单价" prop="price">
-              <el-input v-model="form.price" placeholder="单价" size="mini"></el-input>
+              <el-input-number v-model="form.price" :precision="1" :step="1"
+                placeholder="单价" size="mini"></el-input-number>
             </el-form-item>
             <el-form-item label="数量" prop="quantity">
               <el-input-number v-model="form.quantity" :min="1" :max="1000" size="mini">
@@ -72,6 +73,8 @@
 
 
 <script>
+import { isvalidPositiveFloat, isvalidPositiveNumber } from '@/assets/utils/validate';
+
 export default {
   data() {
     return {
@@ -118,6 +121,28 @@ export default {
 
     masterData() {
       return this.$store.getters.masterData;
+    },
+
+    calPrice() {
+      return this.form.price;
+    },
+
+    calQuantity() {
+      return this.form.quantity;
+    },
+  },
+
+  watch: {
+    calPrice(newValue) {
+      if (isvalidPositiveFloat(newValue) || isvalidPositiveNumber(newValue)) {
+        this.form.goodsSum = newValue * this.form.quantity;
+      }
+    },
+
+    calQuantity(newValue) {
+      if (isvalidPositiveFloat(newValue) || isvalidPositiveNumber(newValue)) {
+        this.form.goodsSum = newValue * this.form.price;
+      }
     },
   },
 

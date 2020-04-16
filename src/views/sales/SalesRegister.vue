@@ -17,7 +17,8 @@
               </el-select>
             </el-form-item>
             <el-form-item label="单价" prop="price">
-              <el-input v-model="salesForm.price" placeholder="单价" size="mini"></el-input>
+              <el-input-number v-model="salesForm.price" :precision="1" :step="1"
+              placeholder="单价" size="mini"></el-input-number>
             </el-form-item>
             <el-form-item label="数量" prop="quantity">
               <el-input-number v-model="salesForm.quantity" :min="1" :max="1000" size="mini">
@@ -59,9 +60,9 @@
               </el-date-picker>
             </el-form-item>
             <el-form-item>
-              <el-button @click="resetForm('salesForm')" size="mini">Reset</el-button>
+              <el-button @click="resetForm('salesForm')" size="mini">重置</el-button>
               <el-button type="primary" @click="submitForm('salesForm')" size="mini">
-                Create</el-button>
+                确定</el-button>
             </el-form-item>
           </el-form>
         </el-col>
@@ -93,6 +94,7 @@
 
 <script>
 import BreadCrumb from '@/components/BreadCrumb.vue';
+import { isvalidPositiveFloat, isvalidPositiveNumber } from '@/assets/utils/validate';
 
 export default {
   data() {
@@ -173,6 +175,28 @@ export default {
   computed: {
     masterData() {
       return this.$store.getters.masterData;
+    },
+
+    calPrice() {
+      return this.salesForm.price;
+    },
+
+    calQuantity() {
+      return this.salesForm.quantity;
+    },
+  },
+
+  watch: {
+    calPrice(newValue) {
+      if (isvalidPositiveFloat(newValue) || isvalidPositiveNumber(newValue)) {
+        this.salesForm.goodsSum = newValue * this.salesForm.quantity;
+      }
+    },
+
+    calQuantity(newValue) {
+      if (isvalidPositiveFloat(newValue) || isvalidPositiveNumber(newValue)) {
+        this.salesForm.goodsSum = newValue * this.salesForm.price;
+      }
     },
   },
 
