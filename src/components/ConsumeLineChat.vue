@@ -21,7 +21,6 @@ export default {
       params: {},
       success(response) {
         that.chartData = { ...response.data };
-        console.log(that.chartData);
         that.renderChart({
           labels: ['January', 'February', 'March', 'April', 'May', 'June',
             'July', 'August', 'September', 'October', 'November', 'December'],

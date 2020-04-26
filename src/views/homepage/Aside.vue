@@ -306,7 +306,7 @@ export default {
     },
 
     reload() {
-      console.log('reload');
+      // do nothing
     },
   },
 

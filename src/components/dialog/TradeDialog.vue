@@ -194,9 +194,8 @@ export default {
           }
           that.loading = false;
         },
-      }).catch((res) => {
+      }).catch(() => {
         this.loading = false;
-        console.log(res);
       });
     },
   },
